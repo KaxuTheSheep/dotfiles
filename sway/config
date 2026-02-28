@@ -7,7 +7,7 @@ input * {
 }
 
 # Add Wallpaper
-exec swaybg -i /home/kaxuthesheep/dotfiles/sway/Wallpaper/Kuromi.jpg -m fill
+exec swaybg -i /home/kaxuthesheep/dotfiles/sway/Wallpaper/star.jpg -m fill
 # Start SwayNC
 exec swaync
 # Start Waybar
