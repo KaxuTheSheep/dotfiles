@@ -6,8 +6,8 @@ input * {
     xkb_layout gb
 }
 
-# Start wlroots portal manually for Discord / Flatpak screen sharing
-exec_always --no-startup-id /usr/libexec/xdg-desktop-portal-wlr &
+# Add Wallpaper
+exec swaybg -i /home/kaxuthesheep/dotfiles/sway/Wallpaper/Kuromi.jpg -m fill
 
 # Start Waybar
 exec_always --no-startup-id waybar &
