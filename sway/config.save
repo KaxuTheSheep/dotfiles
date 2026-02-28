@@ -1,0 +1,35 @@
+# Define Mod key
+set $mod Mod4
+
+# Set UK keyboard layout
+input * {
+    xkb_layout gb
+}
+exec_always --no-startup-id systemctl --user start xdg-desktop-portal-wlr
+
+# Launch Wofi (desktop apps) with Mod+d
+bindsym $mod+d exec wofi --show drun
+
+# Open terminal (Kitty) with Mod+Return
+bindsym $mod+Return exec kitty
+
+# Close focused window with Mod+Shift+Q
+bindsym $mod+Shift+q kill
+
+# Reload Sway config
+bindsym $mod+Shift+c reload
+
+# Exit Sway
+bindsym $mod+Shift+e exit
+
+# Optional: move focus (basic directions)
+bindsym $mod+h move left
+bindsym $mod+j move down
+bindsym $mod+k move up
+bindsym $mod+l move right
+
+# Optional: move windows (basic directions)
+bindsym $mod+Shift+h focus left
+bindsym $mod+Shift+j focus down
+bindsym $mod+Shift+k focus up
+bindsym $mod+Shift+l focus right

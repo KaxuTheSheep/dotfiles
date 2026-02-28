@@ -1,0 +1,6 @@
+{
+	"position": "left",
+	"modules-left": ["workspaces"],
+	"modules-center": [],
+	"modules-right": ["battery", "network", "clock"]
+}
