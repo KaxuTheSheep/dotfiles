@@ -1,6 +1,24 @@
 {
-	"position": "left",
-	"modules-left": ["workspaces"],
-	"modules-center": [],
-	"modules-right": ["battery", "network", "clock"]
+"include": "~/.config/waybar/modules",
+"layer": "top",
+"position": "left",
+"fixed-center": true,
+  
+"modules-left": [
+	"custom/menu",
+	"clock#vertical",
+],
+
+"modules-center": [
+	"sway/workspaces",
+],
+
+"modules-right": [
+	"mpris",
+	"tray",
+	"custom/swaync",
+	"backlight#vertical",
+	"pulseaudio#vertical"
+	"custom/power_vertical"
+],
 }
