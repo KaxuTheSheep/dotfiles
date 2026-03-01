@@ -1,8 +1,8 @@
-# ~/.config/starship.toml
-
 add_newline = false
+
+
 format = """\
-  󰣇 \
+  [ ](bold fg:#7766ff) \
   $directory\
   $git_branch$git_commit$git_state $git_status\
   $character\n
@@ -78,12 +78,11 @@ $time"""
 continuation_prompt = '▶▶ '
 [directory]
 disabled = false
-format = "[$path](bold fg:#8be9fd)"
+format = "[$path](bold fg:#bac2de)"
 truncate_to_repo = false
-# home_symbol = "" 
 
 [git_branch]
-format = " [  $branch](fg:#9198a1)"
+format = " [  $branch](fg:#cba6f7)"
 
 [git_status]
 ahead = '⇡${count}'

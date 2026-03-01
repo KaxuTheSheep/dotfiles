@@ -2,7 +2,7 @@ format = """
 [](#9A348E)\
 $os\
 $username\
-[](bg:#DA627D fg:#9A348E)\
+[](bg:#3C009F fg:#9A348E)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
 $git_branch\
@@ -80,14 +80,14 @@ $time\
 disabled = false
 format = '[$user ]($style)'
 show_always = true
-style_root = "bg:#9A348E"
-style_user = "bg:#9A348E"
+style_root = "bg:#3C009F"
+style_user = "bg:#3C009F"
 
 # An alternative to the username module which displays a symbol that
 # represents the current operating system
 [os]
 disabled = true      # Disabled by default
-style = "bg:#9A348E"
+style = "bg:#3C009F"
 
 [directory]
 format = "[ $path ]($style)"
