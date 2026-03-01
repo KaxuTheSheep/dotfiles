@@ -1,119 +1,317 @@
 {
-"clock#vertical": {
-    "format": "    \n  {:%H \n  %M \n    \n%Y \n  %m \n  %d}",
-    "interval": 1,
-    "tooltip": true,
-    "tooltip-format": "{calendar}",
-    "calendar": {
-        "mode": "year",
-        "mode-mon-col": 3,
-        "format": {
-            "today": "<span color='#e74c3c'>{}</span>"
-        }
-    }
+"group/notify": {
+	"orientation": "inherit",
+	"drawer": {
+		"transition-duration": 500,
+		"children-class": "custom/swaync",
+		"transition-left-to-right": false
+        },
+	"modules": [
+		"custom/swaync"
+	]
 },
-"sway/workspaces": {
+
+"custom/swaync": {
+	"tooltip": true,
+	"tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
+	"format": "{} {icon} ",
+	"format-icons": {
+		"notification": "<span foreground='red'><sup></sup></span>",
+		"none": "",
+		"dnd-notification": "<span foreground='red'><sup></sup></span>",
+		"dnd-none": "",
+		"inhibited-notification": "<span foreground='red'><sup></sup></span>",
+		"inhibited-none": "",
+		"dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+		"dnd-inhibited-none": ""
+	},
+	"return-type": "json",
+	"exec-if": "which swaync-client",
+	"exec": "swaync-client -swb",
+	"on-click": "sleep 0.1 && swaync-client -t -sw",
+	"on-click-right": "swaync-client -d -sw",
+	"escape": true
+},
+
+
+"clock#vertical": {
+	"format": "\n{:%H\n%M\n\n \n%y\n%m\n%d}",
+	"interval": 1,
+	"tooltip": true,
+	"tooltip-format": "{calendar}",
+	"calendar": {
+		"mode": "year",
+		"mode-mon-col": 3,
+		"format": {
+			"today": "<span color='#7766ff'>{}</span>"
+		}
+	}
+},
+
+"custom/menu": {
+	"format": "  ",
+	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
+	"on-click-middle": "/home/kaxuthesheep/dotfiles/hypr/UserScripts/WallpaperSelect.sh",
+	"on-click-right": "/home/kaxuthesheep/dotfiles/hypr/scripts/WaybarLayout.sh",
+	"tooltip": true,
+	"tooltip-format": "Left Click: Wofi Menu\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Layout Menu",
+},
+
+"hyprland/workspaces": {
+	"disable-scroll": true,
+	"show-special": false,
 	"all-outputs": true,
 	"format": "{icon}",
+    "persistent-workspaces": {
+      "*": 5
+	},
 	"format-icons": {
-	        "1": "一",
-	        "2": "二",
-	        "3": "三",
-	        "4": "四",
-	        "5": "五",
-	        "6": "六",
+		"1": "一",
+		"2": "二",
+		"3": "三",
+		"4": "四",
+		"5": "五",
+		"6": "六",
 		"7": "七",
-	        "8": "八",
+		"8": "八",
 		"9": "九",
 		"10": "十",
 	}
 },
 
 "mpris": {
-    "interval": 10,
+	"interval": 10,
 	"format": "{player_icon} ",
 	"format-paused": "{status_icon} <i>{dynamic}</i>",
 	"on-click-middle": "playerctl play-pause",
-    "on-click": "playerctl previous",
-    "on-click-right": "playerctl next",
-    "scroll-step": 5.0,
-    "smooth-scrolling-threshold": 1,
+	"on-click": "playerctl previous",
+	"on-click-right": "playerctl next",
+	"scroll-step": 5.0,
+	"on-scroll-up": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --inc",
+	"on-scroll-down": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --dec",
+	"smooth-scrolling-threshold": 1,
+	"tooltip": true,
+	"tooltip-format": "{status_icon} {dynamic}\nLeft Click: previous\nMid Click: Pause\nRight Click: Next",
 	"player-icons": {
-                "spotify": "",
-		"vlc": "󰕼",
+		"chromium": "",
+		"default": "",
+		"firefox": "",
+		"kdeconnect": "",
+		"mopidy": "",
+		"mpv": "󰐹",
+		"spotify": "",
+		"vlc": "󰕼"
 	},
 	"status-icons": {
 		"paused": "󰐎",
-        "playing": "",
-        "stopped": "",
+		"playing": "",
+		"stopped": ""
 	},
-	// "ignored-players": ["firefox"]
-	"max-length": 30,
+	"ignored-players": ["zen"],
+	"max-length": 30
 },
 
 "tray": {
-    "icon-size": 15,
-    "spacing": 8,
+	"icon-size": 20,
+	"spacing": 4
 },
 
-"custom/swaync": {
-    "tooltip":true,     
-    "format": "{icon} {text}",
-    "format-icons": {
-      "notification": "<span foreground='red'><sup></sup></span>",
-      "none": "",
-      "dnd-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-none": "",
-      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "inhibited-none": "",
-      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-      "dnd-inhibited-none": ""
-    },
-    "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "sleep 0.1 && swaync-client -t -sw",
-    "on-click-right": "swaync-client -d -sw",
-    "escape": true,
+"group/laptop": {
+	"orientation": "inherit",
+	"modules": [
+		"backlight",
+		"battery"
+	]
 },
 
-"backlight#vertical": {
+"backlight": {
 	"interval": 2,
-    "align": 0.35,
-    "rotate": 90,
-    "format": "{icon}",
-    "format-icons": ["","","","","","","","","","","","","","",""],
-    "on-click": "",
-    "on-click-middle": "",
-    "on-click-right": "",
-    "on-update": "",
-    "on-scroll-up": "~/.config/hypr/scripts/Brightness.sh --inc",
-    "on-scroll-down": "~/.config/hypr/scripts/Brightness.sh --dec",
-    "smooth-scrolling-threshold": 1,
-	"tooltip-format": "{percent}%",
+	"align": 0,
+	"rotate": 0,
+	"format": "{icon}",
+	"format-icons": ["","","","","","","","","","","","","","",""],
+	"tooltip-format": "backlight {percent}%",
+	"icon-size": 10,
+	"on-click": "",
+	"on-click-middle": "",
+	"on-click-right": "",
+	"on-update": "",
+	"on-scroll-up": "/home/kaxuthesheep/dotsfile/hypr/scripts/Brightness.sh --inc",
+	"on-scroll-down": "/home/kaxuthesheep/dotsfile/hypr/scripts/Brightness.sh --dec",
+	"smooth-scrolling-threshold": 1
+},
+
+"battery": {
+	"interval": 5,
+	"align": 0,
+	"rotate": 0,
+	"full-at": 100,
+	"design-capacity": false,
+	"states": {
+		"good": 95,
+		"warning": 30,
+		"critical": 15
+	},
+	"format": "   {icon} {capacity}%",
+	"format-charging": " {capacity}%",
+	"format-alt-click": "click",
+	"format-full": "{icon}",
+	"format-alt": "{icon} {time}",
+	"format-icons": [
+		"󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰁹"
+	],
+	"format-time": "{H}h {M}min",
+	"tooltip": true,
+	"tooltip-format": "{timeTo} {power}w",
+	"on-click-middle": "/home/kaxuthesheep/dotsfile/hypr/scripts/ChangeBlur.sh",
+	"on-click-right": "/home/kaxuthesheep/dotsfile/hypr/scripts/Wlogout.sh"
+},
+
+"group/connections": {
+	"orientation": "inherit",
+	"drawer": {
+		"transition-duration": 500,
+		"children-class": "bluetooth",
+		"transition-left-to-right": true
+        },
+	"modules": [
+		"network",
+		"bluetooth",
+	]
+},
+
+"network": {
+	"format": "{ifname}",
+	"format-wifi": "{icon}",
+	"format-ethernet": "󰌘",
+	"format-disconnected": "󰌙",
+	"tooltip-format": "{ipaddr}  {bandwidthUpBits}  {bandwidthDownBits}",
+	"format-linked": "󰈁 {ifname} (No IP)",
+	"tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+	"tooltip-format-ethernet": "{ifname} 󰌘",
+	"tooltip-format-disconnected": "󰌙 Disconnected",
+	"max-length": 30,
+	"format-icons": [
+		"󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+	],
+	"on-click-right": "/home/kaxuthesheep/dotsfile/hypr/scripts/WaybarScripts.sh --nmtui"
+},
+
+"bluetooth": {
+	"format": " ",
+	"format-disabled": "󰂳",
+	"format-connected": "󰂱 {num_connections}",
+	"tooltip-format": " {device_alias}",
+	"tooltip-format-connected": "{device_enumerate}",
+	"tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
+	"tooltip": true,
+	"on-click": "blueman-manager",
+},
+"group/volume": {
+	"orientation": "vertical",
+	"drawer": {
+		"transition-duration": 500,
+		"transition-top-to-bottom": true
+	},
+	"modules": ["pulseaudio#vertical", "pulseaudio/slider"]
 },
 
 "pulseaudio#vertical": {
-    "format": "{icon}",
-    "format-bluetooth": "󰂰",
-    "format-muted": "󰖁",
-    "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-    "default": ["", "", "󰕾", ""],
-	"tooltip-format": "{icon} {desc} | {volume}%", 
-    "ignored-sinks": ["Easy Effects Sink"],
+	"format": "{icon}",
+	"format-blutooth": "󰂰",
+	"format-muted": "󰖁",
+	"format-icons": {
+		"headphone": "",
+		"hands-free": "",
+		"headset": "",
+		"phone": "",
+		"portable": "",
+		"car": "",
+		"default": [
+			"", "", "󰕾", ""
+		],
+		"tooltip-format": "{icon} {desc} | {volume}%",
+		"ignored-sinks": [
+			"Easy Effects Sink"
+		]
 	},
-    "scroll-step": 5.0,
-    "on-click-right": "~/.config/hypr/scripts/volume_control.sh --toggle",
-    "on-click": "pavucontrol -t 3",
-    "on-scroll-up": "~/.config/hypr/scripts/volume_control.sh --inc",
-    "on-scroll-down": "~/.config/hypr/scripts/volume_control.sh --dec",
+	"scroll-step": 5.0,
+	"on-click": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --toggle",
+	"on-click-right": "pavucontrol -t 3",
+	"on-scroll-up": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --inc",
+	"on-scroll-down": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --dec",
 	"tooltip-format": "{icon} {desc} | {volume}%",
-    "smooth-scrolling-threshold": 1,
+	"smooth-scrolling-threshold": 1
 },
+
+"pulseaudio#microphone_vertical": {
+	"format": "{format_source}",
+	"format-source": "󰍬",
+	"format-source-muted": "󰍭",
+	"on-click-right": "pavucontrol",
+	"on-click": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --toggle-mic",
+	"on-scroll-up": "$/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --mic-inc",
+	"on-scroll-down": "/home/kaxuthesheep/dotsfile/hypr/scripts/Volume.sh --mic-dec",
+	"max-volume": 100,
+	"tooltip": true,
+	"tooltip-format": "{source_desc} | {source_volume}%"
+},
+
+"group/power#vert": {
+     "orientation": "inherit",
+     "drawer": {
+        "transition-duration": 300,
+        "children-class": "not-memory",
+        "transition-left-to-right": false
+      },
+     "modules": [
+        "custom/power",
+        "custom/lock",
+        "custom/reboot",
+        "custom/quit"
+      ]
+},
+"custom/power": {
+	"format": " ⏻ ",
+	"on-click": "/home/kaxuthesheep/dotsfile/hypr/scripts/Wlogout.sh",
+	"on-click-right": "/home/kaxuthesheep/dotsfile/hypr/scripts/ChangeBlur.sh",
+	"tooltip": true,
+	"tooltip-format": "Left Click: Logout Menu\nRight Click: Change Blur"
+},
+
+"custom/lock": {
+	"format": "󰌾",
+	"on-click": "/home/kaxuthesheep/dotsfile/hypr/scripts/LockScreen.sh",
+	"tooltip": true,
+	"tooltip-format": "󰷛 Screen Lock"
+},
+
+"custom/reboot": {
+    "format": "󰜉",
+    "on-click": "systemctl reboot",
+    "tooltip": true,
+	"tooltip-format": "Left Click: Reboot"
+},
+
+"custom/quit": {
+    "format": "󰗼",
+    "on-click": "hyprctl dispatch exit",
+    "tooltip": true,
+	"tooltip-format": "Left Click: Exit Hyprland"
+},
+"pulseaudio/slider": {
+	"min": 0,
+	"max": 100,
+	"orientation": "vertical",
+	"tooltip": "true",
+	"tooltip-format": "{icon} {desc} | {volume}%",
+	
+},
+"backlight/slider": {
+	"min": 0,
+	"max": 100,
+	"orientation": "vertical",
+	"device": "intel_backlight"
+}
+
 }

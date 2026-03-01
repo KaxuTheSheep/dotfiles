@@ -1,24 +1,27 @@
 {
-"include": "~/.config/waybar/modules",
+"include":"$HOME/.config/waybar/modules",
 "layer": "top",
 "position": "left",
+"width": 1,
+"spacing": 3,
 "fixed-center": true,
   
 "modules-left": [
-	"custom/menu",
-	"clock#vertical",
+	"group/notify",	
+    "clock#vertical",
+	"custom/menu"
 ],
 
 "modules-center": [
-	"sway/workspaces",
+	"hyprland/workspaces"
 ],
 
 "modules-right": [
 	"mpris",
 	"tray",
-	"custom/swaync",
-	"backlight#vertical",
-	"pulseaudio#vertical"
-	"custom/power_vertical"
-],
+	"group/laptop",
+	"group/volume",
+	"pulseaudio#microphone_vertical",
+	"group/power#vert"
+]
 }

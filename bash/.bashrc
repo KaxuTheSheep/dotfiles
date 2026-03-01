@@ -24,3 +24,5 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 PS1='\[\033[38;5;141m\]\u\[\033[0m\]@\[\033[38;5;129m\]\h\[\033[0m\]:\[\033[38;5;93m\]\w\[\033[0m\]\$ '
+eval "$(starship init bash)"
+

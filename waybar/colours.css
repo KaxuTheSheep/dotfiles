@@ -1,30 +1,19 @@
-/* Background Colors */
-@define-color background          #09000f;  /* Deep purple background */
-@define-color background-alpha    rgba(0, 0, 0, 0.95);  /* Glassy obsidian effect */
-@define-color hovered-background rgba(18, 0, 30, 0.75);  /* Slightly lighter purple for hover */
-@define-color active-background   #230049;  /* Darker purple for active elements */
-@define-color secondary-background #1e001f; /* Slightly less dark for secondary components */
+@define-color background #09000f;
+@define-color foreground #ffffff;
 
-/* Text Colors */
-@define-color text-primary        #ffffff;  /* White text */
-@define-color text-secondary      #7766ff;  /* Light purple for secondary text */
-@define-color text-muted          #bbb;  /* Light grey for muted text */
-
-/* Accent Colors */
-@define-color accent-purple       #7766ff;  /* Light purple for accents */
-@define-color accent-black        #000000;  /* Black */
-@define-color accent-pink         #ff66cc;  /* Soft pink for action buttons */
-
-/* Border and Divider */
-@define-color border-divider      rgba(255, 255, 255, 0.2);  /* Subtle white border */
-@define-color focused-border      #7c3adf;  /* Accent purple for focus borders */
-
-/* Status Indicators */
-@define-color status-success      #26a65b;  /* Green for success */
-@define-color status-warning      #f39c12;  /* Yellow-orange for warnings */
-@define-color status-error        #e74c3c;  /* Red for errors */
-@define-color status-info         #2980b9;  /* Blue for information */
-
-/* Additional UI Elements */
-@define-color button-hover        rgba(255, 255, 255, 0.1); /* Slight hover effect for buttons */
-@define-color link                #4f86f7;  /* Link color (blue) */
+@define-color color0 #1e1e2e;
+@define-color color1 #f38ba8;
+@define-color color2 #a6e3a1;
+@define-color color3 #f9e2af;
+@define-color color4 #89b4fa;
+@define-color color5 #cba6f7;
+@define-color color6 #7766ff; 
+@define-color color7 #bac2de;
+@define-color color8 #45475a;
+@define-color color9 #f38ba8;
+@define-color color10 #a6e3a1;
+@define-color color11 #f9e2af;
+@define-color color12 #89b4fa;
+@define-color color13 #cba6f7;
+@define-color color14 #94e2d5;
+@define-color color15 #a6adc8;
