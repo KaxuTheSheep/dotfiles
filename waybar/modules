@@ -81,7 +81,7 @@
 
 "mpris": {
 	"interval": 10,
-	"format": "{player_icon} ",
+	"format": "{player_icon}",
 	"format-paused": "{status_icon} <i>{dynamic}</i>",
 	"on-click-middle": "playerctl play-pause",
 	"on-click": "playerctl previous",
@@ -128,8 +128,8 @@
 	"interval": 2,
 	"align": 0,
 	"rotate": 0,
-	"format": "{icon}",
-	"format-icons": ["","","","","","","","","","","","","","",""],
+	"format": " {icon}",
+	"format-icons": ["","","","","","","","","","","","","",""],
 	"tooltip-format": "backlight {percent}%",
 	"icon-size": 10,
 	"on-click": "",
@@ -152,7 +152,7 @@
 		"warning": 30,
 		"critical": 15
 	},
-	"format": "   {icon} {capacity}%",
+	"format": " {icon}\n{capacity}%",
 	"format-charging": " {capacity}%",
 	"format-alt-click": "click",
 	"format-full": "{icon}",

@@ -17,7 +17,7 @@
 ],
 
 "modules-right": [
-	"mpris",
+	//"mpris",
 	"tray",
 	"group/laptop",
 	"group/volume",
