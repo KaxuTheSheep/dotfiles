@@ -1,4 +1,4 @@
 *.swp
 *.cache
 *.bak
-micro/buffers/
+micro/buffers/history
