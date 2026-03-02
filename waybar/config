@@ -1,0 +1,27 @@
+{
+"include":"$HOME/.config/waybar/modules",
+"layer": "top",
+"position": "left",
+"width": 1,
+"spacing": 3,
+"fixed-center": true,
+  
+"modules-left": [
+	"group/notify",	
+    "clock#vertical",
+	"custom/menu"
+],
+
+"modules-center": [
+	"hyprland/workspaces"
+],
+
+"modules-right": [
+	//"mpris",
+	"tray",
+	"group/laptop",
+	"group/volume",
+	"pulseaudio#microphone_vertical",
+	"group/power#vert"
+]
+}
