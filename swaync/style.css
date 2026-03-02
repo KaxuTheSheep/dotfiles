@@ -1,6 +1,6 @@
-@import '../../dotfiles/waybar/colour.css';
-@define-color noti-border-color @color14;
-@define-color noti-bg rgba(2, 0, 0, 0.8);
+@import '../../dotfiles/waybar/colours.css';
+@define-color noti-border-color @color6;
+@define-color noti-bg rgba(9, 0, 15, 0.8);
 @define-color noti-bg-alt @background-alt;
 @define-color noti-bg-hover @background;
 @define-color text-color @foreground;
@@ -14,7 +14,7 @@
 .control-center .notification-row:hover {
     opacity: 1;
     background: white;
-    border-radius: 100px;
+    border-radius: 0px;
 }
 
 .notification-row {
@@ -23,14 +23,14 @@
 }
 
 .notification {
-    border-radius: 12px;
+    border-radius: 0px;
 }
 
 .notification-content{
-    /*color: @text-color;*/
+    color: @text-color;
     background: @noti-bg;
     padding: 5px 10px 3px 6px;
-    border-radius: 12px;
+    border-radius: 0px;
     border: 3px solid @noti-border-color;
     margin: 2px;
 }
@@ -45,7 +45,7 @@
     background: #f7770e;
     color: @noti-bg;
     text-shadow: none;
-    padding: 2;
+    padding: 2px;
     border-radius: 12px;
     margin-top: 7px;
     margin-right: 7px;
@@ -62,7 +62,7 @@
 .notification-action {
     border: 3px solid @noti-border-color;
     border-top: none;
-    border-radius: 12px;
+    border-radius: 0px;
 }
 
 
@@ -110,7 +110,7 @@
     margin-left: 6px;
     background: @noti-bg;
     border: 3px solid @noti-border-color;
-    border-radius: 12px;
+    border-radius: 0px;
     color: @text-color
 }
 
@@ -127,7 +127,7 @@
 .body-image {
     margin-top: 8px;
     color: @text-color;
-    border-radius: 12px
+    border-radius: 0px
 }
 
 .summary {
@@ -159,7 +159,7 @@
     background: @noti-bg;
     border: 3px solid @noti-border-color;
 	color: @text-color;
-    border-radius: 12px;
+    border-radius: 0px;
 }
 
 .control-center-list {
@@ -167,7 +167,7 @@
 }
 
 .control-center-list-placeholder {
-    opacity: 2.5
+    opacity: 1
 }
 
 .floating-notifications {
@@ -175,7 +175,7 @@
 }
 
 .blank-window {
-    background: alpha(black, 2.1)
+    background: alpha(black, 0.2)
 }
 
 .widget-title {
@@ -184,13 +184,13 @@
     padding: 5px 6px;
     margin: 7px;
     font-size: 3rem;
-    border-radius: 12px;
+    border-radius: 0px;
 }
 
 .widget-title>button {
     font-size: 2.75rem;
     color: @text-color;
-    border-radius: 12px;
+    border-radius: 0px;
 	background: transparent;
 	border: 2.5px solid @noti-border-color;
 }
@@ -205,13 +205,13 @@
     background: @noti-bg-alt;
     padding: 5px 6px;
     margin: 7px;
-    border-radius: 12px;
+    border-radius: 0px;
     font-size: 3rem;
     color: @noti-border-color;
 }
 
 .widget-dnd>switch {
-    border-radius: 12px;
+    border-radius: 0px;
     border: 3px solid #7aa2f7;
     background: @noti-border-color;
 }
@@ -223,12 +223,12 @@
 
 .widget-dnd>switch slider {
     background: @noti-bg;
-    border-radius: 12px
+    border-radius: 0px
 }
 
 .widget-dnd>switch:checked slider {
     background: @noti-bg;
-    border-radius: 12px
+    border-radius: 0px
 }
 
 .widget-label {
@@ -245,11 +245,11 @@
     background: @noti-bg;
     padding: 5px 6px;
     margin: 7px;
-    border-radius: 12px;
+    border-radius: 0px;
 }
 
 .widget-mpris > box > button {
-    border-radius: 12px;
+    border-radius: 0px;
 }
 
 .widget-mpris-player {
@@ -258,7 +258,7 @@
 }
 
 .widget-mpris-title {
-    font-weight: 102;
+    font-weight: bold;
     font-size: 3rem
 }
 
@@ -271,14 +271,14 @@
 	color: @noti-border-color;
     padding: 4px;
     margin: 7px;
-    border-radius: 12px;
+    border-radius: 0px;
     background: @noti-bg-alt;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button {
     margin: 3px;
     background: @noti-bg;
-    border-radius: 12px;
+    border-radius: 0px;
     color: @text-color
 }
 
@@ -302,7 +302,7 @@
     background: @noti-bg-alt;
     padding: 4px;
     margin: 12px 10px 5px 10px;
-    border-radius: 12px;
+    border-radius: 0px;
     font-size: x-large;
     color: @text-color
 }
@@ -315,8 +315,8 @@
 .per-app-volume {
     background-color: @noti-bg;
     padding: 6px 8px 8px;
-    margin: 2 8px 8px;
-    border-radius: 12px;
+    margin: 2px 8px 8px;
+    border-radius: 0px;
 	color: @text-color
 }
 
@@ -324,7 +324,7 @@
     background: @noti-bg-alt;
     padding: 7px;
     margin: 12px 10px 5px 10px;
-    border-radius: 12px;
+    border-radius: 0px;
     font-size: x-large;
     color: @text-color
 }
@@ -332,17 +332,17 @@
 .low {
   background: @text-color;
   padding: 2px;
-  border-radius: 12px;
+  border-radius: 0px;
 }
 
 .normal {
   background: @text-color;
   padding: 2px;
-  border-radius: 12px;
+  border-radius: 0px;
 }
 
 .critical {
   background: red;
   padding: 2px;
-  border-radius: 12px;
+  border-radius: 0px;
 }

@@ -1,6 +1,6 @@
 {
   "$schema": "/etc/xdg/swaync/configSchema.json",
-  "positionX": "center",
+  "positionX": "left",
   "positionY": "top",
   "layer": "overlay",
   "control-center-layer": "top",
@@ -23,7 +23,7 @@
   "control-center-width": 450,
   "control-center-height": 720,
   "keyboard-shortcuts": true,
-  "image-visibility": "when available",
+  "image-visibility": "when-available",
   "transition-time": 200,
   "hide-on-clear": false,
   "hide-on-action": true,
@@ -33,7 +33,6 @@
       "buttons-grid",
       "mpris",
       "volume", 
-      "backlight",
       "title",
       "notifications"
   ],
