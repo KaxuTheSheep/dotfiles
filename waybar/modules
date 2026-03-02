@@ -50,7 +50,7 @@
 
 "custom/menu": {
 	"format": "  ",
-	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
+	"on-click": "wofi --show drun",
 	"on-click-middle": "/home/kaxuthesheep/dotfiles/hypr/UserScripts/WallpaperSelect.sh",
 	"on-click-right": "/home/kaxuthesheep/dotfiles/hypr/scripts/WaybarLayout.sh",
 	"tooltip": true,
@@ -128,7 +128,7 @@
 	"interval": 2,
 	"align": 0,
 	"rotate": 0,
-	"format": " {icon}",
+	"format": "{icon}",
 	"format-icons": ["","","","","","","","","","","","","",""],
 	"tooltip-format": "backlight {percent}%",
 	"icon-size": 10,
@@ -153,10 +153,10 @@
 		"critical": 15
 	},
 	"format": " {icon}\n{capacity}%",
-	"format-charging": " {capacity}%",
+	"format-charging": " \n{capacity}%",
 	"format-alt-click": "click",
-	"format-full": "{icon}",
-	"format-alt": "{icon} {time}",
+	"format-full": " {icon}",
+	"format-alt": " {icon} {time}",
 	"format-icons": [
 		"󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰁹"
 	],
