@@ -4,15 +4,17 @@
   ],
 "layer": "top",
 "position": "left",
-"margin-left": 3,
+"margin-top": 1,
+"margin-bottom": 1,
+"margin-left": 1,
 "spacing": 3,
 "fixed-center": true,
 "ipc": true,
 "gtk-layer-shell": true,
   
 "modules-left": [
-	"group/notify",	
-    "clock",
+	"clock",
+	"custom/swaync",	
 	"custom/menu",
 ],
 
@@ -21,11 +23,7 @@
 ],
 
 "modules-right": [
-	"mpris",
-	"tray",
-	"backlight",
-	"pulseaudio/slider",
-	"pulseaudio#microphone",
-	"group/power#vert",
+	"group/drawer",
+	"group/power",
 ]
 }
