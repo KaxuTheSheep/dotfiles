@@ -1,0 +1,31 @@
+{
+"include": [
+  "$HOME/dotfiles/waybar/.config/waybar/modules",
+  ],
+"layer": "top",
+"position": "left",
+"margin-left": 3,
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+"gtk-layer-shell": true,
+  
+"modules-left": [
+	"group/notify",	
+    "clock",
+	"custom/menu",
+],
+
+"modules-center": [
+	"hyprland/workspaces",
+],
+
+"modules-right": [
+	"mpris",
+	"tray",
+	"backlight",
+	"pulseaudio/slider",
+	"pulseaudio#microphone",
+	"group/power#vert",
+]
+}

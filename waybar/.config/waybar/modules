@@ -1,0 +1,199 @@
+{
+	"group/notify": {
+		"orientation": "inherit",
+		"drawer": {
+			"transition-duration": 500,
+			"children-class": "custom/swaync",
+			"transition-left-to-right": false
+	        },
+		"modules": [
+			"custom/swaync",
+			"custom/dot_update",
+		]
+	},
+
+	"custom/swaync": {
+		"tooltip": true,
+		"tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
+		"format": "{} {icon} ",
+		"format-icons": {
+			"notification": "<span foreground='red'><sup></sup></span>",
+			"none": "",
+			"dnd-notification": "<span foreground='red'><sup></sup></span>",
+			"dnd-none": "",
+			"inhibited-notification": "<span foreground='red'><sup></sup></span>",
+			"inhibited-none": "",
+			"dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+			"dnd-inhibited-none": ""
+		},
+		"return-type": "json",
+		"exec-if": "which swaync-client",
+		"exec": "swaync-client -swb",
+		"on-click": "sleep 0.1 && swaync-client -t -sw",
+		"on-click-right": "swaync-client -d -sw",
+		"escape": true,
+	},
+
+	"custom/dot_update": {
+		"format": " 󰁈 ",
+		"on-click": "$HOME/.config/hypr/scripts/KooLsDotsUpdate.sh",
+		"tooltip": true,
+		"tooltip-format": "Check KooL Dots update\nIf available",
+	},
+
+	
+	"clock": {
+		"format": "\n{:%H\n%M\n\n \n%y\n%m\n%d}",
+		"interval": 1,
+		"tooltip": true,
+		"tooltip-format": "{calendar}",
+		"calendar": {
+			"mode": "year",
+			"mode-mon-col": 3,
+			"format": {
+				"today": "<span color='#0dbc79'>{}</span>",
+			}
+		}
+	},
+
+	"custom/menu": {
+		"format": "  ",
+		"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
+		"tooltip": true,
+		"tooltip-format": "Left Click: Rofi Menu",
+	},
+
+	"hyprland/workspaces": {
+		"disable-scroll": true,
+		"show-special": false,
+		"all-outputs": true,
+		"format": "{icon}",
+	    "persistent-workspaces": {
+	      "*": 5
+		},
+		"format-icons": {
+			"1": "一",
+			"2": "二",
+			"3": "三",
+			"4": "四",
+			"5": "五",
+			"6": "六",
+			"7": "七",
+			"8": "八",
+			"9": "九",
+			"10": "十",
+		}
+	},
+	
+	"mpris": {
+		"interval": 10,
+		"format": "{player_icon} ",
+		"format-paused": "{status_icon} <i>{dynamic}</i>",
+		"on-click-middle": "playerctl play-pause",
+		"on-click": "playerctl previous",
+		"on-click-right": "playerctl next",
+		"scroll-step": 5.0,
+		"smooth-scrolling-threshold": 1,
+		"tooltip": true,
+		"tooltip-format": "{status_icon} {dynamic}\nLeft Click: previous\nMid Click: Pause\nRight Click: Next",
+		"player-icons": {
+			"chromium": "",
+			"default": "",
+			"firefox": "",
+			"kdeconnect": "",
+			"mopidy": "",
+			"mpv": "󰐹",
+			"spotify": "",
+			"vlc": "󰕼",
+		},
+		"status-icons": {
+			"paused": "󰐎",
+			"playing": "",
+			"stopped": "",
+		},
+		"ignored-players": ["zen"],
+		"max-length": 30,
+	},
+	
+	"tray": {
+		"icon-size": 20,
+		"spacing": 4,
+	},
+
+	"backlight": {
+		"interval": 2,
+		"rotate": 1,
+		"format": "{icon}",
+		"format-icons": [
+			"", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+		],
+		"on-click": "",
+		"on-click-middle": "",
+		"on-click-right": "",
+		"on-update": "",
+		"smooth-scrolling-threshold": 1,
+		"tooltip-format": "backlight {percent}%",
+	},
+	
+	"pulseaudio#microphone": {
+		"format": "{format_source}",
+		"format-source": "󰍬",
+		"format-source-muted": "󰍭",
+		"on-click-right": "pavucontrol",
+		"max-volume": 100,
+		"tooltip": true,
+		"tooltip-format": "{source_desc} | {source_volume}%",
+	},
+	
+	"pulseaudio/slider": {
+		"min": 0,
+		"max": 100,
+		"orientation": "vertical",
+		"tooltip": "true",
+		"tooltip-format": "{icon} {desc} | {volume}%",
+
+	},
+
+	"group/power": {
+	    "orientation": "vertical",
+	    "drawer": {
+	        "transition-duration": 500,
+	        "children-class": "drawer-child",
+	        "transition-left-to-right": false
+	      },
+	    "modules": [
+	        "custom/power",
+	        "custom/quit",
+	        "custom/lock",
+	        "custom/reboot"
+	      ]
+	},
+	
+	"custom/power": {
+		"format": " ⏻ ",
+		"on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
+		"on-click-right": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
+		"tooltip": true,
+		"tooltip-format": "Left Click: Logout Menu\nRight Click: Change Blur",
+	},
+
+	"custom/quit": {
+	    "format": "󰗼",
+	    "on-click": "hyprctl dispatch exit",
+	    "tooltip": true,
+		"tooltip-format": "Left Click: Exit Hyprland",
+	},
+	
+	"custom/lock": {
+		"format": "󰌾",
+		"tooltip": true,
+		"tooltip-format": "󰷛 Screen Lock",
+	},
+
+	"custom/reboot": {
+	    "format": "󰜉",
+	    "on-click": "systemctl reboot",
+	    "tooltip": true,
+		"tooltip-format": "Left Click: Reboot",
+	}
+}
