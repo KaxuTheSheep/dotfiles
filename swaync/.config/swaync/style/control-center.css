@@ -11,7 +11,7 @@
   color: @text;
   all: unset;
   font-size: 15px;
-  font-family: "Ndot55";
+  font-family: "Ndot 55";
   transition: 200ms;
 }
 

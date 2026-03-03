@@ -70,19 +70,19 @@
           "command": "amixer set Master toggle"
         },
         {
-          "label": "",
+          "label": " ",
           "command": "amixer set Capture toggle"
         },
         {
-          "label": " ",
+          "label": "󰤨 ",
           "command": "nm-connection-editor"
         },
         {
-          "label": "󰂯",
+          "label": "󰂯 ",
           "command": "blueman-manager"
         },
         {
-          "label": "󰏘",
+          "label": " ",
           "command": "nwg-look"
         }
         
