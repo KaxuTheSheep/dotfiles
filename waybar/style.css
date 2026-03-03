@@ -1,6 +1,4 @@
 @import "../waybar/theme.css";
-@define-color active @color6;
-
 * {
   font-size: 10px;
   font-family: "JetBrainsMono Nerd Font";
