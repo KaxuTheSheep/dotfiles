@@ -1,17 +1,4 @@
 {
-	"group/notify": {
-		"orientation": "inherit",
-		"drawer": {
-			"transition-duration": 500,
-			"children-class": "custom/swaync",
-			"transition-left-to-right": false
-	        },
-		"modules": [
-			"custom/swaync",
-			"custom/dot_update",
-		]
-	},
-
 	"custom/swaync": {
 		"tooltip": true,
 		"tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
@@ -32,12 +19,6 @@
 		"on-click": "sleep 0.1 && swaync-client -t -sw",
 		"on-click-right": "swaync-client -d -sw",
 		"escape": true,
-	},
-
-	"custom/dot_update": {
-		"format": " 󰁈 ",
-		"tooltip": true,
-		"tooltip-format": "Check KooL Dots update\nIf available",
 	},
 
 	
