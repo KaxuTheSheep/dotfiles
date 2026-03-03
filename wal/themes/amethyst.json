@@ -1,0 +1,27 @@
+{
+    "wallpaper": "~/dotfiles/wallpaper/star.jpg",
+    "alpha": "90",
+    "special": {
+        "background": "#04040A",
+        "foreground": "#C8B8FF",
+        "cursor": "#7766FF"
+    },
+    "colors": {
+        "color0": "#04040A",
+        "color1": "#5268AC",
+        "color2": "#791E72",
+        "color3": "#7766FF",
+        "color4": "#B498E9",
+        "color5": "#D354A1",
+        "color6": "#7766FF",
+        "color7": "#C8B8FF",
+        "color8": "#2A2A4A",
+        "color9": "#6478BC",
+        "color10": "#8A2882",
+        "color11": "#8877FF",
+        "color12": "#C4A8F9",
+        "color13": "#E364B1",
+        "color14": "#9988FF",
+        "color15": "#E8D8FF"
+    }
+}
