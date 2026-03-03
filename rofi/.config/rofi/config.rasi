@@ -1,10 +1,16 @@
 configuration {
-    modi: "drun,run";
+    modi: "drun,run,filebrowser";
     font: "JetBrains Mono Nerd Font 12";
     show-icons: true;
-    display-drun: " ";
+    icon-theme: "Papirus-Dark";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-filebrowser: "Files";
     drun-display-format: "{name}";
-    border-radius: 0;
+    hover-select: false;
+    grid-columns: 6;
+    grid-element-height: 150px;
+    grid-element-width: 150px;
 }
 
-@theme "~/.cache/wal/colors-rofi-dark.rasi"
+@theme "~/.config/rofi/theme.rasi"
