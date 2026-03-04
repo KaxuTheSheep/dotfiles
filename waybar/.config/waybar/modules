@@ -39,8 +39,9 @@
 	"custom/menu": {
 		"format": "  ",
 		"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
+		"on-click-right": "waypaper",
 		"tooltip": true,
-		"tooltip-format": "Left Click: Rofi Menu",
+		"tooltip-format": "Left Click: Rofi Menu\nRight Click: Wallpaper Selector",
 	},
 
 	"hyprland/workspaces": {
