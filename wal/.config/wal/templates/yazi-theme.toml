@@ -1,0 +1,38 @@
+[manager]
+cwd = { fg = "{color3}" }
+
+hovered         = { fg = "{foreground}", bg = "{color8}" }
+preview_hovered = { underline = true }
+
+find_keyword  = { fg = "{color3}", italic = true }
+find_position = { fg = "{color5}", bg = "reset", italic = true }
+
+marker_copied = { fg = "{color2}", bg = "{color2}" }
+marker_cut    = { fg = "{color1}", bg = "{color1}" }
+marker_marked = { fg = "{color3}", bg = "{color3}" }
+marker_selected = { fg = "{color4}", bg = "{color4}" }
+
+tab_active   = { fg = "{foreground}", bg = "{color8}" }
+tab_inactive = { fg = "{color8}", bg = "{background}" }
+
+border_symbol = "│"
+border_style  = { fg = "{color3}" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "{color8}", bg = "{color8}" }
+
+mode_normal = { fg = "{background}", bg = "{color3}", bold = true }
+mode_select = { fg = "{background}", bg = "{color4}", bold = true }
+mode_unset  = { fg = "{background}", bg = "{color2}", bold = true }
+
+progress_label  = { fg = "{foreground}", bold = true }
+progress_normal = { fg = "{color3}", bg = "{color8}" }
+progress_error  = { fg = "{color1}", bg = "{color8}" }
+
+permissions_t = { fg = "{color3}" }
+permissions_r = { fg = "{color4}" }
+permissions_w = { fg = "{color1}" }
+permissions_x = { fg = "{color2}" }
+permissions_s = { fg = "{color8}" }

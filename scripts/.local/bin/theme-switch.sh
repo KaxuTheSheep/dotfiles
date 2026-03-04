@@ -9,7 +9,8 @@ ln -sf "$WALLPAPER" "$HOME/dotfiles/wallpaper/.current_wallpaper"
 
 # Apply Pywal theme
 wal --theme "$WAL_THEME" -q
-sed -i "s/text\s*=\s*[A-Z]*/text        = ${THEME^^}/" "$HOME/dotfiles/hypr/.config/hypr/hyprlock.conf"
+sed -i "/### TAG BOT ###/,/^}/ s/text\s*=\s*.*/text        = ${THEME^^}/" "$HOME/dotfiles/hypr/.config/hypr/hyprlock.conf"
+ln -sf ~/.cache/wal/yazi-theme.toml "$HOME/.config/yazi/theme.toml"
 
 # Reload apps
 killall waybar && waybar &
