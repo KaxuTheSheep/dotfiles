@@ -1,0 +1,13 @@
+[manager]
+keymap = [
+    { on = "q", run = "quit", desc = "Quit" },
+    { on = "v", run = "open --with nvim", desc = "Open in Neovim" },
+    { on = "m", run = "open --with mpv", desc = "Open in mpv" },
+    { on = ".", run = "hidden toggle", desc = "Toggle hidden files" },
+    { on = "R", run = "rename", desc = "Rename file" },
+    { on = "<Space>", run = "select --toggle", desc = "Toggle selection" },
+    { on = "*", run = "select --all", desc = "Select all" },
+    { on = "Y", run = "yank --cut", desc = "Cut" },
+    { on = "D", run = "remove --permanently", desc = "Delete permanently" },
+]
+
