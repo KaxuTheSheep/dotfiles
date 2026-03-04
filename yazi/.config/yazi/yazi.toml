@@ -1,0 +1,48 @@
+[manager]
+ratio = [1, 3, 4]
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+show_hidden = false
+show_symlink = true
+
+[preview]
+tab_size = 2
+max_width = 1920
+max_height = 1080
+cache_dir = ""
+image_filter = "lanczos3"
+image_quality = 75
+sixel_fraction = 15
+ueberzug_scale = 1
+ueberzug_offset = [0, 0, 0, 0]
+
+[opener]
+edit = [
+    { run = 'nvim %s', block = true, desc = "Neovim" },
+]
+open = [
+    { run = 'xdg-open %s', desc = "Open" },
+]
+play = [
+    { run = 'mpv %s', orphan = true, desc = "mpv" },
+]
+extract = [
+    { run = 'unar %s', desc = "Extract here" },
+]
+reveal = [
+    { run = 'kitty -e yazi %s', desc = "Reveal in Yazi" },
+]
+
+[open]
+rules = [
+    { mime = "text/*", use = "edit" },
+    { mime = "image/*", use = "open" },
+    { mime = "video/*", use = "play" },
+    { mime = "audio/*", use = "play" },
+    { mime = "application/zip", use = "extract" },
+    { mime = "application/x-tar", use = "extract" },
+    { mime = "application/pdf", use = "open" },
+    { mime = "inode/directory", use = "reveal" },
+]
