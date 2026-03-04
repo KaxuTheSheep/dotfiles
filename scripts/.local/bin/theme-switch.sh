@@ -2,7 +2,7 @@
 
 WALLPAPER=$1
 THEME=$(basename $(dirname "$WALLPAPER"))
-WAL_THEME="$HOME/dotfiles/wal/themes/${THEME}.json"
+WAL_THEME="$HOME/.config/wal/themes/${THEME}.json"
 
 # Set current wallpaper for Hyprlock
 ln -sf "$WALLPAPER" "$HOME/dotfiles/wallpaper/.current_wallpaper"
