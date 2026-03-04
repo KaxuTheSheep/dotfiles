@@ -13,7 +13,7 @@
   "control-center-margin-bottom": 2,
   "control-center-margin-right": 1,
   "control-center-margin-left": 0,
-
+  "control-center-dbus-methods": ["reload"],
   "notification-window-width": 400,
   "notification-window-height": 200,
   "notification-icon-size": 50,
