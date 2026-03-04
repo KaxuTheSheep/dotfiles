@@ -9,3 +9,5 @@ ssh-add ~/.ssh/id_dotfiles 2>/dev/null
 ssh-add ~/.ssh/id_obsidian 2>/dev/null
 
 starship init fish | source
+
+alias ff="fastfetch"
