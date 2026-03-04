@@ -9,6 +9,7 @@ ln -sf "$WALLPAPER" "$HOME/dotfiles/wallpaper/.current_wallpaper"
 
 # Apply Pywal theme
 wal --theme "$WAL_THEME" -q
+sed -i "s/text\s*=\s*[A-Z]*/text        = ${THEME^^}/" "$HOME/dotfiles/hypr/.config/hypr/hyprlock.conf"
 
 # Reload apps
 killall waybar && waybar &

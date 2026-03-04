@@ -1,6 +1,19 @@
-add_newline = false
-palette= 'amethyst'
+add_newline = true
+# ─── Format ──────────────────────────────────────────────────
+
+format = """\
+  $os\
+  $directory\
+  $git_branch $git_status\
+  $character\n
+"""
+
+right_format = """$c$cpp$java$python$rust$nodejs$time"""
+
+continuation_prompt = '▶▶ '
+
 # ─── Palette ─────────────────────────────────────────────────
+palette= 'amethyst'
 [palettes.amethyst]
 accent = "#7766FF"
 bg     = "#04040A"
@@ -8,25 +21,6 @@ fg     = "#C8B8FF"
 dark   = "#2A1B5E"
 mid    = "#3D2B8A"
 error  = "#FF4466"
-
-# ─── Format ──────────────────────────────────────────────────
-
-format = """
-  $os\
-  $directory\
-  $git_branch$git_commit$git_state $git_status\
-  $c\
-  $cpp\
-  $java\
-  $python\
-  $rust\
-  $nodejs\
-  $custom\
-  $status\
-  $character\n
-"""
-
-continuation_prompt = '▶▶ '
 
 # ─── Operating System ────────────────────────────────────────
 [os]
@@ -52,14 +46,20 @@ truncation_symbol = "…/"
 
 # ─── Git ─────────────────────────────────────────────────────
 [git_branch]
-format = " [  $branch](fg:#9198a1)"
+format = " [ $branch](fg:accent)"
 
 [git_status]
 ahead = '⇡${count}'
 behind = '⇣${count}'
 diverged = '⇕⇡${ahead_count}⇣${behind_count}'
-format = '[[( $all_status$ahead_behind )](fg:#769ff0)]($style)'
-style = "bg:#394260"
+format = '[[( $all_status$ahead_behind )](fg:#accent)]($style)'
+style = "fg:#accent"
+
+# ─── time ────────────────────────────────────────────────────
+[time]
+disabled = false
+format = '[[  $time ](fg:#fg)]($style)'
+time_format = "%R"
 
 # ─── Character ───────────────────────────────────────────────
 [character]
@@ -103,4 +103,3 @@ detect_extensions = ["js", "mjs", "cjs", "ts"]
 detect_files = ["package.json", "package-lock.json", "yarn.lock"]
 detect_folders = ["node_modules"]
 version_format = "${raw}"
-
