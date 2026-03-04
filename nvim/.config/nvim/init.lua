@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -800,29 +800,44 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
+  { -- Amethyst/Pywal theme + mini modules
+    'nvim-mini/mini.nvim',
+    priority = 1000,
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      local palette_path = vim.fn.expand '~/.cache/wal/colors-nvim.lua'
+  
+      local function load_theme()
+        local ok, palette = pcall(dofile, palette_path)
+        if not ok then
+          vim.notify('Pywal palette not found, run wal first', vim.log.levels.WARN)
+          return
+        end
+        require('mini.base16').setup {
+          palette = palette,
+          use_cterm = false,
+        }
+      end
+  
+      load_theme()
+  
+      -- Live reload when theme-switch.sh regenerates the palette
+      local watcher = vim.uv.new_fs_event()
+      watcher:start(palette_path, {}, function()
+        watcher:stop()
+        vim.schedule(load_theme)
+        vim.defer_fn(function()
+          watcher:start(palette_path, {}, function() end)
+        end, 200)
+      end)
+  
+      -- Rest of mini modules
+      require('mini.ai').setup { n_lines = 500 }
+      require('mini.surround').setup()
+      local statusline = require 'mini.statusline'
+      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.section_location = function() return '%2l:%-2v' end
     end,
   },
-
   -- Highlight todo, notes, etc in comments
   {
     'folke/todo-comments.nvim',
@@ -832,42 +847,6 @@ require('lazy').setup({
     ---@type TodoOptions
     ---@diagnostic disable-next-line: missing-fields
     opts = { signs = false },
-  },
-
-  { -- Collection of various small independent plugins/modules
-    'nvim-mini/mini.nvim',
-    config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-      --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
-
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function() return '%2l:%-2v' end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/nvim-mini/mini.nvim
-    end,
   },
 
   { -- Highlight, edit, and navigate code
