@@ -1,6 +1,5 @@
 add_newline = false
-palette = "amethyst"
-
+palette= 'amethyst'
 # ─── Palette ─────────────────────────────────────────────────
 [palettes.amethyst]
 accent = "#7766FF"
@@ -12,102 +11,96 @@ error  = "#FF4466"
 
 # ─── Format ──────────────────────────────────────────────────
 
-format = """\
- $directory$git_branch$git_status
-$character\
-"""
-right_format = """\
-$c$cpp$java$python$rust$nodejs $time\
+format = """
+  $os\
+  $directory\
+  $git_branch$git_commit$git_state $git_status\
+  $c\
+  $cpp\
+  $java\
+  $python\
+  $rust\
+  $nodejs\
+  $custom\
+  $status\
+  $character\n
 """
 
-continuation_prompt = '[▶▶](fg:accent) '
+continuation_prompt = '▶▶ '
 
-# ─── Operating system ────────────────────────────────────────
+# ─── Operating System ────────────────────────────────────────
 [os]
 disabled = false
-format = "[ $symbol ]($style)"
-style = "bold fg:accent"
+format = "[$symbol ](bold fg:accent)"
+
 [os.symbols]
-Fedora= " "
+Fedora = " "
 
 # ─── Directory ───────────────────────────────────────────────
 [directory]
 disabled = false
-format = "[$path ]($style)"
-style = "bold fg:fg"
+format = "[$path](bold fg:fg)"
 truncate_to_repo = false
 truncation_length = 3
 truncation_symbol = "…/"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
-"Downloads" = " "
+"Downloads" = " "
 "Pictures"  = "󱢉 "
 "Music"     = " "
 
 # ─── Git ─────────────────────────────────────────────────────
 [git_branch]
-format = "[ $symbol$branch]($style)"
-style = "bold fg:accent"
-symbol = " "
+format = " [  $branch](fg:#9198a1)"
 
 [git_status]
-format = '([$all_status$ahead_behind ]($style))'
-style = "bold fg:accent"
 ahead = '⇡${count}'
 behind = '⇣${count}'
 diverged = '⇕⇡${ahead_count}⇣${behind_count}'
-modified = '!${count}'
-untracked = '?${count}'
-staged = '+${count}'
-deleted = '✘${count}'
+format = '[[( $all_status$ahead_behind )](fg:#769ff0)]($style)'
+style = "bg:#394260"
 
 # ─── Character ───────────────────────────────────────────────
 [character]
-success_symbol = '[❯](bold fg:accent)'
-error_symbol   = '[❯](bold fg:error)'
+success_symbol = "[❯](bold fg:accent)"
+error_symbol   = "[❯](bold fg:error)"
 
 # ─── Languages ───────────────────────────────────────────────
 [c]
-format = "[ $symbol]($style)"
+format = " [$symbol]($style)"
 style = "bold fg:fg"
 symbol = " "
 detect_extensions = ["c", "h"]
 
 [cpp]
-format = "[ $symbol]($style)"
+format = " [$symbol]($style)"
 style = "bold fg:fg"
 symbol = " "
 detect_extensions = ["cpp", "hpp", "cc", "cxx"]
 
 [java]
-format = "[ $symbol]($style)"
+format = " [$symbol]($style)"
 style = "bold fg:fg"
-symbol = " "
+symbol = " "
 
 [python]
-format = "[ $symbol($virtualenv )]($style)"
+format = " [$symbol($virtualenv)]($style)"
 style = "bold fg:fg"
-symbol = " "
+symbol = " "
 version_format = "${raw}"
 
 [rust]
-format = "[ $symbol]($style)"
+format = " [$symbol]($style)"
 style = "bold fg:fg"
-symbol = " "
+symbol = " "
 
 [nodejs]
-format = "[ $symbol]($style)"
+format = " [$symbol]($style)"
 style = "bold fg:fg"
-symbol = " "
+symbol = "󰎙 "
 detect_extensions = ["js", "mjs", "cjs", "ts"]
 detect_files = ["package.json", "package-lock.json", "yarn.lock"]
 detect_folders = ["node_modules"]
 version_format = "${raw}"
 
-# ─── Disabled ────────────────────────────────────────────────
-[aws]
-disabled = true
-
-[gcloud]
-disabled = true
