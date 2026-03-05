@@ -1,0 +1,234 @@
+@import url("https://clearvision.github.io/ClearVision-v7/main.css");
+@import url("https://clearvision.github.io/ClearVision-v7/vencord.css");
+
+:root {{
+  /* ACCENT COLORS */
+  --main-color: {color3};
+  --hover-color: {color4};
+  --success-color: #43b581;
+  --danger-color: #982929;
+  /* STATUS COLORS */
+  --online-color: #43b581;
+  --idle-color: #faa61a;
+  --dnd-color: #982929;
+  --streaming-color: {color5};
+  --offline-color: #808080;
+  /* APP BACKGROUND */
+  --background-shading-percent: 0%;
+  --background-image: none;
+  --background-attachment: fixed;
+  --background-filter: none;
+  /* USER POPOUT BACKGROUND */
+  --user-popout-image: none;
+  --user-popout-attachment: var(--background-attachment);
+  --user-popout-filter: none;
+  /* USER MODAL BACKGROUND */
+  --user-modal-image: none;
+  --user-modal-attachment: var(--background-attachment);
+  --user-modal-filter: none;
+  /* HOME ICON */
+  --home-icon: url('https://i.pinimg.com/1200x/4d/4a/2f/4d4a2f1d53fdbfce27e052ab24f240e5.jpg');
+  /* FONTS */
+  --main-font: "Ndot 57", "gg sans", Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --code-font: "Departure Mono Nerd Font", Consolas, "gg mono", "Liberation Mono", Menlo, Courier, monospace;
+}}
+
+/* ASH THEME */
+:is(.theme-dark, .theme-light .theme-dark) {{
+  --background-shading: rgba(4, 4, 10, 0.6);
+  --card-shading: rgba(4, 4, 10, 0.4);
+  --popout-shading: rgba(4, 4, 10, 0.7);
+  --modal-shading: rgba(4, 4, 10, 0.5);
+  --input-shading: rgba(255, 255, 255, 0.05);
+  --normal-text: {foreground};
+  --muted-text: {color7};
+}}
+
+/* DARK THEME */
+:is(.theme-darker, .theme-light .theme-darker) {{
+  --background-shading: rgba(4, 4, 10, 0.7);
+  --card-shading: rgba(4, 4, 10, 0.4);
+  --popout-shading: rgba(4, 4, 10, 0.8);
+  --modal-shading: rgba(4, 4, 10, 0.6);
+  --input-shading: rgba(255, 255, 255, 0.05);
+  --normal-text: {foreground};
+  --muted-text: {color7};
+}}
+
+/* ONYX THEME */
+:is(.theme-midnight, .theme-light .theme-midnight) {{
+  --background-shading: rgba(4, 4, 10, 0.85);
+  --card-shading: rgba(4, 4, 10, 0.5);
+  --popout-shading: rgba(4, 4, 10, 0.9);
+  --modal-shading: rgba(4, 4, 10, 0.7);
+  --input-shading: rgba(255, 255, 255, 0.05);
+  --normal-text: {foreground};
+  --muted-text: {color7};
+}}
+
+/* Remove Bot Launcher */
+.channelAppLauncher_df39bd {{ display: none; }}
+
+/* Remove Recent Activity */
+.visual-refresh .c8ffbb79449f399c-membersGroup:has(._095fe51feb41b3bb-headerContainer) {{
+  display: none;
+}}
+
+/* Kuromi Load */
+.content_a2f514 {{
+  display: flex;
+  flex-direction: column;
+  > .spinner_a2f514 {{ display: none }}
+  &:before {{
+    display: block;
+    height: 128px;
+    position: static;
+    content: url(https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnYzZzdhdWZxMzkwbTI0OTB1eG03Z3NsZGdubG0wM3BuNGFjb3A3aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/olr5oi9bxPVeV30Yye/giphy.gif);
+    image-rendering: high-quality;
+    align-content: center;
+    scale: 1.75;
+    margin-bottom: 96px;
+  }}
+}}
+
+/* Unread channel Kuromi */
+:root {{
+  --list-item-transition: 0.2s ease;
+}}
+.wrapper__2ea32 .link__2ea32 {{
+  transition: margin-left var(--list-item-transition);
+}}
+.wrapper__2ea32:hover .link__2ea32 {{
+  margin-left: 10px;
+}}
+.unread__2ea32 {{
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  transition: var(--list-item-transition);
+}}
+.wrapper__2ea32:hover .unread__2ea32 {{
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: 3px;
+  background-color: transparent;
+  background: url('https://i.imgur.com/Lpc5jPZ.png');
+  background-size: 20px;
+  background-position: center;
+}}
+
+/* Hide app launcher */
+[class*=channelAppLauncher_] {{ display: none !important; }}
+
+/* Compact Member List */
+@import url(https://raw.githubusercontent.com/amozeo/discord-css-snippets/refs/heads/main/snippets/compact-memberlist.css);
+
+/* Compact Sidebar Buttons */
+@import url(https://davart154.github.io/Themes/Snippets/Chat%20Bar%20Upload%20Swap/ChatSwapSource.css);
+
+/* Translucent Message Box */
+@import url('https://raw.githubusercontent.com/Benzeel/Bennys-Css-Snippets/refs/heads/main/TransparentMessagebox.css');
+form.formWithLoadedChatInput_f75fb0 {{ margin-top: -51vh; }}
+div.messagesWrapper__36d07 > div.jumpToPresentBar__0f481 {{ bottom: 11vh; }}
+div.messagesWrapper__36d07 > form,
+div.autocomplete__13533,
+div.channelTextArea_f75fb0::before, div.wrapper__44df5 {{
+  backdrop-filter: blur(10px);
+}}
+div.autocompleteInner__13533 {{ background-color: #00000023; }}
+div.channelTextArea_f75fb0 {{
+  position: relative;
+  background: transparent !important;
+  &::before {{ content: ""; position: absolute; inset: 0; border-radius: inherit; }}
+  > * {{ position: relative; }}
+  > div.autocomplete__13533 {{ position: absolute; }}
+  > * {{ background: 0 0 !important; }}
+}}
+.chat_f75fb0 {{ overflow: clip; }}
+ol.scrollerInner__36d07::after {{
+  display: block;
+  content: "";
+  position: relative;
+  height: 50vh;
+}}
+div.floatingBars__74017 {{ .banner__183e8 {{ background: 0 0; }} }}
+div.wrapper__44df5 {{ background: 0 0; }}
+.chatTypingGradientAtBottom__36d07, .chatGradient__36d07, .chatGradientBase__36d07 {{
+  display: none !important;
+}}
+
+/* Scrollbar */
+.managedReactiveScroller_d125d2, .scroller__36d07 {{
+  &::-webkit-scrollbar {{ height: 10px; width: 10px; }}
+  &::-webkit-scrollbar-track, &::-webkit-scrollbar-thumb {{ visibility: visible; }}
+  &::-webkit-scrollbar-thumb {{
+    background-clip: padding-box;
+    background-color: {color3};
+    border: 2px solid transparent;
+    border-radius: 6px;
+  }}
+  &:hover::-webkit-scrollbar-track, &:hover::-webkit-scrollbar-thumb {{ visibility: visible; }}
+  &::-webkit-scrollbar-button:end:increment {{ height: 35%; }}
+  &:hover::-webkit-scrollbar-track {{ background-color: #3f3f3f6e; }}
+}}
+
+/* Pop out animations */
+.messageListItem__5126c {{
+  > .cozyMessage__5126c {{
+    background: transparent !important;
+    transition: transform 0.3s 0s;
+    z-index: 1;
+  }}
+  &:has(> .cozyMessage__5126c:hover) {{
+    > .cozyMessage__5126c {{ transform: translateX(5px); }}
+    .buttonContainer_c19a55 {{
+      transition: transform 0.15s 0.1s ease;
+      transform: translateX(9px);
+    }}
+  }}
+  &:has(> .cozyMessage__5126c:hover)::before {{
+    display: block;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #ffffff0c;
+  }}
+}}
+div.buttonContainer_c19a55 {{ transform: translateX(450px); }}
+.layer__59d0d:has(.animatorLeft_faf9c0.fade_faf9c0.didRender_faf9c0) {{
+  transform: translateX(-450px) !important;
+}}
+
+/* Ricify controls */
+@import url('https://raw.githubusercontent.com/ISOUL22/rice/refs/heads/main/Vencord/improvedSpotifyControls.css');
+:root {{
+  --isc-bg: var(--bg-4, var(--background-base-low));
+  --isc-bg-blur: 2px;
+  --isc-bg-brightness: 0.5;
+  --ics-panel-order-activity: 2;
+  --ics-panel-order-spotify: 4;
+  --ics-panel-order-voicechat: 1;
+  --ics-panel-order-user: 4;
+  --isc-song-title: {color4};
+  --isc-icon-color: {foreground};
+  --isc-progress-bar: {color3};
+  --isc-progress-bar-hover: {color4};
+  --isc-button-icon: {color7};
+  --isc-button-icon-hover: {foreground};
+  --isc-button-bg: transparent;
+  --isc-button-bg-hover: var(--hover, var(--background-mod-strong));
+  --isc-button-toggled-icon: {color3};
+  --isc-button-toggled-icon-hover: {color4};
+  --isc-button-bg-base: {color5};
+  --isc-button-toggled-bg: color-mix(in hsl, var(--isc-button-bg-base), transparent 40%);
+  --isc-button-toggled-bg-hover: color-mix(in hsl, var(--isc-button-bg-base), transparent 40%);
+}}
+
+/* Compat */
+@import url('https://raw.githubusercontent.com/Krammeth/css-snippets/refs/heads/main/CompactTabs.css');
+:root {{
+  --server-tabs: true;
+  --dms-tabs: true;
+}}
