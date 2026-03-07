@@ -7,7 +7,10 @@ if not pgrep -u $USER ssh-agent > /dev/null
 end
 ssh-add ~/.ssh/id_dotfiles 2>/dev/null
 ssh-add ~/.ssh/id_obsidian 2>/dev/null
+ssh-add ~/.ssh/id_github 2>/dev/null
 
 starship init fish | source
 
 alias ff="fastfetch"
+
+fish_add_path /home/kaxuthesheep/.spicetify
