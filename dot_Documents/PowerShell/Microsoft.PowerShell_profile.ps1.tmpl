@@ -1,7 +1,6 @@
 $Env:KOMOREBI_CONFIG_HOME = 'C:\Users\KaxuTheSheep\.config\komorebi'
 
-# SSH
-ssh-add "$env:USERPROFILE\.ssh\id_windows" 2>$null
+
 
 # Aliases
 Set-Alias ls eza
@@ -41,5 +40,9 @@ function Invoke-Starship-PreCommand {
 }
 
 fastfetch
+
+# SSH
+ssh-add "$env:USERPROFILE\.ssh\id_windows" 2>$null
+
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Invoke-Expression (&starship init powershell)
