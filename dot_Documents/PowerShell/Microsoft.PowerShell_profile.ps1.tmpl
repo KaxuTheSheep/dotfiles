@@ -1,0 +1,45 @@
+$Env:KOMOREBI_CONFIG_HOME = 'C:\Users\KaxuTheSheep\.config\komorebi'
+
+# SSH
+ssh-add "$env:USERPROFILE\.ssh\id_windows" 2>$null
+
+# Aliases
+Set-Alias ls eza
+Set-Alias cat bat
+Set-Alias ff fastfetch
+
+# Functions
+function fdf {
+    fd @args | fzf
+}
+
+function cdf {
+    cd $(fd -t d --hidden | fzf @args)
+}
+
+function vf {
+    $file = fd -t f . $HOME --hidden --exclude node_modules --exclude .git |
+        fzf --query "$args" --exact --height 40% --reverse
+    if ($file) { nvim $file }
+}
+
+function ll {
+    eza -lah --git @args
+}
+
+function tree {
+    eza --tree --all @args
+}
+
+function Invoke-Starship-PreCommand {
+    $current_location = $executionContext.SessionState.Path.CurrentLocation
+    if ($current_location.Provider.Name -eq "FileSystem") {
+        $ansi_escape = [char]27
+        $provider_path = $current_location.ProviderPath -replace "\\", "/"
+        $global:prompt = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}$ansi_escape\\"
+    }
+}
+
+fastfetch
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+Invoke-Expression (&starship init powershell)

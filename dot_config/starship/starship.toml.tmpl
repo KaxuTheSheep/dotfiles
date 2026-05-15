@@ -28,7 +28,11 @@ disabled = false
 format = "[$symbol ](bold fg:accent)"
 
 [os.symbols]
+{{ if eq .chezmoi.os "linux" -}}
 Fedora = " "
+{{ else if eq .chezmoi.os "windows" -}}
+Windows = "󰍲 "
+{{- end }}
 
 # ─── Directory ───────────────────────────────────────────────
 [directory]
