@@ -272,15 +272,7 @@ config.keys = {
 }
 
 -- Mouse bindings
-config.mouse_bindings = {
-	-- Right click pastes from clipboard
-	{
-		event = { Down = { streak = 1, button = "Right" } },
-		mods = "NONE",
-		action = act.PasteFrom("Clipboard"),
-	},
-}
-config.copy_on_select = false
+
 -- =============================================================================
 -- RETURN
 -- =============================================================================

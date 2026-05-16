@@ -17,7 +17,13 @@ function cdf {
 }
 
 function vf {
-    $file = fd -t f . $HOME --hidden --exclude node_modules --exclude .git |
+    $file = fd -t f . --hidden --exclude node_modules --exclude .git |
+        fzf --query "$args" --exact --height 40% --reverse
+    if ($file) { nvim $file }
+}
+
+function uvf {
+    $file = fd -t f . / --hidden --exclude node_modules --exclude .git 2>$null |
         fzf --query "$args" --exact --height 40% --reverse
     if ($file) { nvim $file }
 }

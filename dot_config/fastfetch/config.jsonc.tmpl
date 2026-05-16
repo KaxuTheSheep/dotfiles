@@ -7,8 +7,12 @@
 {
     "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-    	"source": "/home/kaxuthesheep/.config/fastfetch/ASCII.txt",
-   		"type": "file",
+        {{ if eq .chezmoi.os "linux" -}}
+        "source": "/home/kaxuthesheep/.config/fastfetch/ASCII.txt",
+        {{ else if eq .chezmoi.os "windows" -}}
+        "source": "C:/Users/KaxuTheSheep/.config/fastfetch/ASCII.txt",
+        {{- end }}
+        "type": "file",
    		"height": 15,
    		"width": 30, 
     "color": {
@@ -31,7 +35,11 @@
         },
         {
             "type": "kernel",
+            {{ if eq .chezmoi.os "linux" -}}
             "key": " ",
+            {{ else if eq .chezmoi.os "windows" -}}
+            "key": "󰍲 ",
+            {{- end }}
             "keyColor": "red"
         },
         {
