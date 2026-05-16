@@ -272,6 +272,8 @@ config.keys = {
 }
 
 -- Mouse bindings
+config.swallow_mouse_click_on_pane_focus = true
+config.swallow_mouse_click_on_window_focus = true
 
 -- =============================================================================
 -- RETURN

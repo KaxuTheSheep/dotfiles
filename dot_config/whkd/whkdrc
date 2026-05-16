@@ -1,58 +1,68 @@
 .shell powershell
-# General configuration
-alt + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
-alt + shift + o         : komorebic reload-configuration
-alt + shift + r         : komorebic retile
-# ── CORE ─────────────────────────────────────────────
-alt + return                : wezterm-gui.exe
-alt + q                     : komorebic close
-alt + e                     : explorer.exe
-alt + b                     : start zen
-alt + f                     : komorebic toggle-float
-alt + s                     : komorebic toggle-monocle
-alt + p                     : komorebic toggle-pause
 
-# ── LOCK ─────────────────────────────────────────────
-ctrl + shift + alt + l      : rundll32.exe user32.dll LockWorkStation
+# ── WHKD RELOAD ───────────────────────────────────────────
+win + shift + o         : komorebic reload-configuration
+win + shift + r         : komorebic retile
+win + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden
 
-# ── FOCUS ────────────────────────────────────────────
-alt + h                     : komorebic focus left
-alt + l                     : komorebic focus right
-alt + k                     : komorebic focus up
-alt + j                     : komorebic focus down
+# ── CORE ──────────────────────────────────────────────────
+win + return            : wezterm-gui.exe
+win + q                 : komorebic close
+win + e                 : explorer.exe
+win + r                 : Start-Process "C:\Users\KaxuTheSheep\scoop\apps\Flow-Launcher\current\Flow.Launcher.exe"
+win + b                 : start zen
+win + v                 : copyq toggle
+win + f                 : komorebic toggle-float
+win + s                 : komorebic toggle-monocle
+win + p                 : komorebic toggle-pause
+win + tab               : komorebic cycle-focus next
 
-# ── MOVE altDOWS ─────────────────────────────────────
-alt + shift + h             : komorebic move left
-alt + shift + l             : komorebic move right
-alt + shift + k             : komorebic move up
-alt + shift + j             : komorebic move down
+# ── SESSION ───────────────────────────────────────────────
+ctrl + shift + win + l  : rundll32.exe user32.dll LockWorkStation
+win + shift + e         : shutdown /l
 
-# ── RESIZE ───────────────────────────────────────────
-win + alt + h               : komorebic resize-axis horizontal decrease
-win + alt + l               : komorebic resize-axis horizontal increase
-win + alt + k               : komorebic resize-axis vertical decrease
-win + alt + j               : komorebic resize-axis vertical increase
+# ── SCREENSHOT ────────────────────────────────────────────
+win + shift + s         : snippingtool /clip
+win + shift + f         : snippingtool
 
-# ── WORKSPACES ───────────────────────────────────────
-alt + 1                     : komorebic focus-workspace 0
-alt + 2                     : komorebic focus-workspace 1
-alt + 3                     : komorebic focus-workspace 2
-alt + 4                     : komorebic focus-workspace 3
-alt + 5                     : komorebic focus-workspace 4
-alt + 6                     : komorebic focus-workspace 5
-alt + 7                     : komorebic focus-workspace 6
-alt + 8                     : komorebic focus-workspace 7
-alt + 9                     : komorebic focus-workspace 8
-alt + 0                     : komorebic focus-workspace 9
+# ── FOCUS ─────────────────────────────────────────────────
+win + h                 : komorebic focus left
+win + l                 : komorebic focus right
+win + k                 : komorebic focus up
+win + j                 : komorebic focus down
 
-# ── MOVE TO WORKSPACE ────────────────────────────────
-alt + shift + 1             : komorebic move-to-workspace 0
-alt + shift + 2             : komorebic move-to-workspace 1
-alt + shift + 3             : komorebic move-to-workspace 2
-alt + shift + 4             : komorebic move-to-workspace 3
-alt + shift + 5             : komorebic move-to-workspace 4
-alt + shift + 6             : komorebic move-to-workspace 5
-alt + shift + 7             : komorebic move-to-workspace 6
-alt + shift + 8             : komorebic move-to-workspace 7
-alt + shift + 9             : komorebic move-to-workspace 8
-alt + shift + 0             : komorebic move-to-workspace 9
+# ── MOVE WINDOWS ──────────────────────────────────────────
+win + shift + h         : komorebic move left
+win + shift + l         : komorebic move right
+win + shift + k         : komorebic move up
+win + shift + j         : komorebic move down
+
+# ── RESIZE ────────────────────────────────────────────────
+win + alt + h           : komorebic resize-axis horizontal decrease
+win + alt + l           : komorebic resize-axis horizontal increase
+win + alt + k           : komorebic resize-axis vertical decrease
+win + alt + j           : komorebic resize-axis vertical increase
+
+# ── WORKSPACES ────────────────────────────────────────────
+win + 1                 : komorebic focus-workspace 0
+win + 2                 : komorebic focus-workspace 1
+win + 3                 : komorebic focus-workspace 2
+win + 4                 : komorebic focus-workspace 3
+win + 5                 : komorebic focus-workspace 4
+win + 6                 : komorebic focus-workspace 5
+win + 7                 : komorebic focus-workspace 6
+win + 8                 : komorebic focus-workspace 7
+win + 9                 : komorebic focus-workspace 8
+win + 0                 : komorebic focus-workspace 9
+
+# ── MOVE TO WORKSPACE ─────────────────────────────────────
+win + shift + 1         : komorebic move-to-workspace 0
+win + shift + 2         : komorebic move-to-workspace 1
+win + shift + 3         : komorebic move-to-workspace 2
+win + shift + 4         : komorebic move-to-workspace 3
+win + shift + 5         : komorebic move-to-workspace 4
+win + shift + 6         : komorebic move-to-workspace 5
+win + shift + 7         : komorebic move-to-workspace 6
+win + shift + 8         : komorebic move-to-workspace 7
+win + shift + 9         : komorebic move-to-workspace 8
+win + shift + 0         : komorebic move-to-workspace 9
