@@ -28,6 +28,18 @@ function uvf {
     if ($file) { nvim $file }
 }
 
+function cf {
+    $file = fd -t f . --hidden --exclude node_modules --exclude .git |
+        fzf --query "$args" --exact --height 40% --reverse
+    if ($file) { cat $file }
+}
+
+function ucf {
+    $file = fd -t f . / --hidden --exclude node_modules --exclude .git 2>$null |
+        fzf --query "$args" --exact --height 40% --reverse
+    if ($file) { cat $file }
+}
+
 function ll {
     eza -lah --git @args
 }
