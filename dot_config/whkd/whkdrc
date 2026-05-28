@@ -1,4 +1,4 @@
-.shell powershell
+.shell pwsh
 
 # ── WHKD RELOAD ───────────────────────────────────────────
 win + shift + o         : komorebic reload-configuration
@@ -42,6 +42,15 @@ win + alt + h           : komorebic resize-axis horizontal decrease
 win + alt + l           : komorebic resize-axis horizontal increase
 win + alt + k           : komorebic resize-axis vertical decrease
 win + alt + j           : komorebic resize-axis vertical increase
+
+# ── LAYOUT ────────────────────────────────────────────────
+win + alt + 1           : komorebic change-layout grid
+win + alt + 2           : komorebic change-layout vertical-stack
+win + alt + 3           : komorebic change-layout horizontal-stack
+win + alt + 4           : komorebic change-layout columns
+win + alt + 5           : komorebic change-layout rows
+win + alt + 6           : komorebic change-layout bsp
+win + alt + 7           : komorebic change-layout ultrawide-vertical-stack
 
 # ── WORKSPACES ────────────────────────────────────────────
 win + 1                 : komorebic focus-workspace 0
