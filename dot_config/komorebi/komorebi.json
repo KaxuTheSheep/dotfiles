@@ -29,19 +29,19 @@
   "monitor_work_area_offset": {},
   "workspace_work_area_offset": {},
   "monitors": [
-    {
-      "workspaces": [
-        { "name": "I", "layout": "Grid" },
-        { "name": "II", "layout": "Grid" },
-        { "name": "III", "layout": "Grid" },
-        { "name": "IV", "layout": "Grid" },
-        { "name": "V", "layout": "Grid" },
-        { "name": "VI", "layout": "Grid" },
-        { "name": "VII", "layout": "Grid" },
-        { "name": "VIII", "layout": "Grid" },
-        { "name": "IX", "layout": "Grid" },
-        { "name": "X", "layout": "Grid" }
-      ]
-    }
-  ]
+   {
+    "workspaces": [
+       { "name": "一", "layout": "Grid" },
+       { "name": "二", "layout": "Grid" },
+       { "name": "三", "layout": "Grid" },
+       { "name": "四", "layout": "Grid" },
+       { "name": "五", "layout": "Grid" },
+       { "name": "六", "layout": "Grid" },
+       { "name": "七", "layout": "Grid" },
+       { "name": "八", "layout": "Grid" },
+       { "name": "九", "layout": "Grid" },
+       { "name": "十", "layout": "Grid" }
+     ]
+   }
+ ]
 }
