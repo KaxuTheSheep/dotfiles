@@ -29,16 +29,19 @@
   "monitor_work_area_offset": {},
   "workspace_work_area_offset": {},
   "monitors": [
-    {
-      "workspaces": [
-        { "name": "I", "layout": "BSP" },
-        { "name": "II", "layout": "VerticalStack" },
-        { "name": "III", "layout": "HorizontalStack" },
-        { "name": "IV", "layout": "UltrawideVerticalStack" },
-        { "name": "V", "layout": "Rows" },
-        { "name": "VI", "layout": "Grid" },
-        { "name": "VII", "layout": "RightMainVerticalStack" }
-      ]
-    }
-  ]
+   {
+    "workspaces": [
+       { "name": "一", "layout": "Grid" },
+       { "name": "二", "layout": "Grid" },
+       { "name": "三", "layout": "Grid" },
+       { "name": "四", "layout": "Grid" },
+       { "name": "五", "layout": "Grid" },
+       { "name": "六", "layout": "Grid" },
+       { "name": "七", "layout": "Grid" },
+       { "name": "八", "layout": "Grid" },
+       { "name": "九", "layout": "Grid" },
+       { "name": "十", "layout": "Grid" }
+     ]
+   }
+ ]
 }

@@ -1,10 +1,10 @@
 -- windows_palette.lua
 -- Hardcoded from amethyst.json
 return {
-	base00 = none, -- background (special.background)
+	base00 = "#04040A", -- background (special.background)
 	base01 = "#04040A", -- color0
 	base02 = "#2A2A4A", -- color8
-	base03 = "#2A2A4A", -- color8 (comments)
+	base03 = "#9A8AC0", -- color3/7 (comments)
 	base04 = "#C8B8FF", -- color7 (foreground)
 	base05 = "#C8B8FF", -- foreground (special.foreground)
 	base06 = "#C8B8FF", -- color7 (light fg)

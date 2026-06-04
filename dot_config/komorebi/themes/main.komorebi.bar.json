@@ -8,15 +8,15 @@
   "BorderStyle": "Square",
   "widget_spacing": 2,
   "margin": {
-    "top": 2,
-    "bottom": 2,
+    "top": 5,
+    "bottom": 0,
     "left": 5,
     "right": 5
   },
   "theme": {
     "palette": "Custom",
     "colours": {
-        "base_00": "#11111F",  
+        "base_00": "#04040A",
         "base_01": "#1C0021",
         "base_02": "#222233",
         "base_03": "#333366",
@@ -34,7 +34,7 @@
         "base_0f": "#FF00FF"
     },
     "accent": "Base05",
-    "auto_select_fill": "Base01",
+    "auto_select_fill": "Base00",
     "auto_select_text": "Base05"
   },
   "left_widgets": [
