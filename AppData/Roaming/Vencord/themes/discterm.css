@@ -54,9 +54,9 @@ body {
 
     /* transparency/blur options */
     /* NOTE: TO USE TRANSPARENCY/BLUR, YOU MUST HAVE TRANSPARENT BG COLORS. FOR EXAMPLE: --bg-4: hsla(220, 15%, 10%, 0.7); */
-    --transparency-tweaks: off; /* off: no changes, on: remove some elements for better transparency */
+    --transparency-tweaks: on; /* off: no changes, on: remove some elements for better transparency */
     --remove-bg-layer: off; /* off: no changes, on: remove the base --bg-3 layer for use with window transparency (WILL OVERRIDE BACKGROUND IMAGE) */
-    --panel-blur: off; /* off: no changes, on: blur the background of panels */
+    --panel-blur: on; /* off: no changes, on: blur the background of panels */
     --blur-amount: 12px; /* amount of blur */
     --bg-floating: var(--bg-3); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
 
@@ -631,9 +631,9 @@ body {
      * Matches: background #04040A, active_tab #2A2A4A, inactive_tab #04040A
      * ------------------------------------------------------------------------- */
     --bg-1: oklch(from #2A2A4A l c h);     /* clicked buttons */
-    --bg-2: oklch(from #1A1A30 l c h);     /* buttons */
-    --bg-3: oklch(from #0D0D1A l c h);     /* spacing / secondary panels */
-    --bg-4: oklch(from #04040A l c h);     /* main background — exact wezterm bg */
+    --bg-2: hsla(240, 43%, 10%, 0.40);    /* buttons */
+    --bg-3: hsla(240, 43%, 6%, 0.45);     /* spacing / secondary panels */
+    --bg-4: hsla(240, 43%, 4%, 0.55);     /* main background — exact wezterm bg */
     --hover: oklch(58% 0.18 272 / 0.08);
     --active: oklch(58% 0.18 272 / 0.15);
     --active-2: oklch(58% 0.18 272 / 0.25);
