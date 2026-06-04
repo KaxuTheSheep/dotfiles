@@ -1,9 +1,14 @@
 /* main.css */
 @import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+@font-face {
+    font-family: 'Departure Mono';
+    src: url('https://raw.githubusercontent.com/KaxuTheSheep/dotfiles/main/AppData/Roaming/Vencord/themes/DepartureMono-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 body {
-    --font: 'DM Mono'; /* change to '' for default discord font */
-    --code-font: 'DM Mono'; /* change to '' for default discord font */
+    --font: 'Departure Mono';
+    --code-font: 'Departure Mono';
     font-weight: 300; /* text font weight. 300 is light, 400 is normal. DOES NOT AFFECT BOLD TEXT */
     letter-spacing: -0.05ch; /* decreases letter spacing for better readability. recommended on monospace fonts.*/
 
