@@ -6,7 +6,7 @@ param(
 $ConfigDir = "$env:USERPROFILE\.config\komorebi"
 $ThemesDir = Join-Path $ConfigDir "themes"
 
-$JsonFiles = @("komorebi.json","komorebi.bar.json")
+$JsonFiles = @("komorebi.json")
 
 # If no theme is specified, list available themes
 if (-not $ThemeName) {

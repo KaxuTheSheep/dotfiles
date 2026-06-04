@@ -21,6 +21,7 @@
 .config/komorebi
 .config/wezterm
 .config/whkd
+.config/yasb
 Documents
 scoop
 {{ end }}
