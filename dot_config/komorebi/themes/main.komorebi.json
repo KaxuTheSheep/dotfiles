@@ -6,8 +6,8 @@
   "default_workspace_padding": 2,
   "default_container_padding": 2,
   "border": true,
-  "border_width": 6,
-  "border_offset": -2,
+  "border_width": 2,
+  "border_offset": 0,
   "border_style": "Square",
   "border_implementation": "Komorebi",
   "border_colours": {
