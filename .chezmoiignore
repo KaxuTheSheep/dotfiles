@@ -24,4 +24,5 @@
 .config/yasb
 Documents
 scoop
+Appdata
 {{ end }}
