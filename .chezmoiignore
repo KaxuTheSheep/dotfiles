@@ -1,30 +1,10 @@
-# Ignore Linux‑only configs on Windows
 {{ if eq .chezmoi.os "windows" }}
-.config/btop
-.config/fish
-.config/gtk-3.0
-.config/gtk-4.0
-.config/hypr
-.config/kitty
-.config/rofi
-.config/swaync
-.config/wal
-.config/waybar
-.config/waypaper
-.config/wlogout
-.local/bin
-.wallpaper
+linux/
 {{ end }}
 
-# Ignore Windows‑only configs on Linux
 {{ if eq .chezmoi.os "linux" }}
-.config/komorebi
-.config/wezterm
-.config/whkd
-.config/yasb
-Documents
-scoop
-Appdata
+windows/
 {{ end }}
 
-font
+fonts
+home/dot_config/nvim/.chezmoiignore

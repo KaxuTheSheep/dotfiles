@@ -1,0 +1,22 @@
+return {
+  {
+    'nvim-mini/mini.nvim',
+    priority = 1000,
+    config = function()
+      local palette = require('theme')
+      require('mini.base16').setup {
+        palette = palette.colors,
+        use_cterm = false,
+      }
+      vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
+      vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'NONE' })
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+
+      require('mini.ai').setup { n_lines = 500 }
+      require('mini.surround').setup()
+      local statusline = require('mini.statusline')
+      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.section_location = function() return '%2l:%-2v' end
+    end,
+  },
+}
