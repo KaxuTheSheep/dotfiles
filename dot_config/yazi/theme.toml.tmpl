@@ -1,1 +1,64 @@
-/home/kaxuthesheep/.cache/wal/yazi-theme.toml
+"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+
+[app]
+overall = { bg = "{{ .colors.background }}" }
+
+[mgr]
+cwd             = { fg = "{{ .colors.color4 }}", bold = true }
+find_keyword    = { fg = "{{ .colors.color3 }}", bold = true }
+find_position   = { fg = "{{ .colors.color5 }}", italic = true }
+symlink_target  = { fg = "{{ .colors.color6 }}", italic = true }
+border_symbol   = "│"
+border_style    = { fg = "{{ .colors.color8 }}" }
+
+marker_copied   = { fg = "{{ .colors.color2 }}", bg = "{{ .colors.color2 }}" }
+marker_cut      = { fg = "{{ .colors.color1 }}", bg = "{{ .colors.color1 }}" }
+marker_selected = { fg = "{{ .colors.color3 }}", bg = "{{ .colors.color3 }}" }
+marker_marked   = { fg = "{{ .colors.color5 }}", bg = "{{ .colors.color5 }}" }
+
+count_copied    = { fg = "{{ .colors.background }}", bg = "{{ .colors.color2 }}" }
+count_cut       = { fg = "{{ .colors.background }}", bg = "{{ .colors.color1 }}" }
+count_selected  = { fg = "{{ .colors.background }}", bg = "{{ .colors.color3 }}" }
+
+[indicator]
+parent  = { fg = "{{ .colors.color8 }}" }
+current = { fg = "{{ .colors.color4 }}", bold = true }
+preview = { fg = "{{ .colors.color8 }}" }
+
+[completion]
+border  = { fg = "{{ .colors.color3 }}" }
+active  = { fg = "{{ .colors.background }}", bg = "{{ .colors.color3 }}" }
+inactive = { fg = "{{ .colors.foreground }}" }
+
+[input]
+border  = { fg = "{{ .colors.color3 }}" }
+title   = { fg = "{{ .colors.color4 }}" }
+value   = { fg = "{{ .colors.foreground }}" }
+selected = { reversed = true }
+
+[notify]
+title_info  = { fg = "{{ .colors.color4 }}" }
+title_warn  = { fg = "{{ .colors.color3 }}" }
+title_error = { fg = "{{ .colors.color1 }}" }
+
+[filetype]
+rules = [
+  { mime = "image/*",       fg = "{{ .colors.color4 }}" },
+  { mime = "video/*",       fg = "{{ .colors.color5 }}" },
+  { mime = "audio/*",       fg = "{{ .colors.color5 }}" },
+  { mime = "application/zip",    fg = "{{ .colors.color3 }}" },
+  { mime = "application/x-tar", fg = "{{ .colors.color3 }}" },
+  { mime = "application/x-bzip*", fg = "{{ .colors.color3 }}" },
+  { mime = "application/x-7z-compressed", fg = "{{ .colors.color3 }}" },
+  { mime = "application/x-rar", fg = "{{ .colors.color3 }}" },
+  { mime = "application/gzip", fg = "{{ .colors.color3 }}" },
+  { mime = "text/*",        fg = "{{ .colors.foreground }}" },
+  { name = "*.toml",        fg = "{{ .colors.color6 }}" },
+  { name = "*.yaml",        fg = "{{ .colors.color6 }}" },
+  { name = "*.json",        fg = "{{ .colors.color6 }}" },
+  { name = "*.lua",         fg = "{{ .colors.color4 }}" },
+  { name = "*.rs",          fg = "{{ .colors.color3 }}" },
+  { name = "*.py",          fg = "{{ .colors.color2 }}" },
+  { name = "*.sh",          fg = "{{ .colors.color5 }}" },
+  { name = "*.md",          fg = "{{ .colors.foreground }}" },
+]
