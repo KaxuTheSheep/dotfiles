@@ -22,7 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Load plugins
 require('lazy').setup({
   { import = 'kickstart.plugins' },
-  { import = 'custom.plugins' },
+  { import = 'plugins' },
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {
