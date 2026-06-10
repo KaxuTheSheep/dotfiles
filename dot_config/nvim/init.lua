@@ -21,7 +21,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins
 require('lazy').setup({
-  { import = 'kickstart.plugins' },
   { import = 'plugins' },
 }, {
   ui = {
