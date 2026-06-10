@@ -1,10 +1,21 @@
-{{ if eq .chezmoi.os "windows" }}
-linux/
-{{ end }}
-
 {{ if eq .chezmoi.os "linux" }}
-windows/
+AppData/
+Documents/
+dot_config/komorebi/
+dot_config/wezterm/
+dot_config/whkd/
+dot_config/yasb/
+scoop/
 {{ end }}
 
-fonts
-home/dot_config/nvim/.chezmoiignore
+{{ if eq .chezmoi.os "windows" }}
+dot_config/fish/
+dot_config/niri/
+dot_config/btop/
+dot_config/quickshell/
+dot_config/tofi/
+{{ end }}
+
+dot_config/nvim/lazy-lock.json
+fonts/
+wallpapers/
