@@ -1,5 +1,6 @@
 local M = {}
 
+-- Original terminal palette
 M.colors = {
     background = "{{ .colors.background }}",
     foreground = "{{ .colors.foreground }}",
@@ -21,6 +22,27 @@ M.colors = {
     color13 = "{{ .colors.color13 }}",
     color14 = "{{ .colors.color14 }}",
     color15 = "{{ .colors.color15 }}",
+}
+
+-- Base16 palette for mini.base16
+M.base16 = {
+    base00 = "{{ .colors.background }}",
+    base01 = "{{ .colors.color0 }}",
+    base02 = "{{ .colors.color8 }}",
+    base03 = "{{ .colors.color8 }}",
+    base04 = "{{ .colors.color7 }}",
+    base05 = "{{ .colors.foreground }}",
+    base06 = "{{ .colors.color15 }}",
+    base07 = "{{ .colors.color15 }}",
+
+    base08 = "{{ .colors.color1 }}",
+    base09 = "{{ .colors.color9 }}",
+    base0A = "{{ .colors.color3 }}",
+    base0B = "{{ .colors.color2 }}",
+    base0C = "{{ .colors.color6 }}",
+    base0D = "{{ .colors.color4 }}",
+    base0E = "{{ .colors.color5 }}",
+    base0F = "{{ .colors.color13 }}",
 }
 
 return M
