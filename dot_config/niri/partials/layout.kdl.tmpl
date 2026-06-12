@@ -1,0 +1,30 @@
+layout {
+    gaps 4
+
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        off
+    }
+
+    border {
+        width 2
+        active-color "{{ .chezmoi.config.data.colors.color3 }}"
+        inactive-color "{{ .chezmoi.config.data.colors.color8 }}"
+        urgent-color "{{ .chezmoi.config.data.colors.color1 }}"
+    }
+
+    shadow {
+    }
+
+    struts {
+    }
+}
