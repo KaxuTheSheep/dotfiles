@@ -22,5 +22,5 @@ vim.o.confirm = true
 
 -- OS‑specific clipboard
 
-vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+vim.schedule(function() vim.opt.clipboard = 'unnamedplus' end)
 

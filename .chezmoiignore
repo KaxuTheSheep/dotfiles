@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "linux" }}
+{{- if eq .chezmoi.os "linux" }}
 AppData/
 Documents/
 dot_config/komorebi/
@@ -6,16 +6,14 @@ dot_config/wezterm/
 dot_config/whkd/
 dot_config/yasb/
 scoop/
-{{ end }}
-
-{{ if eq .chezmoi.os "windows" }}
+{{- end }}
+{{- if eq .chezmoi.os "windows" }}
 dot_config/fish/
 dot_config/niri/
 dot_config/btop/
 dot_config/quickshell/
 dot_config/tofi/
-{{ end }}
-
+{{- end }}
 dot_config/nvim/lazy-lock.json
 fonts/
 wallpapers/
