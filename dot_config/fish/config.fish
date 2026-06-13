@@ -62,6 +62,10 @@ starship init fish | source
 if status is-login
     and test (tty) = /dev/tty1
     and not pgrep -u $USER niri > /dev/null
+    set -x XDG_RUNTIME_DIR /run/user/(id -u)
+    while not loginctl show-user $USER 2>/dev/null | grep -q "State=active"
+        sleep 1
+    end
     exec niri-session
 end
 

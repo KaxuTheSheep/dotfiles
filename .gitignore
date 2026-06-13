@@ -1,5 +1,4 @@
 *.swp
 *.cache
 *.bak
-micro/buffers/history
-.chezmoiignore
+
