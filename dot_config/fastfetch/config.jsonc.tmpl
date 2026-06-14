@@ -47,12 +47,16 @@
     "modules": [
         "break",
         {
-            "type": "version",
+            "type": "custom",
             "color": {
             "keys": ""
             },
-            "key": "{$4}                󱐋󱐋 Fastfetch ",
-            "format": "{$6}{2}",
+	    {{ if eq .chezmoi.os "linux" -}}
+            "key": "{$4}                kaxuthesheep@gentoo",
+	    {{ else if eq .chezmoi.os "windows" -}}
+	    "key": "{$4}                kaxuthesheep@windows",
+	    {{- end}}
+            "format": "{$6}",
         },
         {
             "type": "custom",
