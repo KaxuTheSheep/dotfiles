@@ -61,11 +61,8 @@ starship init fish | source
 # Start niri if on TTY1 and not already running
 if status is-login
     and test (tty) = /dev/tty1
-    and not pgrep -u $USER niri > /dev/null
-    set -x XDG_RUNTIME_DIR /run/user/(id -u)
-    while not loginctl show-user $USER 2>/dev/null | grep -q "State=active"
-        sleep 1
-    end
+    and not set -q DISPLAY
+    and not set -q WAYLAND_DISPLAY
     exec niri-session
 end
 
