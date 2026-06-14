@@ -3,10 +3,19 @@ set -gx PATH $PATH $HOME/.cargo/bin $HOME/.local/bin
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 
 # SSH agent
-if not pgrep -u $USER ssh-agent > /dev/null
-    eval (ssh-agent -c) > /dev/null
+set -gx SSH_AUTH_SOCK $HOME/.ssh/ssh-agent.sock
+
+if not test -S $SSH_AUTH_SOCK
+    pkill -u $USER ssh-agent 2>/dev/null
+    ssh-agent -a $SSH_AUTH_SOCK > /dev/null
 end
-ssh-add ~/.ssh/id_linux 2>/dev/null
+
+if test -S $SSH_AUTH_SOCK
+    ssh-add -l > /dev/null 2>&1
+    if test $status -eq 1
+        ssh-add ~/.ssh/id_linux
+    end
+end
 
 # Aliases
 alias ls="eza"
