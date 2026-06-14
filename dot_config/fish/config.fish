@@ -61,10 +61,10 @@ starship init fish | source
 # Start niri if on TTY1 and not already running
 if status is-login
     and test (tty) = /dev/tty1
-    and not set -q DISPLAY
     and not set -q WAYLAND_DISPLAY
-    exec niri-session
+    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+    set -x DBUS_SESSION_BUS_ADDRESS (dbus-daemon --session --print-address --fork)
+    exec niri --session
 end
-
 # Fastfetch on interactive login
 fastfetch
