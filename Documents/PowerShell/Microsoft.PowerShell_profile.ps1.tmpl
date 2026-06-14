@@ -52,10 +52,10 @@ function Invoke-Starship-PreCommand {
         $global:prompt = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}$ansi_escape\\"
     }
 }
-
-fastfetch
 if ([Environment]::UserInteractive -and [Console]::IsInputRedirected -eq $false) {
     ssh-add "$env:USERPROFILE\.ssh\id_windows" 2>$null
 }
+fastfetch
+
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Invoke-Expression (&starship init powershell)
