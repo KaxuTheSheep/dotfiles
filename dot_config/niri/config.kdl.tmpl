@@ -70,6 +70,9 @@ animations {
 }
 
 window-rule {
+    draw-border-with-background false
+}
+window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
 }
@@ -77,8 +80,8 @@ window-rule {
 window-rule {
     match app-id="ghostty"
     opacity 0.8
-    draw-border-with-background false
 }
+
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
