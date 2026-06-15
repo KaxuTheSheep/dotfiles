@@ -1,5 +1,3 @@
-# ~/.config/tmux/tmux.conf
-
 # =============================================================================
 # CORE
 # =============================================================================
@@ -10,6 +8,9 @@ set -g pane-base-index 1
 set -g renumber-windows on
 set -g escape-time 0
 set -g history-limit 10000
+set -g mouse on
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+set -g @scroll-speed-num-lines-per-scroll 3
 
 # Leader
 set -g prefix C-Space
@@ -67,6 +68,8 @@ bind [ copy-mode
 bind -T copy-mode-vi v send -X begin-selection
 bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
 bind -T copy-mode-vi Escape send -X cancel
+bind -T copy-mode-vi WheelUpPane send -X scroll-up
+bind -T copy-mode-vi WheelDownPane send -X scroll-down
 
 # =============================================================================
 # STATUS BAR
