@@ -4,12 +4,10 @@ set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 
 # SSH agent
 set -gx SSH_AUTH_SOCK $HOME/.ssh/ssh-agent.sock
-
 if not test -S $SSH_AUTH_SOCK
     pkill -u $USER ssh-agent 2>/dev/null
     ssh-agent -a $SSH_AUTH_SOCK > /dev/null
 end
-
 if test -S $SSH_AUTH_SOCK
     ssh-add -l > /dev/null 2>&1
     if test $status -eq 1
@@ -75,5 +73,6 @@ if status is-login
     set -x DBUS_SESSION_BUS_ADDRESS (dbus-daemon --session --print-address --fork)
     exec niri --session
 end
+
 # Fastfetch on interactive login
 fastfetch
