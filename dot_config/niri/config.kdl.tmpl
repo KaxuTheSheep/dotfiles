@@ -75,13 +75,9 @@ window-rule {
 }
 
 window-rule {
+    match app-id="ghostty"
     opacity 0.8
     draw-border-with-background false
-}
-
-window-rule {
-    match app-id="firefox"
-    opacity 1.0
 }
 
 binds {
@@ -90,7 +86,7 @@ binds {
     // Applications
     Mod+T { spawn "ghostty"; }
     Mod+D { spawn "sh" "-c" "tofi-drun | xargs -I {} sh -c '{} &'"; }
-    Mod+B { spawn "firefox"; }
+    Mod+B { spawn "zen"; }
 
     // Window management
     Mod+Q repeat=false { close-window; }
