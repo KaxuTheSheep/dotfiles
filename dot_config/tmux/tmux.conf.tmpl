@@ -1,0 +1,90 @@
+# ~/.config/tmux/tmux.conf
+
+# =============================================================================
+# CORE
+# =============================================================================
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",ghostty:Tc"
+set -g base-index 1
+set -g pane-base-index 1
+set -g renumber-windows on
+set -g escape-time 0
+set -g history-limit 10000
+
+# Leader
+set -g prefix C-Space
+unbind C-b
+bind C-Space send-prefix
+
+# =============================================================================
+# PANES
+# =============================================================================
+# Split — LEADER + s/v (horizontal/vertical, mirrors Neovim split feel)
+bind s split-window -v -c "#{pane_current_path}"
+bind v split-window -h -c "#{pane_current_path}"
+
+# Navigate — LEADER + hjkl
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Resize — LEADER + HJKL
+bind H resize-pane -L 5
+bind J resize-pane -D 5
+bind K resize-pane -U 5
+bind L resize-pane -R 5
+
+# Zoom — LEADER + z
+bind z resize-pane -Z
+
+# Close — LEADER + x
+bind x kill-pane
+
+# =============================================================================
+# TABS (WINDOWS)
+# =============================================================================
+bind c new-window -c "#{pane_current_path}"
+bind n next-window
+bind p previous-window
+bind r command-prompt "rename-window '%%'"
+
+bind 1 select-window -t 1
+bind 2 select-window -t 2
+bind 3 select-window -t 3
+bind 4 select-window -t 4
+bind 5 select-window -t 5
+bind 6 select-window -t 6
+bind 7 select-window -t 7
+bind 8 select-window -t 8
+bind 9 select-window -t 9
+
+# =============================================================================
+# COPY MODE
+# =============================================================================
+set -g mode-keys vi
+bind [ copy-mode
+bind -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi y send -X copy-pipe-and-cancel "wl-copy"
+bind -T copy-mode-vi Escape send -X cancel
+
+# =============================================================================
+# STATUS BAR
+# =============================================================================
+set -g status on
+set -g status-position bottom
+set -g status-interval 5
+
+set -g status-style "bg={{ .colors.background }},fg={{ .colors.color8 }}"
+set -g status-left ""
+set -g status-right ""
+
+set -g window-status-format " #I:#W "
+set -g window-status-current-format " #I:#W "
+set -g window-status-style "fg={{ .colors.color8 }},bg={{ .colors.background }}"
+set -g window-status-current-style "fg={{ .colors.foreground }},bg={{ .colors.color8 }}"
+
+set -g pane-border-style "fg={{ .colors.color8 }}"
+set -g pane-active-border-style "fg={{ .colors.cursor }}"
+
+set -g message-style "bg={{ .colors.color8 }},fg={{ .colors.foreground }}"

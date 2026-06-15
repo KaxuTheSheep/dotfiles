@@ -1,0 +1,29 @@
+font = DepartureMono Nerd Font Mono
+font-size = 48
+
+width = 400
+height = 300
+
+padding-top = 8
+padding-bottom = 8
+padding-left = 12
+padding-right = 12
+
+outline-width = 0
+border-width = 1
+corner-radius = 0
+
+background-color = #04040Ae6
+border-color = #7766FF
+text-color = #C8B8FF
+prompt-color = #7766FF
+selection-color = #04040A
+selection-background = #7766FF
+selection-match-color = #D354A1
+
+prompt-text = "run: "
+
+result-spacing = 4
+num-results = 8
+
+anchor = center

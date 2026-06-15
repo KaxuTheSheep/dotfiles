@@ -74,12 +74,22 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    opacity 0.8
+    draw-border-with-background false
+}
+
+window-rule {
+    match app-id="firefox"
+    opacity 1.0
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Applications
     Mod+T { spawn "ghostty"; }
-    Mod+D { spawn "fuzzel"; }
+    Mod+D { spawn "sh" "-c" "tofi-drun | xargs -I {} sh -c '{} &'"; }
     Mod+B { spawn "firefox"; }
 
     // Window management

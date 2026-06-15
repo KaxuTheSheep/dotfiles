@@ -8,10 +8,6 @@ return {
         palette = theme.base16,
         use_cterm = false,
       }
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'NONE' })
-      vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'NONE' })
-      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
-
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
       local statusline = require('mini.statusline')
