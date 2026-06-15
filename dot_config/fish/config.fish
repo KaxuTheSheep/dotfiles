@@ -3,7 +3,7 @@ set -gx PATH $PATH $HOME/.cargo/bin $HOME/.local/bin
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 
 # SSH agent
-set -gx SSH_AUTH_SOCK $HOME/.ssh/ssh-agent.sock
+set -gx SSH_AUTH_SOCK /home/kaxuthesheep/.ssh/agent/s.ExGKeO7tXA.agent.U3k3qWFSJv
 if not test -S $SSH_AUTH_SOCK
     pkill -u $USER ssh-agent 2>/dev/null
     ssh-agent -a $SSH_AUTH_SOCK > /dev/null
