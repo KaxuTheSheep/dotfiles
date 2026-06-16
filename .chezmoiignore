@@ -13,6 +13,7 @@ scoop/
 .config/btop/
 .config/quickshell/
 .config/tofi/
+.local/share/fonts
 {{ end }}
 .config/nvim/lazy-lock.json
 fonts/
