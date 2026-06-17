@@ -1,6 +1,7 @@
 set -U fish_greeting ""
 set -gx PATH $PATH $HOME/.cargo/bin $HOME/.local/bin
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
+set -gx TERMCMD "ghostty --class=yazi -e"
 
 # SSH agent
 set -gx SSH_AUTH_SOCK /home/kaxuthesheep/.ssh/agent/s.ExGKeO7tXA.agent.U3k3qWFSJv
@@ -71,6 +72,7 @@ if status is-login
     and not set -q WAYLAND_DISPLAY
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     set -x DBUS_SESSION_BUS_ADDRESS (dbus-daemon --session --print-address --fork)
+    echo $DBUS_SESSION_BUS_ADDRESS > /run/user/1000/dbus-session-address
     exec niri --session
 end
 
