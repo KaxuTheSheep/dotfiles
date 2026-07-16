@@ -4,247 +4,238 @@
 //  |__|  |__|__|_____| |_| |__|  |_____| |_| |_____|__|__| 
 
 
+// ─────────────────────────────────────────────────────────────
 {
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
     "logo": {
-        "type": "file",
-        "source": "~/.config/fastfetch/ASCII.txt",
-        "height": 21,
-        "width": 40,
+        "type": "auto",
+        "source": "gentoo",
         "padding": {
             "top": 2,
-            "left": 3
-        },
-    "color": {
-    	"1": "white"
-    	}
+            "left": 2
+        }
     },
     "display": {
-        "separator": " ",
+        "separator": "",
         "constants": [
-            "\u001b[38;2;81;188;254m\u001B[1m",    // {$1},
-            "\u001b[38;2;105;181;254m\u001B[1m",   // {$2},
-            "\u001b[38;2;130;173;253m\u001B[1m",   // {$3},
-            "\u001b[38;2;154;166;253m\u001B[1m",   // {$4},
-            "\u001b[38;2;169;160;253m\u001B[1m",   // {$5},
-            "\u001b[38;2;179;154;253m\u001B[1m",   // {$6},
-            "\u001b[38;2;186;153;253m\u001B[1m",   // {$7},
-            "\u001b[38;2;192;163;253m\u001B[1m",   // {$8},
-            "\u001b[38;2;198;167;253m\u001B[1m",   // {$9},
-            "\u001b[38;2;205;173;252m\u001B[1m",   // {$10},
-            "┌──────",   // {$11},
-            "───────",   // {$12},
-            "──────┐",   // {$13},
-         ],
-        "percent": {
-            "type": 9,         // 1=number, 2=bar, 3=both, 9=colored number
-            "color": {
-                "green": "#51bcfe",
-                "yellow": "#abff4a",
-                "red": "#ff8f45"
-            }
+            "\u001b[48;2;20;18;36m",
+            "\u001b[48;2;32;28;56m",
+            "\u001b[49m",
+            "\u001b[38;2;154;130;255m",
+            "\u001b[38;2;200;184;255m",
+            "\u001b[38;2;200;184;255m",
+            "\u001b[38;2;220;216;255m",
+            "\u001b[0m",
+            "                                            │\u001b[45D"
+        ],
+        "color": {
+            "keys": "white"
         }
     },
     "modules": [
         "break",
+
+        // ═══════════════════════ HARDWARE ═══════════════════════
         {
             "type": "custom",
-            "color": {
-            "keys": ""
-            },
-	    {{ if eq .chezmoi.os "linux" -}}
-            "key": "{$4}                kaxuthesheep@gentoo",
-	    {{ else if eq .chezmoi.os "windows" -}}
-	    "key": "{$4}                kaxuthesheep@windows",
-	    {{- end}}
-            "format": "{$6}",
-        },
-        {
-            "type": "custom",
-            "format": "{$1}{$11}{$2}{$12}{$3}{$12}{$4}{$12}{$5}{$12}{$6}{$12}{$7}{$12}{$8}{$12}{$9}{$12}{$10}{$13} Hardware "
+            "format": "{$4}┌── Hardware ──┐┌────────────────────────────────────────────┐"
         },
         {
             "type": "host",
-            "key": "{$1}├   PC        ",
+            "key": "{$4}│{$1}{$5}  PC         {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
-                {
+        {
             "type": "board",
-            "key": "{$2}├ 󱔼  Board     ",
+            "key": "{$4}│{$1}{$5}  Board      {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "cpu",
-            "key": "{$3}├   CPU       ",
+            "key": "{$4}│{$1}{$5}  CPU        {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "gpu",
-            "key": "{$4}├ 󰾲  GPU       ",
+            "key": "{$4}│{$1}{$5} 󰾲 GPU        {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "display",
-            "key": "{$5}├ 󰍹  Display   ",
+            "key": "{$4}│{$1}{$5} 󰍹 Display    {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{width}x{height} @{refresh-rate}Hz{$3}"
         },
         {
             "type": "sound",
-            //"format": "{platform-api}/{2} ({3})",
-            "key": "{$6}├   Sound     ",
-        },
-        {
-            "type": "battery",
-            "key": "{$6}├ 󰢟  Battery   ",
-            "format": "{manufacturer} {model-name} ({capacity})",
+            "key": "{$4}│{$1}{$5}  Sound      {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "memory",
-            "key": "{$7}├   Memory    ",
-            "percent": {
-                "type": 3, // 3 = show number + bar + percentage
-                "green": 30, // <30% is green
-                "yellow": 70 // 30-70% is yellow, >70% is red
-            }
+            "key": "{$4}│{$1}{$5}  Memory     {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{used} / {total} ({percentage}%){$3}",
+            "percent": { "type": 3, "green": 30, "yellow": 70 }
         },
-                {
+        {
             "type": "swap",
-            "key": "{$8}├ 󰯍  Swap      ",
-            "percent": {
-                "type": 3, // 3 = show number + bar + percentage
-                "green": 30, // <30% is green
-                "yellow": 70 // 30-70% is yellow, >70% is red
-            }
+            "key": "{$4}│{$1}{$5} 󰯍 Swap       {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{used} / {total} ({percentage}%){$3}",
+            "percent": { "type": 3, "green": 30, "yellow": 70 }
         },
-
         {
             "type": "disk",
-            "key": "{$9}├   Gentoo     ",
+            "key": "{$4}│{$1}{$5} 󰣨 Gentoo     {$4}│{$1}",
             "folders": ["/"],
-            "percent": {
-                "type": 3, // 3 = show number + bar + percentage
-                "green": 30, // <30% is green
-                "yellow": 70 // 30-70% is yellow, >70% is red
-            }
+            "format": "{$4}│{$2}{$9}{$7}{size-used} / {size-total} ({size-percentage}%){$3}",
+            "percent": { "type": 3, "green": 30, "yellow": 70 }
         },
         {
             "type": "disk",
-            "key": "{$10}└   Home      ",
+            "key": "{$4}│{$1}{$5}  Home       {$4}│{$1}",
             "folders": ["/home"],
-            "percent": {
-                "type": 3, // 3 = show number + bar + percentage
-                "green": 30, // <30% is green
-                "yellow": 70 // 30-70% is yellow, >70% is red
-            }
+            "format": "{$4}│{$2}{$9}{$7}{size-used} / {size-total} ({size-percentage}%){$3}",
+            "percent": { "type": 3, "green": 30, "yellow": 70 }
         },
         {
             "type": "custom",
-            "format": "{$10}{$11}{$9}{$12}{$8}{$12}{$7}{$12}{$6}{$12}{$5}{$12}{$4}{$12}{$3}{$12}{$2}{$12}{$1}{$13} Software "
+            "format": "{$4}└──────────────┘└────────────────────────────────────────────┘"
+        },
+        "break",
+
+        // ═══════════════════════ SOFTWARE ═══════════════════════
+        {
+            "type": "custom",
+            "format": "{$4}┌── Software ──┐┌────────────────────────────────────────────┐"
         },
         {
             "type": "os",
-	    {{ if eq .chezmoi.os "linux" -}}
-            "key": "{$10}├ 󰣨  Distro    ",
-	    {{ else if eq .chezmoi.os "windows" -}}
-	    "key": "{$10}├ 󰍲  Distro    ",
-	    {{- end}}
-            "format": "{name} {build-id} ({codename}) {arch}"
+            "key": "{$4}│{$1}{$5} 󰣨 Distro     {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "kernel",
-            "key": "{$10}├   Kernel    ",
+	    "key": "{$4}│{$1}{$5} 󰞸 Kernel     {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{release:-44}{$3}"
         },
         {
             "type": "bios",
-            "key": "{$9}├ 󰚗  BIOS      ",
+            "key": "{$4}│{$1}{$5} 󰚗 BIOS       {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{vendor:-14} {version:-20}{$3}"
         },
         {
             "type": "packages",
-            "key": "{$9}├ 󰏖  Packages  ",
+            "key": "{$4}│{$1}{$5} 󰏖 Packages   {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{?emerge}{emerge} (portage){?}{$3}"
         },
         {
-            "type": "Processes",
-            "key": "{$9}├ 󰑮  Processes ",
+            "type": "processes",
+            "key": "{$4}│{$1}{$5} 󰑮 Processes  {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{result:-44}{$3}"
         },
         {
             "type": "shell",
-            "key": "{$8}├   Shell     ",
+            "key": "{$4}│{$1}{$5} 󰳗 Shell      {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{pretty-name:-44}{$3}"
         },
         {
             "type": "terminal",
-            "key": "{$7}├   Terminal  ",
+            "key": "{$4}│{$1}{$5}  Terminal   {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{pretty-name:-44}{$3}"
         },
         {
             "type": "terminalfont",
-            "key": "{$6}├ 󰛖  Term Font ",
-        },
-        {
-            "type": "de",
-            "key": "{$5}├   DE        ",
-        },
-        {
-            "type": "lm",
-            "key": "{$4}├ 󰧨  Login     ",
+            "key": "{$4}│{$1}{$5} 󰛖 Term Font  {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "wm",
-            "key": "{$3}├   Window    ",
+            "key": "{$4}│{$1}{$5}  Window Mgr {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{pretty-name:-44}{$3}"
         },
         {
             "type": "wmtheme",
-            "key": "{$2}├ 󰉼  Theme     ",
+            "key": "{$4}│{$1}{$5} 󰉼 Theme      {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{result:-44}{$3}"
         },
         {
             "type": "font",
-            "key": "{$2}├ 󰛖  Font      ",
+            "key": "{$4}│{$1}{$5} 󰛖 Font       {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-44}{$3}"
         },
         {
             "type": "opengl",
-            "key": "{$1}├ 󰆧  OpenGL    ",
+            "key": "{$4}│{$1}{$5}  OpenGL     {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{version:-44}{$3}"
         },
         {
             "type": "vulkan",
-            "key": "{$1}└ 󰈸  Vulkan    ",
+            "key": "{$4}│{$1}{$5} 󰈸 Vulkan     {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{api-version:-44}{$3}"
         },
         {
             "type": "custom",
-            "format": "{$1}{$11}{$2}{$12}{$3}{$12}{$4}{$12}{$5}{$12}{$6}{$12}{$7}{$12}{$8}{$12}{$9}{$12}{$10}{$13} Connectivity"
+            "format": "{$4}└──────────────┘└────────────────────────────────────────────┘"
+        },
+        "break",
+
+        // ═══════════════════ CONNECTIVITY ════════════════════
+        {
+            "type": "custom",
+            "format": "{$4}┌ Connectivity ┐┌────────────────────────────────────────────┐"
         },
         {
             "type": "bluetooth",
-            "key": "{$1}├ 󰂱  Bluetooth ",
-            "format": "{1} - {4}"
+            "key": "{$4}│{$1}{$5} 󰂱 Bluetooth  {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-30} {$3}"
         },
         {
             "type": "bluetoothradio",
-            "key": "{$1}├ 󰂯  BT Radio  ",
-            "format": "{5}"
+            "key": "{$4}│{$1}{$5} 󰂯 BT Radio   {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{name:-30} {$3}"
         },
         {
             "type": "wifi",
-            "key": "{$2}├   WiFi      ",
-            "format": "{4} - {7} - {13} GHz - {10}",
+            "key": "{$4}│{$1}{$5} 󰖩 WiFi       {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{ssid:-20} - {signal-quality}% - {band}GHz{$3}",
             "showErrors": "never"
         },
         {
-            "type": "dns",
-            "key": "{$4}├ 󱦂  DNS       ",
+            "type": "custom",
+            "format": "{$4}└──────────────┘└────────────────────────────────────────────┘"
         },
+        "break",
+
+        // ═══════════════════════════ TIME ════════════════════════════
         {
             "type": "custom",
-            "format": "{$10}{$11}{$9}{$12}{$8}{$12}{$7}{$12}{$6}{$12}{$5}{$12}{$4}{$12}{$3}{$12}{$2}{$12}{$1}{$13} Time "
+            "format": "{$4}┌─── Time ─────┐┌────────────────────────────────────────────┐"
         },
         {
-            "type": "DateTime",
-            "key": "{$10}├ 󰥔  Date/Time ",
-        },
-        {
-            "key": "{$6}├   OS Age    ",
-            "type": "disk",
-            "folders": "/",
-            "format": "{create-time:10} ({days} days)"
+            "type": "datetime",
+            "key": "{$4}│{$1}{$5} 󰥔 Date/Time  {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{year}-{month-pretty}-{day-pretty} {hour-pretty}:{minute-pretty}{$3}"
         },
         {
             "type": "uptime",
-            "key": "{$3}└   Uptime    ",
+            "key": "{$4}│{$1}{$5}  Uptime     {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{days} days, {hours}h {minutes}m{$3}"
+        },
+        {
+            "type": "battery",
+            "key": "{$4}│{$1}{$5} 󰢟 Battery    {$4}│{$1}",
+            "format": "{$4}│{$2}{$9}{$7}{capacity} ({status}){$3}"
+        },
+        {
+            "type": "disk",
+            "key": "{$4}│{$1}{$5} 󰯑 OS Age     {$4}│{$1}",
+            "folders": "/",
+            "format": "{$4}│{$2}{$9}{$7}{create-time:-30} ({days} days){$3}"
         },
         {
             "type": "custom",
-            "format": "                {$10} {$9} {$8} {$7} {$6} {$5} {$4} {$3} {$2} {$1} "
+            "format": "{$4}└──────────────┘└────────────────────────────────────────────┘"
         },
+        "break"
     ]
 }
+
