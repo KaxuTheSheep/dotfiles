@@ -4,16 +4,18 @@ set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 set -gx TERMCMD "ghostty --class=yazi -e"
 
 # SSH agent
-set -gx SSH_AUTH_SOCK /home/kaxuthesheep/.ssh/agent/s.ExGKeO7tXA.agent.U3k3qWFSJv
-if not test -S $SSH_AUTH_SOCK
-    pkill -u $USER ssh-agent 2>/dev/null
-    ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-end
-if test -S $SSH_AUTH_SOCK
-    ssh-add -l > /dev/null 2>&1
-    if test $status -eq 1
+set -gx SSH_AUTH_SOCK ~/.ssh/ssh-agent.sock
+ssh-add -l >/dev/null 2>&1
+switch $status
+    case 2
+        # No agent listening — stale socket or none at all
+        pkill -u $USER ssh-agent 2>/dev/null
+        rm -f $SSH_AUTH_SOCK
+        ssh-agent -a $SSH_AUTH_SOCK >/dev/null
         ssh-add ~/.ssh/id_linux
-    end
+    case 1
+        # Agent running, but no key loaded
+        ssh-add ~/.ssh/id_linux
 end
 
 # Aliases
