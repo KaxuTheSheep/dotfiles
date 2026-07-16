@@ -13,6 +13,9 @@ scoop/
 .config/btop/
 .config/quickshell/
 .config/tofi/
+.config/org.freedesktop.FileManager1.common
+.config/xdg-desktop-portal
+.config/xdg-desktop-portal-termfilechooser
 .local/share/fonts
 {{ end }}
 .config/nvim/lazy-lock.json
