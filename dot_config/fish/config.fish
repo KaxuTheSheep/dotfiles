@@ -75,7 +75,6 @@ if status is-login
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
     set -x DBUS_SESSION_BUS_ADDRESS (dbus-daemon --session --print-address --fork)
     echo $DBUS_SESSION_BUS_ADDRESS > /run/user/1000/dbus-session-address
-    exec niri --session
 end
 
 # Fastfetch on interactive login

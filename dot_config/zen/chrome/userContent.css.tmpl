@@ -1,0 +1,21 @@
+/* ============================================================
+ * userContent.css — {{ .theme }} theme
+ * Applies to internal pages: about:newtab, reader view, PDF viewer
+ * ============================================================ */
+
+@-moz-document url-prefix("about:") {
+  :root {
+    --newtab-background-color: {{ .colors.background }} !important;
+    --newtab-text-primary-color: {{ .colors.foreground }} !important;
+  }
+}
+
+/* PDF.js viewer */
+@-moz-document url-prefix("resource://pdf.js/") {
+  :root {
+    --main-color: {{ .colors.foreground }} !important;
+    --body-bg-color: {{ .colors.background }} !important;
+    --toolbar-bg-color: {{ .colors.background }} !important;
+    --toolbar-border-color: {{ .colors.color8 }} !important;
+  }
+}

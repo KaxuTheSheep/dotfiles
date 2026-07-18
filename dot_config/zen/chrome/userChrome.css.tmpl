@@ -1,0 +1,141 @@
+/* ============================================================
+ * userChrome.css — {{ .theme }} theme
+ * Generated via chezmoi — do not edit the deployed copy directly.
+ * Matches: aesthetics.md (TUI-native, square, no shadows, thin borders)
+ * ============================================================ */
+
+:root {
+  --zen-bg: {{ .colors.background }};
+  --zen-fg: {{ .colors.foreground }};
+  --zen-cursor: {{ .colors.cursor }};
+  --zen-accent: {{ .colors.color3 }};
+  --zen-accent-alt: {{ .colors.color5 }};
+  --zen-muted: {{ .colors.color8 }};
+  --zen-border: {{ .colors.color8 }};
+  --zen-border-active: {{ .colors.color3 }};
+}
+
+/* -------------------------------------------------------------
+ * Global surfaces — transparency model per aesthetics.md
+ * ------------------------------------------------------------- */
+#navigator-toolbox,
+#titlebar,
+#tabbrowser-tabpanels,
+.browserSidebarContainer {
+  background-color: color-mix(in srgb, var(--zen-bg) 90%, transparent) !important;
+  color: var(--zen-fg) !important;
+}
+
+/* No shadows anywhere */
+* {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* No rounded corners */
+window,
+#navigator-toolbox,
+.tab-background,
+#urlbar,
+#urlbar-background,
+.urlbarView,
+menupopup,
+panel {
+  border-radius: 0px !important;
+}
+
+/* -------------------------------------------------------------
+ * Tabs (Zen sidebar tabs)
+ * ------------------------------------------------------------- */
+.tabbrowser-tab .tab-background {
+  background-color: transparent !important;
+  border: 1px solid transparent !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: color-mix(in srgb, var(--zen-accent) 15%, transparent) !important;
+  border: 1px solid var(--zen-border-active) !important;
+}
+
+.tabbrowser-tab:hover:not([selected="true"]) .tab-background {
+  background-color: color-mix(in srgb, var(--zen-muted) 40%, transparent) !important;
+}
+
+.tab-label {
+  color: var(--zen-fg) !important;
+}
+
+.tabbrowser-tab:not([selected="true"]) .tab-label {
+  color: var(--zen-muted) !important;
+}
+
+/* -------------------------------------------------------------
+ * URL bar
+ * ------------------------------------------------------------- */
+#urlbar-background {
+  background-color: var(--zen-bg) !important;
+  border: 1px solid var(--zen-border) !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
+  border: 1px solid var(--zen-border-active) !important;
+}
+
+#urlbar-input {
+  color: var(--zen-fg) !important;
+  caret-color: var(--zen-cursor) !important;
+}
+
+.urlbarView {
+  background-color: var(--zen-bg) !important;
+  border: 1px solid var(--zen-border) !important;
+}
+
+.urlbarView-row[selected] {
+  background-color: color-mix(in srgb, var(--zen-accent) 20%, transparent) !important;
+}
+
+/* -------------------------------------------------------------
+ * Sidebar / workspace pills
+ * ------------------------------------------------------------- */
+#zen-workspaces-button,
+.zen-workspace-indicator {
+  color: var(--zen-fg) !important;
+}
+
+#zen-current-workspace-indicator-name {
+  color: var(--zen-accent) !important;
+}
+
+/* -------------------------------------------------------------
+ * Scrollbars — thin, square, muted
+ * ------------------------------------------------------------- */
+scrollbar {
+  background-color: var(--zen-bg) !important;
+}
+
+thumb {
+  background-color: var(--zen-muted) !important;
+  border-radius: 0px !important;
+}
+
+/* -------------------------------------------------------------
+ * Toolbar buttons
+ * ------------------------------------------------------------- */
+toolbarbutton {
+  border-radius: 0px !important;
+}
+
+toolbarbutton:hover {
+  background-color: color-mix(in srgb, var(--zen-muted) 40%, transparent) !important;
+}
+
+/* -------------------------------------------------------------
+ * Findbar / notification bars
+ * ------------------------------------------------------------- */
+.findbar-container,
+notification-message {
+  background-color: var(--zen-bg) !important;
+  color: var(--zen-fg) !important;
+  border: 1px solid var(--zen-border) !important;
+}
