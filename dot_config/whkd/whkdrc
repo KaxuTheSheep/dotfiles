@@ -6,7 +6,7 @@ win + shift + r         : komorebic retile
 win + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden
 
 # ── CORE ──────────────────────────────────────────────────
-win + return            : wezterm-gui.exe
+win + t                 : wezterm-gui.exe
 win + q                 : komorebic close
 win + e                 : explorer.exe
 win + r                 : Start-Process "C:\Users\KaxuTheSheep\scoop\apps\Flow-Launcher\current\Flow.Launcher.exe"

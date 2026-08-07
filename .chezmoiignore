@@ -6,13 +6,16 @@ scoop/
 .config/wezterm/
 .config/whkd/
 .config/yasb/
+.config/psmux/
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
+.config/ghostty/
 .config/fish/
 .config/niri/
 .config/btop/
 .config/quickshell/
 .config/tofi/
+.config/tmux/
 .config/org.freedesktop.FileManager1.common
 .config/xdg-desktop-portal
 .config/xdg-desktop-portal-termfilechooser
