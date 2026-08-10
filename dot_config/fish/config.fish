@@ -24,6 +24,7 @@ alias cat="bat"
 alias ff="fastfetch"
 alias ll="eza -lah --git"
 alias tree="eza --tree --all"
+alias wall="swaybg -i ~/.local/share/chezmoi/wallpapers/amethyst/lain1.png & disown"
 
 # Functions
 function fdf

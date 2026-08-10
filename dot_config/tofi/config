@@ -1,5 +1,5 @@
 font = DepartureMono Nerd Font Mono
-font-size = 48
+font-size = 12
 
 width = 400
 height = 300
@@ -26,4 +26,4 @@ prompt-text = "run: "
 result-spacing = 4
 num-results = 8
 
-anchor = center
+

@@ -22,5 +22,6 @@ scoop/
 .local/share/fonts
 {{ end }}
 .config/nvim/lazy-lock.json
+scripts/
 fonts/
 wallpapers/
