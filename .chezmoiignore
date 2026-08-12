@@ -11,7 +11,7 @@ scoop/
 {{ if eq .chezmoi.os "windows" }}
 .config/ghostty/
 .config/fish/
-.config/niri/
+.config/dwl/
 .config/btop/
 .config/quickshell/
 .config/tofi/
