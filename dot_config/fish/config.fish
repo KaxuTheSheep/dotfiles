@@ -69,14 +69,5 @@ zoxide init fish | source
 # Starship
 starship init fish | source
 
-# Start niri if on TTY1 and not already running
-if status is-login
-    and test (tty) = /dev/tty1
-    and not set -q WAYLAND_DISPLAY
-    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-    set -x DBUS_SESSION_BUS_ADDRESS (dbus-daemon --session --print-address --fork)
-    echo $DBUS_SESSION_BUS_ADDRESS > /run/user/1000/dbus-session-address
-end
-
 # Fastfetch on interactive login
 fastfetch

@@ -20,6 +20,12 @@ static const float fullscreen_bg[]         = {0.0f, 0.0f, 0.0f, 1.0f}; /* You ca
 /* logging */
 static int log_level = WLR_ERROR;
 
+/* autostart */
+static const char *const autostart[] = {
+	"swaybg", "-i", "{{ .chezmoi.sourceDir }}/wallpapers/{{ .theme }}/{{ .wallpaper }}", NULL,
+	NULL /* terminate */
+};
+
 static const Rule rules[] = {
 	/* app_id             title       tags mask     isfloating   monitor */
 	{ "Gimp_EXAMPLE",     NULL,       0,            1,           -1 }, /* Start on currently visible tags floating, not tiled */
@@ -117,13 +123,13 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] = { "ghostty", NULL };
-static const char *menucmd[] = { "tofi", NULL };
+static const char *menucmd[] = { "/bin/sh", "-c", "tofi-drun | sh", NULL };
 static const char *browser[] = { "zen", NULL };
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: 2 -> at, etc. */
 
 	// ── CORE ──────────────────────────────────────────────────
-	{ MODKEY,                    XKB_KEY_t,      spawn,            {.v = termcmd} },
+	{ MODKEY,                    XKB_KEY_t,           spawn,            {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_d,           spawn,            {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_b,           spawn,            {.v = browser} },
 	{ MODKEY,                    XKB_KEY_q,           killclient,       {0} },
