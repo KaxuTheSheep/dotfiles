@@ -27,5 +27,5 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float scanline = pow(sin(curvedUV.y * SCANLINE_COUNT) * 0.5 + 0.5, 0.4) * (1.0 - SCANLINE_INTENSITY) + SCANLINE_INTENSITY;
     color *= scanline;
 
-    fragColor = vec4(color, 0.8);
+    fragColor = vec4(color, 0.9375);
 }
