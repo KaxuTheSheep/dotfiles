@@ -62,6 +62,20 @@ function ucf
     end
 end
 
+if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]
+    set -gx XDG_RUNTIME_DIR /run/user/(id -u)
+
+    dbus-daemon --session --fork --address="unix:path=$XDG_RUNTIME_DIR/bus"
+    # fixed 0.2s delay — guess, not a proper socket-poll; revisit if boot ever races
+    sleep 0.2
+    set -gx DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus"
+    echo $DBUS_SESSION_BUS_ADDRESS > $XDG_RUNTIME_DIR/dbus-session-address
+
+    pipewire &
+    wireplumber &
+    pipewire-pulse &
+end
+
 # Zoxide
 zoxide init fish | source
 

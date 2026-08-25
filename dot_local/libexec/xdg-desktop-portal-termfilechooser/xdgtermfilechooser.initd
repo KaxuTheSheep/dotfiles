@@ -1,0 +1,35 @@
+#!/sbin/openrc-run
+
+description="xdg-desktop-portal backend for choosing files with a terminal file manager (Yazi)"
+
+: ${XDPTF_USER:=kaxuthesheep}
+
+supervisor=supervise-daemon
+command=/usr/local/libexec/xdg-desktop-portal-termfilechooser
+command_args="-r"
+command_user="${XDPTF_USER}"
+
+# XDG_RUNTIME_DIR and DBUS_SESSION_BUS_ADDRESS must be present for the
+# binary to find the user's session bus. These are not guaranteed to exist
+# in the environment OpenRC runs services under, so they are set explicitly.
+# Adjust the uid (1000) if it does not match `id -u kaxuthesheep`.
+XDPTF_UID="$(id -u "${XDPTF_USER}" 2>/dev/null)"
+export XDG_RUNTIME_DIR="/run/user/${XDPTF_UID}"
+export HOME="/home/${XDPTF_USER}"
+
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+	need dbus
+	after elogind
+}
+start_pre() {
+	checkpath -d -m 0755 -o root:root /run
+
+	DBUS_ADDR_FILE="${XDG_RUNTIME_DIR}/dbus-session-address"
+	if [ ! -r "${DBUS_ADDR_FILE}" ]; then
+		eerror "DBus session address file not found at ${DBUS_ADDR_FILE}"
+		return 1
+	fi
+	export DBUS_SESSION_BUS_ADDRESS="$(cat "${DBUS_ADDR_FILE}")"
+}
