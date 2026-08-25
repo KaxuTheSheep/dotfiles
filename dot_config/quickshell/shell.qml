@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
 import "Theme"
+import "Overview"
 
 ShellRoot {
     PanelWindow {
@@ -26,13 +27,7 @@ ShellRoot {
             border.color: Theme.accent
             border.width: 1
             radius: 0
-
-            Text {
-                anchors.centerIn: parent
-                text: "Overview"
-                color: Theme.foreground
-                font.family: "DepartureMono Nerd Font"
-            }
+	Overview{}
         }
     }
 
