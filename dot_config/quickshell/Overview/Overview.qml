@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell.Io
 import Quickshell.Networking
 import "../Theme"
+import "../Notifications"
 
 Item {
     anchors.fill: parent
@@ -66,7 +67,6 @@ Item {
             status.reload()
         }
     }
-
     
     property string wifiText: "no wifi device"
 
@@ -90,5 +90,11 @@ Item {
         }
     }
 
+    Text {
+    	color: Theme.foreground
+    	font.family: "DepartureMono Nerd Font"
+    	font.pixelSize: 20
+    	text: "Notifications  " + NotificationState.unreadCount + "/" + NotificationState.totalCount
+    }
 
 }
