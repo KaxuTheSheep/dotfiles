@@ -6,8 +6,7 @@ import Quickshell.Services.Notifications
 Singleton {
     id: root
     property int mode: 0
-    property var history: []   // { notif, read }
-
+    property var history: [] 
     readonly property int unreadCount: history.filter(h => !h.read).length
     readonly property int totalCount: history.length
 
