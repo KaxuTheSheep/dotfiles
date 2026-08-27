@@ -20,6 +20,7 @@ scoop/
 .config/xdg-desktop-portal
 .config/xdg-desktop-portal-termfilechooser
 .local/share/fonts
+.local/libexec
 {{ end }}
 .config/nvim/lazy-lock.json
 scripts/
