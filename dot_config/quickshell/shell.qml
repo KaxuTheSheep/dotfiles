@@ -32,10 +32,16 @@ ShellRoot {
             border.width: 1
             radius: 0
 
-            Loader {
+	    Loader {
+		id: loader
                 anchors.fill: parent
                 sourceComponent: panel.view === "notifications" ? notifComp : overviewComp
-            }
+	    }
+	    
+	    Connections {
+		target: loader.item
+		function onActivateRequested(target) { panel.view = target }
+	    }
         }
 
         Component { id: overviewComp; Overview {} }
@@ -49,7 +55,7 @@ ShellRoot {
 		switch (event.key) {
 			case Qt.Key_N: panel.view = "notifications"; break
         		case Qt.Key_O: panel.view = "overview"; break
-			Qt.Key_C: case Qt.Key_M: case Qt.Key_P: case Qt.Key_S:
+			case Qt.Key_C: case Qt.Key_M: case Qt.Key_P: case Qt.Key_S:
             			break // Connections/Music/Power/Workspacesreserved
         		case Qt.Key_H: case Qt.Key_K: case Qt.Key_Left: case Qt.Key_Up:
             			if (item && item.moveFocus) item.moveFocus(-1)
