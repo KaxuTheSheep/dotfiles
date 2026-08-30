@@ -721,43 +721,6 @@ body {
 @import url(https://davart154.github.io/Themes/Snippets/Chat%20Bar%20Upload%20Swap/ChatSwapSource.css);
 /* --------- */
 
-/* Translucent Message Box */
-@import url('https://raw.githubusercontent.com/Benzeel/Bennys-Css-Snippets/refs/heads/main/TransparentMessagebox.css'); 
-form.formWithLoadedChatInput_f75fb0 {margin-top: -51vh;}  /* Eat message area's space */
-div.messagesWrapper__36d07 > div.jumpToPresentBar__0f481 {bottom: 11vh;} /* Fix new messages bar*/
-div.messagesWrapper__36d07 > form, /* New messages bar */
-div.autocomplete__13533, /* Emojis and stuff */
-div.channelTextArea_f75fb0::before, div.wrapper__44df5 { /* actual text area */
-  backdrop-filter: blur(10px); /* Configure blur amount here */
-}
-
-div.autocompleteInner__13533 {
-  background-color: #00000023;
-}
-
-div.channelTextArea_f75fb0 { /* actual text area overrides */
-  position: relative;
-  background: transparent !important;
-  &::before { content: ""; position: absolute; inset: 0; border-radius: inherit; } /* Set up blur */
-  > * {position: relative;} /* Fix some stuff */
-  > div.autocomplete__13533 { position: absolute; } /* Override commands and emoji menu format */
-  > * {background: 0 0 !important;} /* Text area's internals excluding emojis and commands */
-}
-
-.chat_f75fb0 {overflow: clip;} /* fix chat bar issues with jumping up */
-ol.scrollerInner__36d07::after { /* Add spacer for the bottom*/
-  display: block;
-  content: "";
-  position: relative;
-  height: 50vh;
-}
-div.floatingBars__74017 {.banner__183e8  { background: 0 0;}} /* Override for new member steps */
-div.wrapper__44df5 { background: 0 0;} /* Override for follow channel */
-
-.chatTypingGradientAtBottom__36d07, .chatGradient__36d07, .chatGradientBase__36d07 { /* hide typing gradient */
-  display: none !important;
-}
-
 /* fix & thin out scrollbar */
 .managedReactiveScroller_d125d2,.scroller__36d07 {
   &::-webkit-scrollbar {
