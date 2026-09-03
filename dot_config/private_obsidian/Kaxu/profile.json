@@ -3,10 +3,10 @@
   "autoSync": true,
   "appearance": true,
   "app": true,
-  "bookmarks": true,
+  "bookmarks": false,
   "communityPlugins": true,
   "corePlugins": true,
-  "graph": true,
+  "graph": false,
   "hotkeys": true,
-  "modifiedAt": "2026-08-31T15:34:42.632Z"
+  "modifiedAt": "2026-09-02T18:19:45.663Z"
 }
