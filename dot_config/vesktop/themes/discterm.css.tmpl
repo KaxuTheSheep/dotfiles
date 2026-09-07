@@ -1,6 +1,7 @@
 /* ============================================================
  * discterm.css
  * Base: system24 by refact0r
+ * Colours: chezmoi-templated, derived from chezmoi.toml palette
  * ============================================================ */
 
 @import url('https://refact0r.github.io/system24/build/system24.css');
@@ -10,6 +11,111 @@
     font-weight: normal;
     font-style: normal;
 }
+
+/* color options — single source of truth, all values derived from
+ * chezmoi.toml. Ramp steps use CSS relative colour
+ * syntax (oklch(from ... calc(l ± n) c h)) anchored to the matching base
+ * token, so a theme swap in chezmoi.toml propagates through every shade
+ * with no hardcoded hex anywhere in this block. */
+:root {
+    --colors: on; /* off: discord default colors, on: midnight custom colors */
+
+    /* -------------------------------------------------------------------------
+     * Text
+     * ------------------------------------------------------------------------- */
+    --text-0: var(--bg-4); /* text on colored elements */
+    --text-1: oklch(from {{ .colors.color15 }} l c h);                    /* bright white — headers */
+    --text-2: oklch(from {{ .colors.foreground }} l c h);                 /* foreground — important text */
+    --text-3: oklch(from {{ .colors.color4 }} l c h);                     /* bright blue — normal text */
+    --text-4: oklch(from {{ .colors.color9 }} l c h);                     /* bright black — icons/channels */
+    --text-5: oklch(from {{ .colors.color9 }} calc(l - 0.20) c h);        /* muted channels/chats and timestamps */
+
+    /* -------------------------------------------------------------------------
+     * Backgrounds — bg-1 is a solid interactive (clicked) state and stays
+     * opaque; bg-2 through bg-4 are resting surfaces and sit at 0.90 alpha
+     * per aesthetics.md's transparency model.
+     * ------------------------------------------------------------------------- */
+    --bg-1: oklch(from {{ .colors.color8 }} l c h);                            /* clicked buttons — opaque */
+    --bg-2: oklch(from {{ .colors.background }} calc(l + 0.06) c h / 0.90);    /* buttons */
+    --bg-3: oklch(from {{ .colors.background }} calc(l + 0.02) c h / 0.90);    /* spacing, secondary elements */
+    --bg-4: oklch(from {{ .colors.background }} l c h / 0.90);                 /* main background */
+    --hover: oklch(from {{ .colors.color3 }} l c h / 0.08);                    /* channels and buttons when hovered */
+    --active: oklch(from {{ .colors.color3 }} l c h / 0.15);                   /* channels and buttons when clicked or selected */
+    --active-2: oklch(from {{ .colors.color3 }} l c h / 0.25);                 /* extra state for transparent buttons */
+    --message-hover: var(--hover);
+
+    /* -------------------------------------------------------------------------
+     * Accents
+     * ------------------------------------------------------------------------- */
+    --accent-1: oklch(from {{ .colors.color4 }} l c h);              /* links — bright blue */
+    --accent-2: oklch(from {{ .colors.color14 }} l c h);             /* small elements — bright cyan */
+    --accent-3: oklch(from {{ .colors.color3 }} l c h);              /* buttons — cursor colour */
+    --accent-4: oklch(from {{ .colors.color11 }} l c h);             /* hovered buttons — bright yellow slot */
+    --accent-5: oklch(from {{ .colors.color3 }} calc(l - 0.07) c h); /* clicked buttons */
+    --accent-new: oklch(from {{ .colors.color1 }} l c h);            /* mute/deafen — ansi red */
+    --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
+    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
+    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
+    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent);
+
+    /* -------------------------------------------------------------------------
+     * Status
+     * ------------------------------------------------------------------------- */
+    --online: oklch(from {{ .colors.color3 }} l c h); 
+    --idle: oklch(from {{ .colors.color2 }} l c h);
+    --dnd: oklch(from {{ .colors.color1 }} l c h);
+    --streaming: oklch(from {{ .colors.color5 }} l c h);
+    --offline: oklch(from {{ .colors.color8 }} l c h);
+
+    /* -------------------------------------------------------------------------
+     * Borders
+     * ------------------------------------------------------------------------- */
+    --border-light: var(--hover);
+    --border: var(--active);
+    --border-hover: var(--accent-2);
+    --button-border: hsl(220, 0%, 100%, 0.1);
+
+    /* -------------------------------------------------------------------------
+     * Base colour ramps — each anchored to a single chezmoi palette token,
+     * remaining steps generated via relative-colour lightness offsets.
+     * ------------------------------------------------------------------------- */
+
+    /* red → color1 */
+    --red-1: oklch(from {{ .colors.color1 }} calc(l + 0.10) c h);
+    --red-2: oklch(from {{ .colors.color1 }} l c h);
+    --red-3: oklch(from {{ .colors.color1 }} calc(l - 0.05) c h);
+    --red-4: oklch(from {{ .colors.color1 }} calc(l - 0.10) c h);
+    --red-5: oklch(from {{ .colors.color1 }} calc(l - 0.15) c h);
+
+    /* green → color10 */
+    --green-1: oklch(from {{ .colors.color10 }} calc(l + 0.10) c h);
+    --green-2: oklch(from {{ .colors.color10 }} l c h);
+    --green-3: oklch(from {{ .colors.color10 }} calc(l - 0.05) c h);
+    --green-4: oklch(from {{ .colors.color10 }} calc(l - 0.10) c h);
+    --green-5: oklch(from {{ .colors.color10 }} calc(l - 0.15) c h);
+
+    /* blue → color4 */
+    --blue-1: oklch(from {{ .colors.color4 }} calc(l + 0.05) c h);
+    --blue-2: oklch(from {{ .colors.color4 }} l c h);
+    --blue-3: oklch(from {{ .colors.color4 }} calc(l - 0.07) c h);
+    --blue-4: oklch(from {{ .colors.color4 }} calc(l - 0.14) c h);
+    --blue-5: oklch(from {{ .colors.color4 }} calc(l - 0.21) c h);
+
+    /* yellow → color3 (cursor) */
+    --yellow-1: oklch(from {{ .colors.color3 }} calc(l + 0.10) c h);
+    --yellow-2: oklch(from {{ .colors.color3 }} calc(l + 0.05) c h);
+    --yellow-3: oklch(from {{ .colors.color3 }} l c h);
+    --yellow-4: oklch(from {{ .colors.color3 }} calc(l - 0.06) c h);
+    --yellow-5: oklch(from {{ .colors.color3 }} calc(l - 0.12) c h);
+
+    /* purple → foreground */
+    --purple-1: oklch(from {{ .colors.foreground }} l c h);
+    --purple-2: oklch(from {{ .colors.foreground }} calc(l - 0.05) c h);
+    --purple-3: oklch(from {{ .colors.foreground }} calc(l - 0.10) c h);
+    --purple-4: oklch(from {{ .colors.foreground }} calc(l - 0.15) c h);
+    --purple-5: oklch(from {{ .colors.foreground }} calc(l - 0.20) c h);
+}
+
 body {
     --font: 'Departure Mono';
     --code-font: 'Departure Mono';
@@ -75,85 +181,6 @@ body {
     --panel-labels: on; /* off: default, on: add labels to panels */
     --label-color: var(--text-muted); /* color of labels */
     --label-font-weight: 500; /* font weight of labels */
-}
-
-/* color options */
-:root {
-    --colors: on; /* off: discord default colors, on: midnight custom colors */
-
-    /* text colors */
-    --text-0: var(--bg-4); /* text on colored elements */
-    --text-1: oklch(95% 0 0); /* other normally white text */
-    --text-2: oklch(85% 0 0); /* headings and important text */
-    --text-3: oklch(75% 0 0); /* normal text */
-    --text-4: oklch(60% 0 0); /* icon buttons and channels */
-    --text-5: oklch(40% 0 0); /* muted channels/chats and timestamps */
-
-    /* background and dark colors */
-    --bg-1: oklch(31% 0 0); /* dark buttons when clicked */
-    --bg-2: oklch(27% 0 0); /* dark buttons */
-    --bg-3: oklch(23% 0 0); /* spacing, secondary elements */
-    --bg-4: oklch(19% 0 0); /* main background color */
-    --hover: oklch(54% 0 0 / 0.1); /* channels and buttons when hovered */
-    --active: oklch(54% 0 0 / 0.2); /* channels and buttons when clicked or selected */
-    --active-2: oklch(54% 0 0 / 0.3); /* extra state for transparent buttons */
-    --message-hover: var(--hover); /* messages when hovered */
-
-    /* accent colors */
-    --accent-1: var(--purple-1); /* links and other accent text */
-    --accent-2: var(--purple-2); /* small accent elements */
-    --accent-3: var(--purple-3); /* accent buttons */
-    --accent-4: var(--purple-4); /* accent buttons when hovered */
-    --accent-5: var(--purple-5); /* accent buttons when clicked */
-    --accent-new: var(--red-2); /* stuff that's normally red like mute/deafen buttons */
-    --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent); /* background of messages that mention you */
-    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent); /* background of messages that mention you when hovered */
-    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent); /* background of messages that reply to you */
-    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent); /* background of messages that reply to you when hovered */
-
-    /* status indicator colors */
-    --online: var(--green-2); /* change to #40a258 for default */
-    --dnd: var(--red-2); /* change to #d83a41 for default */
-    --idle: var(--yellow-2); /* change to #cc954c for default */
-    --streaming: var(--purple-2); /* change to ##9147ff for default */
-    --offline: var(--text-4); /* change to #82838b for default offline color */
-
-    /* border colors */
-    --border-light: var(--hover); /* general light border color */
-    --border: var(--active); /* general normal border color */
-    --border-hover: var(--accent-2); /* border color of panels when hovered */
-    --button-border: hsl(220, 0%, 100%, 0.1); /* neutral border color of buttons */
-
-    /* base colors */
-    --red-1: oklch(75% 0.13 0);
-    --red-2: oklch(70% 0.13 0);
-    --red-3: oklch(65% 0.13 0);
-    --red-4: oklch(60% 0.13 0);
-    --red-5: oklch(55% 0.13 0);
-
-    --green-1: oklch(75% 0.12 170);
-    --green-2: oklch(70% 0.12 170);
-    --green-3: oklch(65% 0.12 170);
-    --green-4: oklch(60% 0.12 170);
-    --green-5: oklch(55% 0.12 160);
-
-    --blue-1: oklch(75% 0.11 215);
-    --blue-2: oklch(70% 0.11 215);
-    --blue-3: oklch(65% 0.11 215);
-    --blue-4: oklch(60% 0.11 215);
-    --blue-5: oklch(55% 0.11 215);
-
-    --yellow-1: oklch(80% 0.12 90);
-    --yellow-2: oklch(75% 0.12 90);
-    --yellow-3: oklch(70% 0.12 90);
-    --yellow-4: oklch(65% 0.12 90);
-    --yellow-5: oklch(60% 0.12 90);
-
-    --purple-1: oklch(75% 0.12 310);
-    --purple-2: oklch(70% 0.12 310);
-    --purple-3: oklch(65% 0.12 310);
-    --purple-4: oklch(60% 0.12 310);
-    --purple-5: oklch(55% 0.12 310);
 }
 
 body {
@@ -468,10 +495,14 @@ body {
 
     .wrapper__44b0c,
     .container__1ce5d {
+        /* NOTE: these match against Discord's own hardcoded inline SVG/status
+         * fill values below (#45a366, #da3e44, #ffc04e, #ffffff, #9147ff) —
+         * they are Discord's raw defaults, not our theme, so they're left as
+         * literal hex deliberately rather than mapped to chezmoi colours. */
         --online-2: #43a25a;
         --dnd-2: #d83a41;
         --idle-2: #ca9654;
-        --offline-2: #82838b;
+        --offline-2: #ffffff;
         --streaming-2: #9147ff;
     }
     .wrapper__44b0c:has(rect)::after,
@@ -495,7 +526,7 @@ body {
     .wrapper__44b0c:has(rect[fill='#ffc04e'])::after {
         background: var(--idle-2) !important;
     }
-    .wrapper__44b0c:has(rect[fill='#84858d'])::after {
+    .wrapper__44b0c:has(rect[fill='#ffffff'])::after {
         background: var(--offline-2) !important;
     }
     .wrapper__44b0c:has(rect[fill='#9147ff'])::after {
@@ -555,7 +586,7 @@ body {
     --dms-background-image-size: cover;
     --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2));
 
-    /* Transparency — matches wezterm window_background_opacity: 0.90 */
+    /* Transparency — matches window_background_opacity: 0.90 elsewhere in the rice */
     --background-image: off;
     --background-image-url: url('');
     --transparency-tweaks: on;
@@ -572,108 +603,6 @@ body {
     --panel-labels: on;
     --label-color: var(--text-muted);
     --label-font-weight: 500;
-}
-
-:root {
-    --colors: on;
-
-    /* -------------------------------------------------------------------------
-     * Text — direct port from wezterm foreground/brights
-     * #C8B8FF = wezterm foreground
-     * #E8D8FF = wezterm bright white
-     * #B498E9 = wezterm bright blue
-     * #6478BC = wezterm bright black (dim text)
-     * #2A2A4A = wezterm active_tab bg (very muted)
-     * ------------------------------------------------------------------------- */
-    --text-0: var(--bg-4);
-    --text-1: oklch(from #E8D8FF l c h);   /* bright white — headers */
-    --text-2: oklch(from #C8B8FF l c h);   /* foreground — important text */
-    --text-3: oklch(from #B498E9 l c h);   /* bright blue — normal text */
-    --text-4: oklch(from #6478BC l c h);   /* bright black — icons/channels */
-    --text-5: oklch(from #3D3D6A l c h);   /* muted channels/timestamps */
-
-    /* -------------------------------------------------------------------------
-     * Backgrounds — wezterm bg = #04040A, panels stepped up
-     * Matches: background #04040A, active_tab #2A2A4A, inactive_tab #04040A
-     * ------------------------------------------------------------------------- */
-    --bg-1: oklch(from #2A2A4A l c h);     /* clicked buttons */
-    --bg-2: hsla(240, 43%, 10%, 0.40);    /* buttons */
-    --bg-3: hsla(240, 43%, 6%, 0.45);     /* spacing / secondary panels */
-    --bg-4: hsla(240, 43%, 4%, 0.55);     /* main background — exact wezterm bg */
-    --hover: oklch(58% 0.18 272 / 0.08);
-    --active: oklch(58% 0.18 272 / 0.15);
-    --active-2: oklch(58% 0.18 272 / 0.25);
-    --message-hover: var(--hover);
-
-    /* -------------------------------------------------------------------------
-     * Accents — wezterm cursor/accent = #7766FF, selection = #6478BC
-     * ------------------------------------------------------------------------- */
-    --accent-1: oklch(from #B498E9 l c h);  /* links — bright blue */
-    --accent-2: oklch(from #9988FF l c h);  /* small elements — bright cyan */
-    --accent-3: oklch(from #7766FF l c h);  /* buttons — cursor colour */
-    --accent-4: oklch(from #8877FF l c h);  /* hovered buttons — bright yellow slot */
-    --accent-5: oklch(from #6655EE l c h);  /* clicked buttons */
-    --accent-new: oklch(from #5268AC l c h); /* mute/deafen — wezterm red (ansi 1) */
-    --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
-    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
-    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
-    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent);
-
-    /* -------------------------------------------------------------------------
-     * Status — using wezterm ansi colours where they fit semantically
-     * ------------------------------------------------------------------------- */
-    --online: oklch(from #8A2882 l c h);    /* wezterm ansi green (it's a purple) */
-    --dnd: oklch(from #5268AC l c h);       /* wezterm ansi red */
-    --idle: oklch(from #7766FF l c h);      /* wezterm ansi yellow slot */
-    --streaming: oklch(from #D354A1 l c h); /* wezterm ansi magenta */
-    --offline: var(--text-4);
-
-    /* -------------------------------------------------------------------------
-     * Borders
-     * ------------------------------------------------------------------------- */
-    --border-light: var(--hover);
-    --border: var(--active);
-    --border-hover: var(--accent-2);
-    --button-border: hsl(220, 0%, 100%, 0.1);
-
-    /* -------------------------------------------------------------------------
-     * Base colour ramps — mapped to wezterm palette bands
-     * ------------------------------------------------------------------------- */
-
-    /* red → wezterm ansi red #5268AC (it's really a dark blue-purple) */
-    --red-1: oklch(from #6478BC l c h);
-    --red-2: oklch(from #5268AC l c h);
-    --red-3: oklch(from #4258A0 l c h);
-    --red-4: oklch(from #324890 l c h);
-    --red-5: oklch(from #223880 l c h);
-
-    /* green → wezterm ansi green #791E72 / #8A2882 */
-    --green-1: oklch(from #9A3892 l c h);
-    --green-2: oklch(from #8A2882 l c h);
-    --green-3: oklch(from #791E72 l c h);
-    --green-4: oklch(from #641560 l c h);
-    --green-5: oklch(from #4F0D4E l c h);
-
-    /* blue → wezterm bright blue #C4A8F9 / #B498E9 */
-    --blue-1: oklch(from #C4A8F9 l c h);
-    --blue-2: oklch(from #B498E9 l c h);
-    --blue-3: oklch(from #A088D9 l c h);
-    --blue-4: oklch(from #8C78C9 l c h);
-    --blue-5: oklch(from #7868B9 l c h);
-
-    /* yellow → wezterm cursor #7766FF / brights */
-    --yellow-1: oklch(from #9988FF l c h);
-    --yellow-2: oklch(from #8877FF l c h);
-    --yellow-3: oklch(from #7766FF l c h);
-    --yellow-4: oklch(from #6655EE l c h);
-    --yellow-5: oklch(from #5544DD l c h);
-
-    /* purple → wezterm foreground #C8B8FF / selection #6478BC */
-    --purple-1: oklch(from #C8B8FF l c h);
-    --purple-2: oklch(from #B8A8EF l c h);
-    --purple-3: oklch(from #A898DF l c h);
-    --purple-4: oklch(from #9888CF l c h);
-    --purple-5: oklch(from #8878BF l c h);
 }
 
 
