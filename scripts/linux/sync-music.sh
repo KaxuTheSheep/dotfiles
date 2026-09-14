@@ -7,12 +7,13 @@ target="${1:-}"
 sanitize_name() {
   local name="$1"
   name="${name//:/ -}"      # colon -> " -"
-  name="${name//\"/'}"      # double quote -> single quote
+  name="${name//\"/＇}"     # double quote -> fullwidth apostrophe
   name="${name//</＜}"      # fullwidth 
   name="${name//>/＞}"      # fullwidth >
   name="${name//\?/？}"     # fullwidth ?
   name="${name//\*/＊}"     # fullwidth *
   name="${name//|/｜}"      # fullwidth |
+  name="${name//\\/＼}"     # fullwidth backslash
   echo "$name"
 }
 
