@@ -2,34 +2,77 @@
 set -euo pipefail
 
 SRC="$HOME/.config/dwl/patches"
-DEST="$HOME/kaxu-overlay/gui-wm/dwl/files"
+PKGDIR="$HOME/kaxu-overlay/gui-wm/dwl"
+DEST="$PKGDIR/files"
 
 if [ ! -d "$SRC" ]; then
-    echo "Source patch dir not found: $SRC"
+    echo "Source patch dir not found: $SRC" >&2
+    exit 1
+fi
+mkdir -p "$DEST"
+shopt -s nullglob
+
+# Versions that have an ebuild in the overlay (live ebuilds ignored,
+# revisions stripped: dwl-0.9-r1.ebuild -> 0.9)
+versions=()
+for e in "$PKGDIR"/dwl-*.ebuild; do
+    v="${e##*/dwl-}"
+    v="${v%.ebuild}"
+    v="${v%-r[0-9]*}"
+    if [[ $v != 9999* ]]; then
+        versions+=("$v")
+    fi
+done
+if [ "${#versions[@]}" -eq 0 ]; then
+    echo "No dwl ebuilds found in $PKGDIR" >&2
     exit 1
 fi
 
-mkdir -p "$DEST"
-
-# Flatten: only *.patch files, skip READMEs and anything else, skip
-# per-patch subdirectories (autostart/, movestack/) — the ebuild's files/
-# dir is flat.
-shopt -s nullglob
-found=0
-for patch in "$SRC"/*/*.patch; do
-    found=1
-    base="$(basename "$patch")"
-    cp -v "$patch" "$DEST/$base"
+# Only take <name>-<version>.patch for versions actually shipped.
+# Skips other versions, READMEs and per-patch subdirectory clutter.
+declare -A wanted=()
+for v in "${versions[@]}"; do
+    for patch in "$SRC"/*/*-"$v".patch; do
+        base="${patch##*/}"
+        if [[ -n ${wanted[$base]:-} ]]; then
+            echo "Name collision: $base ($patch vs ${wanted[$base]})" >&2
+            exit 1
+        fi
+        wanted[$base]="$patch"
+    done
 done
 
-if [ "$found" -eq 0 ]; then
-    echo "No .patch files found under $SRC"
-    exit 0
-fi
+for base in "${!wanted[@]}"; do
+    cp -v "${wanted[$base]}" "$DEST/$base"
+done
+
+# Prune stale patches
+for f in "$DEST"/*.patch; do
+    base="${f##*/}"
+    if [[ -z ${wanted[$base]:-} ]]; then
+        rm -v "$f"
+    fi
+done
+
+# Every patch an ebuild references must exist
+pv_pat='${PV}'
+for e in "$PKGDIR"/dwl-*.ebuild; do
+    v="${e##*/dwl-}"
+    v="${v%.ebuild}"
+    v="${v%-r[0-9]*}"
+    while IFS= read -r ref; do
+        ref="${ref//"$pv_pat"/$v}"
+        if [ ! -f "$DEST/$ref" ]; then
+            echo "WARNING: ${e##*/} references missing files/$ref" >&2
+        fi
+    done < <(grep -o '\${FILESDIR}/[^"]*' "$e" | sed 's#^\${FILESDIR}/##' || true)
+done
 
 echo
 echo "Synced patches to $DEST"
-echo "Reminder: this only copies files. You still need to:"
-echo "  1. Update dwl-0.8.ebuild if patch filenames changed"
-echo "  2. Regenerate the Manifest (ebuild --manifest or repoman manifest)"
-echo "  3. emerge --oneshot gui-wm/dwl to actually rebuild"
+if command -v pkgdev >/dev/null; then
+    (cd "$PKGDIR" && pkgdev manifest)
+else
+    echo "pkgdev not found; run: cd $PKGDIR && ebuild dwl-<version>.ebuild manifest"
+fi
+echo "Next: emerge -1 gui-wm/dwl"
