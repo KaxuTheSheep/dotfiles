@@ -5,10 +5,11 @@
     address: "127.0.0.1:6600",
     password: None,
     theme: Some("theme"),
+    lyrics_dir: Some("/home/kaxuthesheep/.config/mpd/.lyrics"),
     cache_dir: None,
     on_song_change: None,
     volume_step: 5,
-    max_fps: 30,
+    max_fps: 60,
     scrolloff: 0,
     wrap_navigation: false,
     enable_mouse: true,
@@ -147,7 +148,7 @@
             pane: Split(
                 direction: Horizontal,
                 panes: [
-                (
+                    (
                         size: "35%",
                         pane: Split(
                             direction: Vertical,
@@ -158,7 +159,15 @@
                                     border_symbols: Plain,
                                     pane: Pane(AlbumArt)
                                 ),
-                            ],
+                                (
+                                    size: "14",
+                                    borders: "ALL",
+                                    border_symbols: Inherited(parent: Plain, top_left: "├", top_right: "┤",),
+                                    border_title: [(kind: Text(" Lyrics "))],
+                                    border_title_alignment: Left,
+                                    pane: Pane(Lyrics)
+				),
+			    ],
                         ),
                     ), 
                     (
