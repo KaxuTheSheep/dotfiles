@@ -1,27 +1,3 @@
-{{ if eq .chezmoi.os "linux" }}
-AppData/
-Documents/
-scoop/
-.config/komorebi/
-.config/wezterm/
-.config/whkd/
-.config/yasb/
-.config/psmux/
-{{ end }}
-{{ if eq .chezmoi.os "windows" }}
-.config/ghostty/
-.config/fish/
-.config/dwl/
-.config/btop/
-.config/quickshell/
-.config/tofi/
-.config/tmux/
-.config/org.freedesktop.FileManager1.common
-.config/xdg-desktop-portal
-.config/xdg-desktop-portal-termfilechooser
-.local/share/fonts
-.local/libexec
-{{ end }}
 .config/nvim/lazy-lock.json
 scripts/
 fonts/
