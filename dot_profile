@@ -1,0 +1,3 @@
+# ~/.profile
+export ENV="$HOME/.mkshrc"
+export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"

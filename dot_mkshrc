@@ -1,0 +1,50 @@
+# ~/.mkshrc
+
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+export TERMCMD="ghostty --class=yazi -e"
+export SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.sock"
+
+# TODO: replace ssh-agent block with a service-based agent
+#       (keychain / gpg-agent / user service) on new PC
+ssh-add -l >/dev/null 2>&1
+case $? in
+    2)
+        pkill -u "$USER" ssh-agent 2>/dev/null
+        rm -f "$SSH_AUTH_SOCK"
+        ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+        ssh-add ~/.ssh/id_kaxtoo
+        ;;
+    1)
+        ssh-add ~/.ssh/id_kaxtoo
+        ;;
+esac
+
+# History and editing
+HISTFILE="$HOME/.mksh_history"
+HISTSIZE=50000
+set -o vi
+
+alias ls='eza'
+alias cat='bat'
+alias ff='fastfetch'
+alias ll='eza -lah --git'
+alias tree='eza --tree --all'
+
+pick() {
+    local root=$1 cmd=$2 file
+    shift 2
+    file=$(fd -t f . "$root" --hidden --exclude node_modules --exclude .git 2>/dev/null \
+        | fzf --query "$*" --exact --height 40% --reverse) || return
+    [ -n "$file" ] && "$cmd" "$file"
+}
+vf()  { pick .  nvim "$@"; }
+uvf() { pick /  nvim "$@"; }
+cf()  { pick .  bat  "$@"; }
+ucf() { pick /  bat  "$@"; }
+
+cdf() {
+    local dir
+    dir=$(fd -t d --hidden | fzf "$@") && cd "$dir"
+}
+
+PS1='$(starship prompt)'

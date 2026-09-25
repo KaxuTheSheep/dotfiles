@@ -3,7 +3,7 @@ set -gx PATH $PATH $HOME/.cargo/bin $HOME/.local/bin
 set -gx STARSHIP_CONFIG $HOME/.config/starship/starship.toml
 set -gx TERMCMD "ghostty --class=yazi -e"
 
-# SSH agent
+# SSH agent TODO, Switch from this to a service.
 set -gx SSH_AUTH_SOCK ~/.ssh/ssh-agent.sock
 ssh-add -l >/dev/null 2>&1
 switch $status
