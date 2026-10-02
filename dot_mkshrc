@@ -1,32 +1,11 @@
 # ~/.mkshrc
-
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-export TERMCMD="ghostty --class=yazi -e"
-export SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.sock"
-
-# TODO: replace ssh-agent block with a service-based agent
-#       (keychain / gpg-agent / user service) on new PC
-ssh-add -l >/dev/null 2>&1
-case $? in
-    2)
-        pkill -u "$USER" ssh-agent 2>/dev/null
-        rm -f "$SSH_AUTH_SOCK"
-        ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
-        ssh-add ~/.ssh/id_kaxtoo
-        ;;
-    1)
-        ssh-add ~/.ssh/id_kaxtoo
-        ;;
-esac
-
+[ -f "$HOME/.keychain/$(hostname)-sh" ] && . "$HOME/.keychain/$(hostname)-sh"
 # History and editing
 HISTFILE="$HOME/.mksh_history"
 HISTSIZE=50000
 set -o vi
 
 alias ls='eza'
-alias cat='bat'
-alias ff='fastfetch'
 alias ll='eza -lah --git'
 alias tree='eza --tree --all'
 
@@ -37,8 +16,8 @@ pick() {
         | fzf --query "$*" --exact --height 40% --reverse) || return
     [ -n "$file" ] && "$cmd" "$file"
 }
-vf()  { pick .  nvim "$@"; }
-uvf() { pick /  nvim "$@"; }
+vf()  { pick .  vis "$@"; }
+uvf() { pick /  vis "$@"; }
 cf()  { pick .  bat  "$@"; }
 ucf() { pick /  bat  "$@"; }
 
@@ -47,4 +26,91 @@ cdf() {
     dir=$(fd -t d --hidden | fzf "$@") && cd "$dir"
 }
 
-PS1='$(starship prompt)'
+
+#colours
+_acc=$'\001\033[34m\001'    # slot 4: 7766FF
+_err=$'\001\033[31m\001'    # slot 1: 5268AC
+_fg=$'\001\033[39m\001'     # default foreground
+_bold=$'\001\033[1m\001'
+_off=$'\001\033[0m\001'
+
+# directory
+_pdir() {
+  typeset t t2 n=1
+  _d=$PWD
+  case $_d in
+  "$HOME")   _d='~' ;;
+  "$HOME"/*) _d="~${_d#"$HOME"}" ;;
+  esac
+  t=${_d#/}; t2=$t
+  while [[ $t2 = */* ]]; do t2=${t2#*/}; ((n++)); done
+  if ((n > 3)); then
+    while ((n > 3)); do t=${t#*/}; ((n--)); done
+    _d="…/$t"
+  fi
+  _d=${_d//Documents/󰈙 }
+  _d=${_d//Downloads/ }
+  _d=${_d//Pictures/󱢉 }
+  _d=${_d//Music/ }
+}
+
+# git
+_pgit() {
+  typeset out l xy br= oid= s= ab= ahead=0 behind=0
+  typeset staged=0 mod=0 unt=0 conf=0
+  _git=
+  out=$(git --no-optional-locks status --porcelain=v2 --branch 2>/dev/null) || return 0
+  while IFS= read -r l; do
+    case $l in
+    '# branch.oid '*)  oid=${l#'# branch.oid '} ;;
+    '# branch.head '*) br=${l#'# branch.head '} ;;
+    '# branch.ab '*)   l=${l#'# branch.ab +'}; ahead=${l% *}; behind=${l#* -} ;;
+    '1 '*|'2 '*)       xy=${l#? }; xy=${xy%% *}
+                       [[ ${xy%?} = . ]] || staged=1
+                       [[ ${xy#?} = . ]] || mod=1 ;;
+    'u '*)             conf=1 ;;
+    '? '*)             unt=1 ;;
+    esac
+  done <<EOF
+$out
+EOF
+  [[ -n $br ]] || return 0
+  [[ $br = '(detached)' ]] && br=${oid%"${oid#???????}"}
+  ((staged)) && s+=+
+  ((mod))    && s+='!'
+  ((unt))    && s+='?'
+  ((conf))   && s+='='
+  if ((ahead && behind)); then ab="↕↑$ahead↓$behind"
+  elif ((ahead));         then ab="↑$ahead"
+  elif ((behind));        then ab="↓$behind"
+  fi
+  s+=$ab
+  # U+E0A0 (branch glyph) as UTF-8 octal bytes
+  _git="${_acc} "$'\356\202\240'" $br${s:+ $s}${_off}"
+}
+
+#languages
+_has() { typeset f; for f; do [[ -e $f ]] && return 0; done; return 1; }
+_plang() {
+  _lang=
+  _has *.c *.h                              && _lang+=" "$'\356\230\236'
+  _has *.cpp *.hpp *.cc *.cxx               && _lang+=" "$'\356\230\235'
+  _has *.java pom.xml build.gradle          && _lang+=" "$'\356\234\270'
+  _has *.py pyproject.toml requirements.txt && _lang+=" "$'\356\234\274'"${VIRTUAL_ENV:+ (${VIRTUAL_ENV##*/})}"
+  _has Cargo.toml *.rs                      && _lang+=" "$'\356\236\250'
+  _has package.json yarn.lock *.js *.mjs *.cjs *.ts node_modules \
+                                            && _lang+=" "$'\363\260\216\231'
+  [[ -n $_lang ]] && _lang="${_bold}${_lang}${_off}"
+}
+
+# assemble
+_prompt() {
+  typeset e=$? ch
+  _pdir; _pgit; _plang
+  if ((e)); then ch=$_err; else ch=$_acc; fi
+  REPLY=$'\n'"${_fg}$(date +%R) ${_bold}${_d}${_off}${_git}${_lang}"$'\n'"${_bold}${ch}❯${_off} "
+  return $e
+}
+
+PS1=$'\001\r''${|_prompt}'
+PS2='▶▶ '

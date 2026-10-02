@@ -1,5 +1,0 @@
-singleton NotificationState 1.0 NotificationState.qml
-singleton Toasts 1.0 Toasts.qml
-Notifications 1.0 Notifications.qml
-TimerAdd 1.0 TimerAdd.qml
-TimerState 1.0 TimerState.qml

@@ -1,6 +1,0 @@
-[filechooser]
-cmd=home/kaxuthesheep/src/xdg-termfilechooser-bridge
-default_dir=/home/kaxuthesheep
-env=TERMCMD='ghostty'
-open_mode = suggested
-save_mode = last

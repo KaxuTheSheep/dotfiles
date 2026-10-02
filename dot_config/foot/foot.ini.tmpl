@@ -1,0 +1,29 @@
+in]
+font=DepartureMono Nerd Font Mono:style=Regular:size=10, JetBrainsMonoNL NFM:size=10, Noto Sans Mono:size=10, Noto Sans CJK JP:size=10
+pad=12x10
+term=foot
+shell=tmux new-session -A -s foot
+
+[cursor]
+style=beam
+blink=yes
+
+[mouse]
+hide-when-typing=yes
+
+[scrollback]
+lines=10000
+
+[colors-dark]
+alpha=1
+background={{ .colors.background | trimPrefix "#" }}
+foreground={{ .colors.foreground | trimPrefix "#" }}
+cursor={{ .colors.background | trimPrefix "#" }} {{ .colors.cursor | trimPrefix "#" }}
+selection-foreground={{ .colors.background | trimPrefix "#" }}
+selection-background={{ .colors.color4 | trimPrefix "#" }}
+{{- range $i := until 8 }}
+regular{{ $i }}={{ index $.colors (printf "color%d" $i) | trimPrefix "#" }}
+{{- end }}
+{{- range $i := until 8 }}
+bright{{ $i }}={{ index $.colors (printf "color%d" (add $i 8)) | trimPrefix "#" }}
+{{- end }}

@@ -1,0 +1,12 @@
+#!/bin/sh
+exec bemenu-run \
+    -i -l 10 -p '>' \
+    --fn 'DepartureMono Nerd Font Mono 13' \
+    --tb '{{ .colors.color4 }}' --tf '{{ .colors.background }}' \
+    --fb '{{ .colors.background }}' --ff '{{ .colors.foreground }}' \
+    --nb '{{ .colors.background }}' --nf '{{ .colors.foreground }}' \
+    --ab '{{ .colors.background }}' --af '{{ .colors.foreground }}' \
+    --hb '{{ .colors.color12 }}' --hf '{{ .colors.background }}' \
+    --sb '{{ .colors.color5 }}' --sf '{{ .colors.background }}' \
+    --cb '{{ .colors.cursor }}' --cf '{{ .colors.background }}' \
+    "$@"
