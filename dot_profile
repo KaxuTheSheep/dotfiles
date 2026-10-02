@@ -1,4 +1,5 @@
 # ~/.profile
 export ENV="$HOME/.mkshrc"
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 eval "$(keychain --eval --quiet)"
