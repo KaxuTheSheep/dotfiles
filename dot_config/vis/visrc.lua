@@ -1,7 +1,7 @@
 require('vis')
 -- global
 vis.events.subscribe(vis.events.INIT, function()
-    vis:command('set theme default')
+    vis:command('set theme amethyst')
 end)
 -- window
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
@@ -11,7 +11,7 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
     vis:command('set showtabs true')
     vis:command('set expandtab on')
     vis:map(vis.modes.NORMAL," p", '"+p')
-    vis:map(vis.modes.VISUAL," y", '"+y')
+    vis:map(vis.modes.VISUAL," y", '"+y<Escape><Escape>') 
     if win.syntax == 'makefile' or win.syntax == 'go' then
         vis:command('set expandtab off')
     end
@@ -34,9 +34,9 @@ colorizer.six   = true
 local completefilename = require('plugins/complete-filename')
 -- vis-lspc
 local lsp = require('plugins/vis-lspc')
---lsp.ls_map.clangd = {
---  formatting_options = {tabSize = 2, insertSpaces = false}
---}
+  lsp.ls_map.clangd = {
+    formatting_options = {tabSize = 2, insertSpaces = false}
+  }
 lsp.ls_map.lua = {
     name = 'lua-language-server',
     cmd = 'lua-language-server',
@@ -45,4 +45,3 @@ lsp.ls_map.lua = {
     },
     formatting_options = {tabSize = 2, insertSpaces = true},
 }
-
