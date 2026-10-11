@@ -1,5 +1,7 @@
 # ~/.profile
 export ENV="$HOME/.mkshrc"
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export XDG_CURRENT_DESKTOP=wlroots
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 eval "$(keychain --eval --quiet)"
+export EDITOR=vis

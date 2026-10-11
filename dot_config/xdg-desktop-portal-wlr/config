@@ -1,0 +1,2 @@
+chooser_type=/home/kaxuthesheep/.local/bin/bemenu-launch
+chooser_cmd=slurp -f %o -or
