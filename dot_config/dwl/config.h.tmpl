@@ -148,10 +148,14 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_Return,      zoom,             {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_comma,       tagmon,           {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_period,      tagmon,           {.i = WLR_DIRECTION_RIGHT} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_j,           movestack,        {.i = +1} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_k,           movestack,        {.i = -1} },
 
 	// ── RESIZE ────────────────────────────────────────────────
 	{ MODKEY,                    XKB_KEY_h,           setmfact,         {.f = -0.05f} },
 	{ MODKEY,                    XKB_KEY_l,           setmfact,         {.f = +0.05f} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_H,           setcfact,         {.f = -0.25f} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_L,           setcfact,         {.f = +0.25f} },
 	{ MODKEY,                    XKB_KEY_i,           incnmaster,       {.i = +1} },
 	{ MODKEY,                    XKB_KEY_p,           incnmaster,       {.i = -1} },
 
