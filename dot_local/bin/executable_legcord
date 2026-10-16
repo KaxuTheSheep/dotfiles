@@ -1,0 +1,2 @@
+#!/bin/sh
+exec env PULSE_SINK=alsa_output.usb-ARTURIA_ArturiaMsd-00.analog-stereo /usr/bin/legcord-bin "$@"

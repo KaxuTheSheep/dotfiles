@@ -5,3 +5,5 @@ export XDG_CURRENT_DESKTOP=wlroots
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 eval "$(keychain --eval --quiet)"
 export EDITOR=vis
+export SPICETIFY_INSTALL="/home/kaxuthesheep/.spicetify"
+export PATH="$PATH:/home/kaxuthesheep/.spicetify"

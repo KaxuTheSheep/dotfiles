@@ -8,6 +8,7 @@ set -o vi
 alias ls='eza'
 alias ll='eza -lah --git'
 alias tree='eza --tree --all'
+alias cvis='chezmoi edit'
 
 pick() {
     local root=$1 cmd=$2 file

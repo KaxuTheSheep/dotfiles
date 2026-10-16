@@ -1,0 +1,164 @@
+@-moz-document url-prefix("about:") {
+  body {
+    background-color: {{ .colors.background }} !important;
+    color: {{ .colors.foreground }} !important;
+  }
+
+  * {
+    border-radius: 0px !important;
+  }
+
+  button:hover, .button:hover {
+    background-color: {{ .colors.cursor }} !important;
+    color: {{ .colors.background }} !important;
+  }
+
+  * {
+    --text-color:             {{ .colors.foreground }} !important;
+    --color-accent-primary:   light-dark({{ .colors.cursor }}55, {{ .colors.cursor }}) !important;
+    --color-accent-secondary: light-dark({{ .colors.color4 }}55, {{ .colors.color4 }}) !important;
+  }
+
+  * {
+    --color-blue-0:  {{ .colors.color6 }} !important;
+    --color-blue-10: {{ .colors.color6 }} !important;
+    --color-blue-20: {{ .colors.color6 }} !important;
+    --color-blue-30: {{ .colors.color6 }} !important;
+    --color-blue-40: {{ .colors.color6 }} !important;
+    --color-blue-50: {{ .colors.color6 }} !important;
+    --color-blue-60: {{ .colors.color6 }} !important;
+    --color-blue-70: {{ .colors.color6 }} !important;
+    --color-blue-80: {{ .colors.color6 }} !important;
+    --color-blue-90: {{ .colors.color6 }} !important;
+    --color-cyan-0:  {{ .colors.color14 }} !important;
+    --color-cyan-10: {{ .colors.color14 }} !important;
+    --color-cyan-20: {{ .colors.color14 }} !important;
+    --color-cyan-30: {{ .colors.color14 }} !important;
+    --color-cyan-40: {{ .colors.color14 }} !important;
+    --color-cyan-50: {{ .colors.color14 }} !important;
+    --color-cyan-60: {{ .colors.color14 }} !important;
+    --color-cyan-70: {{ .colors.color14 }} !important;
+    --color-cyan-80: {{ .colors.color14 }} !important;
+    --color-cyan-90: {{ .colors.color14 }} !important;
+    --color-gray-0:  {{ .colors.color15 }} !important;
+    --color-gray-05: {{ .colors.color7 }} !important;
+    --color-gray-10: {{ .colors.color4 }} !important;
+    --color-gray-15: {{ .colors.color11 }} !important;
+    --color-gray-20: {{ .colors.cursor }} !important;
+    --color-gray-25: {{ .colors.color9 }} !important;
+    --color-gray-30: {{ .colors.color1 }} !important;
+    --color-gray-35: {{ .colors.color8 }} !important;
+    --color-gray-40: {{ .colors.color8 }} !important;
+    --color-gray-45: {{ .colors.color8 }} !important;
+    --color-gray-50: {{ .colors.color8 }} !important;
+    --color-gray-55: {{ .colors.color8 }} !important;
+    --color-gray-60: {{ .colors.color8 }} !important;
+    --color-gray-65: {{ .colors.background }} !important;
+    --color-gray-70: {{ .colors.background }} !important;
+    --color-gray-75: {{ .colors.background }} !important;
+    --color-gray-80: {{ .colors.background }} !important;
+    --color-gray-85: {{ .colors.background }} !important;
+    --color-gray-90: {{ .colors.background }} !important;
+    --color-green-0:  {{ .colors.color2 }} !important;
+    --color-green-10: {{ .colors.color2 }} !important;
+    --color-green-20: {{ .colors.color2 }} !important;
+    --color-green-30: {{ .colors.color2 }} !important;
+    --color-green-40: {{ .colors.color2 }} !important;
+    --color-green-50: {{ .colors.color2 }} !important;
+    --color-green-60: {{ .colors.color2 }} !important;
+    --color-green-70: {{ .colors.color2 }} !important;
+    --color-green-80: {{ .colors.color2 }} !important;
+    --color-green-90: {{ .colors.color2 }} !important;
+    --color-orange-0:  {{ .colors.color5 }} !important;
+    --color-orange-10: {{ .colors.color5 }} !important;
+    --color-orange-20: {{ .colors.color5 }} !important;
+    --color-orange-30: {{ .colors.color5 }} !important;
+    --color-orange-40: {{ .colors.color5 }} !important;
+    --color-orange-50: {{ .colors.color5 }} !important;
+    --color-orange-60: {{ .colors.color5 }} !important;
+    --color-orange-70: {{ .colors.color5 }} !important;
+    --color-orange-80: {{ .colors.color5 }} !important;
+    --color-orange-90: {{ .colors.color5 }} !important;
+    --color-pink-0:  {{ .colors.color13 }} !important;
+    --color-pink-10: {{ .colors.color13 }} !important;
+    --color-pink-20: {{ .colors.color13 }} !important;
+    --color-pink-30: {{ .colors.color13 }} !important;
+    --color-pink-40: {{ .colors.color13 }} !important;
+    --color-pink-50: {{ .colors.color13 }} !important;
+    --color-pink-60: {{ .colors.color13 }} !important;
+    --color-pink-70: {{ .colors.color13 }} !important;
+    --color-pink-80: {{ .colors.color13 }} !important;
+    --color-pink-90: {{ .colors.color13 }} !important;
+    --color-purple-0:  {{ .colors.color10 }} !important;
+    --color-purple-10: {{ .colors.color10 }} !important;
+    --color-purple-20: {{ .colors.color10 }} !important;
+    --color-purple-30: {{ .colors.color10 }} !important;
+    --color-purple-40: {{ .colors.color10 }} !important;
+    --color-purple-50: {{ .colors.color10 }} !important;
+    --color-purple-60: {{ .colors.color10 }} !important;
+    --color-purple-70: {{ .colors.color10 }} !important;
+    --color-purple-80: {{ .colors.color10 }} !important;
+    --color-purple-90: {{ .colors.color10 }} !important;
+    --color-red-0:  {{ .colors.color12 }} !important;
+    --color-red-10: {{ .colors.color12 }} !important;
+    --color-red-20: {{ .colors.color12 }} !important;
+    --color-red-30: {{ .colors.color12 }} !important;
+    --color-red-40: {{ .colors.color12 }} !important;
+    --color-red-50: {{ .colors.color12 }} !important;
+    --color-red-60: {{ .colors.color12 }} !important;
+    --color-red-70: {{ .colors.color12 }} !important;
+    --color-red-80: {{ .colors.color12 }} !important;
+    --color-red-90: {{ .colors.color12 }} !important;
+    --color-violet-0:  {{ .colors.color11 }} !important;
+    --color-violet-10: {{ .colors.color11 }} !important;
+    --color-violet-20: {{ .colors.color11 }} !important;
+    --color-violet-30: {{ .colors.color11 }} !important;
+    --color-violet-40: {{ .colors.color11 }} !important;
+    --color-violet-50: {{ .colors.color11 }} !important;
+    --color-violet-60: {{ .colors.color11 }} !important;
+    --color-violet-70: {{ .colors.color11 }} !important;
+    --color-violet-80: {{ .colors.color11 }} !important;
+    --color-violet-90: {{ .colors.color11 }} !important;
+    --color-violet-desaturated-0:  {{ .colors.cursor }} !important;
+    --color-violet-desaturated-10: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-20: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-30: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-40: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-50: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-60: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-70: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-80: {{ .colors.cursor }} !important;
+    --color-violet-desaturated-90: {{ .colors.cursor }} !important;
+    --color-yellow-0:  {{ .colors.color4 }} !important;
+    --color-yellow-10: {{ .colors.color4 }} !important;
+    --color-yellow-20: {{ .colors.color4 }} !important;
+    --color-yellow-30: {{ .colors.color4 }} !important;
+    --color-yellow-40: {{ .colors.color4 }} !important;
+    --color-yellow-50: {{ .colors.color4 }} !important;
+    --color-yellow-60: {{ .colors.color4 }} !important;
+    --color-yellow-70: {{ .colors.color4 }} !important;
+    --color-yellow-80: {{ .colors.color4 }} !important;
+    --color-yellow-90: {{ .colors.color4 }} !important;
+  }
+
+  * {
+    --background-color-box:                 {{ .colors.color0 }} !important;
+    --background-color-box-info:            {{ .colors.color0 }} !important;
+    --background-color-information:         {{ .colors.color8 }} !important;
+    --background-color-canvas:              {{ .colors.background }} !important;
+    --border-color:                         {{ .colors.color8 }} !important;
+    --border-color-deemphasized:            {{ .colors.color8 }} !important;
+    --button-background-color-muted:        {{ .colors.color8 }} !important;
+    --button-text-color-ghost-disabled:     {{ .colors.color1 }} !important;
+    --button-border:            2px solid var(--border-color) !important;
+    --table-row-background-color-alternate: {{ .colors.color0 }} !important;
+    --text-color-accent-primary-selected:   var(--text-color) !important;
+  }
+
+  * {
+    --table-background-color:        var(--background-color-box) !important;
+    --table-border-color:            var(--border-color) !important;
+    --table-header-background-color: var(--color-accent-primary) !important;
+    --table-row-background-color:    var(--background-color-canvas) !important;
+  }
+}

@@ -38,7 +38,7 @@
     --bg-1: oklch(from {{ .colors.color8 }} l c h);                            /* clicked buttons — opaque */
     --bg-2: oklch(from {{ .colors.background }} calc(l + 0.06) c h / 0.90);    /* buttons */
     --bg-3: oklch(from {{ .colors.background }} calc(l + 0.02) c h / 0.90);    /* spacing, secondary elements */
-    --bg-4: oklch(from {{ .colors.background }} l c h / 0.90);                 /* main background */
+    --bg-4: oklch(from {{ .colors.background }} l c h / 1.0);                 /* main background */
     --hover: oklch(from {{ .colors.color3 }} l c h / 0.08);                    /* channels and buttons when hovered */
     --active: oklch(from {{ .colors.color3 }} l c h / 0.15);                   /* channels and buttons when clicked or selected */
     --active-2: oklch(from {{ .colors.color3 }} l c h / 0.25);                 /* extra state for transparent buttons */
