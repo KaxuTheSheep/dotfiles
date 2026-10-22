@@ -1,0 +1,48 @@
+#!/bin/sh
+set -eu
+
+MODE=${1:-link}
+MODS=/games/mods/cyberpunk
+GAME="/games/steam/steamapps/common/Cyberpunk 2077"
+M=$MODS/.links
+
+case $MODE in
+  link|unlink|hard) ;;
+  *) echo "usage: $0 [link|unlink|hard]" >&2; exit 2 ;;
+esac
+
+[ -d "$GAME" ] || { echo "game dir missing: $GAME" >&2; exit 1; }
+
+if [ -f "$M" ]; then
+  while IFS= read -r l; do
+    [ -n "$l" ] && rm -f -- "$l"
+  done <"$M"
+fi
+: >"$M"
+
+[ "$MODE" = unlink ] && { echo "unlinked"; exit 0; }
+
+[ -f "$MODS/enabled" ] || { echo "missing $MODS/enabled" >&2; exit 1; }
+
+while IFS= read -r name; do
+  case $name in ''|\#*) continue;; esac
+  [ -d "$MODS/$name" ] || { echo "SKIP: not a dir: $name" >&2; continue; }
+  (cd "$MODS/$name" && find . -type f) | while IFS= read -r f; do
+    f=${f#./}
+    dest="$GAME/$f"
+    mkdir -p -- "$(dirname -- "$dest")"
+    if [ "$MODE" = hard ]; then
+      if ln -- "$MODS/$name/$f" "$dest" 2>/dev/null; then
+        :
+      else
+        echo "FAIL hardlink (cross-device?): $name/$f" >&2
+        exit 1
+      fi
+    else
+      ln -sf -- "$MODS/$name/$f" "$dest"
+    fi
+    printf '%s\n' "$dest" >>"$M"
+  done
+done <"$MODS/enabled"
+
+echo "$MODE: $(wc -l <"$M") files"
