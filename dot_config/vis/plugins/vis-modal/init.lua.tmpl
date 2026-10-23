@@ -1,8 +1,6 @@
 --[[
-
 	modal
 	the status line colorizer for vis
-
 ]]
 
 require('vis')
@@ -22,35 +20,34 @@ local MODES = {
 }
 M.MODES = MODES
 
-
 local STYLES = {
 	[vis.modes.NORMAL] = {
-		REGULAR = 'fore:default,back:yellow',
-		INVERTED = 'fore:yellow,back:black',
+		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color3 }}',
 	},
 	[vis.modes.INSERT] = {
-		REGULAR = 'fore:default,back:green',
-		INVERTED = 'fore:green,back:black',
+		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color4 }}',
 	},
 	[vis.modes.VISUAL] = {
-		REGULAR = 'fore:default,back:magenta',
-		INVERTED = 'fore:magenta,back:black',
+		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color5 }}',
 	},
 	[vis.modes.REPLACE] = {
-		REGULAR = 'fore:default,back:blue',
-		INVERTED = 'fore:blue,back:black',
+		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color2 }}',
 	},
 	[vis.modes.VISUAL_LINE] = {
-		REGULAR = 'fore:default,back:magenta',
-		INVERTED = 'fore:magenta,back:black',
+		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color5 }}',
 	},
 	[vis.modes.OPERATOR_PENDING] = {
-		REGULAR = 'fore:default,back:blue',
-		INVERTED = 'fore:blue,back:black',
+		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color2 }}',
 	},
 	UNFOCUSED = {
-		REGULAR = 'fore:default,back:white',
-		INVERTED = 'fore:white,back:black',
+		REGULAR  = 'fore:{{ .colors.color8 }},back:{{ .colors.background }}',
+		INVERTED = 'fore:{{ .colors.color8 }},back:{{ .colors.background }}',
 	},
 }
 M.STYLES = STYLES
@@ -79,11 +76,11 @@ vis.events.subscribe(vis.events.WIN_STATUS, function(win)
 
 	for win in vis:windows() do
 		if win == vis.win then
-			win:style_define(MODAL_STYLE,						STYLES[vis.mode].REGULAR)
-			win:style_define(MODAL_STYLE_INVERTED,	STYLES[vis.mode].INVERTED)
+			win:style_define(MODAL_STYLE,          STYLES[vis.mode].REGULAR)
+			win:style_define(MODAL_STYLE_INVERTED, STYLES[vis.mode].INVERTED)
 		else
-			win:style_define(MODAL_STYLE,						STYLES.UNFOCUSED.REGULAR)
-			win:style_define(MODAL_STYLE_INVERTED,	STYLES.UNFOCUSED.INVERTED)
+			win:style_define(MODAL_STYLE,          STYLES.UNFOCUSED.REGULAR)
+			win:style_define(MODAL_STYLE_INVERTED, STYLES.UNFOCUSED.INVERTED)
 		end
 	end
 
@@ -94,6 +91,5 @@ vis.events.subscribe(vis.events.WIN_STATUS, function(win)
 		win:style_pos(MODAL_STYLE_INVERTED, i, win.height - 1)
 	end
 end)
-
 
 return M

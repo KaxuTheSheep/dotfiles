@@ -1,48 +1,46 @@
 -- Eight-color scheme
 local lexers = vis.lexers
-lexers.STYLE_DEFAULT =''
+lexers.STYLE_DEFAULT = ''
 lexers.STYLE_NOTHING = ''
-lexers.STYLE_ATTRIBUTE = 'fore:green,bold'
-lexers.STYLE_CLASS = 'fore:yellow,bold'
-lexers.STYLE_COMMENT = 'fore:blue,bold'
-lexers.STYLE_CONSTANT = 'fore:cyan,bold'
-lexers.STYLE_DEFINITION = 'fore:blue,bold'
-lexers.STYLE_ERROR = 'fore:red,italics'
-lexers.STYLE_FUNCTION = 'fore:blue,bold'
-lexers.STYLE_HEADING = 'fore:magenta'
-lexers.STYLE_KEYWORD = 'fore:yellow,bold'
-lexers.STYLE_LABEL = 'fore:green,bold'
-lexers.STYLE_NUMBER = 'fore:red,bold'
-lexers.STYLE_OPERATOR = 'fore:cyan,bold'
-lexers.STYLE_REGEX = 'fore:green,bold'
-lexers.STYLE_STRING = 'fore:red,bold'
-lexers.STYLE_PREPROCESSOR = 'fore:magenta,bold'
-lexers.STYLE_TAG = 'fore:red,bold'
-lexers.STYLE_TYPE = 'fore:green,bold'
-lexers.STYLE_VARIABLE = 'fore:blue,bold'
+lexers.STYLE_ATTRIBUTE = 'fore:{{ .colors.color4 }},bold'
+lexers.STYLE_CLASS = 'fore:{{ .colors.color3 }},bold'
+lexers.STYLE_COMMENT = 'fore:{{ .colors.color8 }},bold'
+lexers.STYLE_CONSTANT = 'fore:{{ .colors.color6 }},bold'
+lexers.STYLE_DEFINITION = 'fore:{{ .colors.color3 }},bold'
+lexers.STYLE_ERROR = 'fore:{{ .colors.color5 }},italics'
+lexers.STYLE_FUNCTION = 'fore:{{ .colors.color3 }},bold'
+lexers.STYLE_HEADING = 'fore:{{ .colors.color13 }}'
+lexers.STYLE_KEYWORD = 'fore:{{ .colors.color3 }},bold'
+lexers.STYLE_LABEL = 'fore:{{ .colors.color4 }},bold'
+lexers.STYLE_NUMBER = 'fore:{{ .colors.color5 }},bold'
+lexers.STYLE_OPERATOR = 'fore:{{ .colors.color6 }},bold'
+lexers.STYLE_REGEX = 'fore:{{ .colors.color4 }},bold'
+lexers.STYLE_STRING = 'fore:{{ .colors.color5 }},bold'
+lexers.STYLE_PREPROCESSOR = 'fore:{{ .colors.color13 }},bold'
+lexers.STYLE_TAG = 'fore:{{ .colors.color5 }},bold'
+lexers.STYLE_TYPE = 'fore:{{ .colors.color4 }},bold'
+lexers.STYLE_VARIABLE = 'fore:{{ .colors.color3 }},bold'
 lexers.STYLE_WHITESPACE = ''
-lexers.STYLE_EMBEDDED = 'back:blue,bold'
+lexers.STYLE_EMBEDDED = 'back:{{ .colors.color12 }},bold'
 lexers.STYLE_IDENTIFIER = ''
 
-lexers.STYLE_LINENUMBER = ''
+lexers.STYLE_LINENUMBER = 'fore:{{ .colors.color8 }}'
 lexers.STYLE_LINENUMBER_CURSOR = lexers.STYLE_LINENUMBER
-lexers.STYLE_CURSOR = 'back:white,fore:black'
-lexers.STYLE_CURSOR_PRIMARY = lexers.STYLE_CURSOR..',fore:yellow'
+lexers.STYLE_CURSOR = 'back:{{ .colors.foreground }},fore:{{ .colors.background }}'
+lexers.STYLE_CURSOR_PRIMARY = lexers.STYLE_CURSOR .. ',fore:{{ .colors.cursor }}'
 lexers.STYLE_CURSOR_LINE = 'underlined'
-lexers.STYLE_COLOR_COLUMN = 'back:red'
-lexers.STYLE_SELECTION = 'back:{{ .colors.color12 }},fore:{{ .colors.background }}' 
-lexers.STYLE_STATUS = 'reverse'
-lexers.STYLE_STATUS_FOCUSED = 'reverse,bold'
+lexers.STYLE_COLOR_COLUMN = 'back:{{ .colors.color5 }}'
+lexers.STYLE_SELECTION = 'back:{{ .colors.color4 }},fore:{{ .colors.background }}'
+lexers.STYLE_STATUS = 'back:{{ .colors.background }},fore:{{ .colors.color8 }}'
+lexers.STYLE_STATUS_FOCUSED = 'back:{{ .colors.color8 }},fore:{{ .colors.foreground }},bold'
 lexers.STYLE_SEPARATOR = lexers.STYLE_DEFAULT
 lexers.STYLE_INFO = 'bold'
 lexers.STYLE_EOF = ''
 
--- lexer specific styles
-
 -- Diff
-lexers.STYLE_ADDITION = 'fore:green'
-lexers.STYLE_DELETION = 'fore:red'
-lexers.STYLE_CHANGE = 'fore:yellow'
+lexers.STYLE_ADDITION = 'fore:{{ .colors.color4 }}'
+lexers.STYLE_DELETION = 'fore:{{ .colors.color5 }}'
+lexers.STYLE_CHANGE = 'fore:{{ .colors.color3 }}'
 
 -- CSS
 lexers.STYLE_PROPERTY = lexers.STYLE_ATTRIBUTE
@@ -53,7 +51,7 @@ lexers.STYLE_PSEUDOELEMENT = ''
 lexers.STYLE_TAG_UNKNOWN = lexers.STYLE_TAG .. ',italics'
 lexers.STYLE_ATTRIBUTE_UNKNOWN = lexers.STYLE_ATTRIBUTE .. ',italics'
 
--- Latex, TeX, and Texinfo
+-- Latex, TeX, Texinfo
 lexers.STYLE_COMMAND = lexers.STYLE_KEYWORD
 lexers.STYLE_COMMAND_SECTION = lexers.STYLE_CLASS
 lexers.STYLE_ENVIRONMENT = lexers.STYLE_TYPE
@@ -72,10 +70,10 @@ lexers.STYLE_LINK = lexers.STYLE_KEYWORD
 lexers.STYLE_REFERENCE = lexers.STYLE_KEYWORD
 
 -- Output
-lexers.STYE_FILENAME = ''
-lexers.STYLE_LINE = ''
-lexers.STYLE_COLUMN = ''
-lexers.STYLE_MESSAGE = ''
+lexers.STYLE_FILENAME = 'fore:{{ .colors.foreground }},bold'
+lexers.STYLE_LINE = 'fore:{{ .colors.color8 }}'
+lexers.STYLE_COLUMN = 'fore:{{ .colors.color8 }}'
+lexers.STYLE_MESSAGE = 'fore:{{ .colors.foreground }}'
 
 -- Python
 lexers.STYLE_KEYWORD_SOFT = ''
@@ -83,17 +81,15 @@ lexers.STYLE_KEYWORD_SOFT = ''
 -- Taskpaper
 lexers.STYLE_NOTE = ''
 lexers.STYLE_TAG_EXTENDED = ''
-lexers.STYLE_TAG_DAY = 'fore:yellow'
-lexers.STYLE_TAG_OVERDUE = 'fore:red'
+lexers.STYLE_TAG_DAY = 'fore:{{ .colors.color3 }}'
+lexers.STYLE_TAG_OVERDUE = 'fore:{{ .colors.color5 }}'
 lexers.STYLE_TAG_PLAIN = ''
 
 -- XML
 lexers.STYLE_CDATA = ''
 
 -- YAML
-lexers.STYLE_ERROR_INDENT = 'back:red'
-
--- The following are temporary styles until their legacy lexers are migrated.
+lexers.STYLE_ERROR_INDENT = 'back:{{ .colors.color5 }}'
 
 -- Antlr
 lexers.STYLE_ACTION = ''
@@ -101,9 +97,6 @@ lexers.STYLE_ACTION = ''
 -- Clojure
 lexers.STYLE_CLOJURE_KEYWORD = lexers.STYLE_TYPE
 lexers.STYLE_CLOJURE_SYMBOL = lexers.STYLE_TYPE .. ',bold'
-
--- Crystal
---lexers.STYLE_SYMBOL = lexers.STYLE_STRING
 
 -- Gleam
 lexers.STYLE_MODULE = lexers.STYLE_CONSTANT
@@ -117,7 +110,6 @@ lexers.STYLE_FORMAT = lexers.STYLE_CONSTANT
 lexers.STYLE_SYSVAR = lexers.STYLE_CONSTANT .. ',bold'
 
 -- Julia
--- lexers.STYLE_SYMBOL = lexers.STYLE_STRING
 lexers.STYLE_CHARACTER = lexers.STYLE_CONSTANT
 
 -- Mediawiki
@@ -128,7 +120,6 @@ lexers.STYLE_TBL_KEY = lexers.STYLE_REGEX
 lexers.STYLE_SELF_REF = lexers.STYLE_LABEL
 lexers.STYLE_PROPER_IDENT = lexers.STYLE_CLASS
 lexers.STYLE_FNDEF = lexers.STYLE_PREPROCESSOR
--- lexers.STYLE_SYMBOL = lexers.STYLE_EMBEDDED
 
 -- reST
 lexers.STYLE_LITERAL_BLOCK = lexers.STYLE_EMBEDDED
@@ -147,9 +138,9 @@ lexers.STYLE_INTERPRETED = lexers.STYLE_STRING
 -- txt2tags
 lexers.STYLE_LINE = 'bold'
 for i = 1,5 do lexers['STYLE_H'..i] = lexers.STYLE_HEADING end
-lexers.STYLE_IMAGE = 'fore:green'
+lexers.STYLE_IMAGE = 'fore:{{ .colors.color4 }}'
 lexers.STYLE_STRIKE = 'italics'
 lexers.STYLE_TAGGED = lexers.STYLE_EMBEDDED
 lexers.STYLE_TAGGED_AREA = lexers.STYLE_EMBEDDED
-lexers.STYLE_TABLE_SEP = 'fore:green'
-lexers.STYLE_HEADER_CELL_CONTENT = 'fore:green'
+lexers.STYLE_TABLE_SEP = 'fore:{{ .colors.color4 }}'
+lexers.STYLE_HEADER_CELL_CONTENT = 'fore:{{ .colors.color4 }}'
