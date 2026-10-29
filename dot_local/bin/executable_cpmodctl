@@ -1,14 +1,14 @@
 #!/bin/sh
 set -eu
 
-MODE=${1:-link}
+MODE=${1:-hard}
 MODS=/games/mods/cyberpunk
 GAME="/games/steam/steamapps/common/Cyberpunk 2077"
 M=$MODS/.links
 
 case $MODE in
-  link|unlink|hard) ;;
-  *) echo "usage: $0 [link|unlink|hard]" >&2; exit 2 ;;
+  unlink|hard) ;;
+  *) echo "usage: $0 [hard|unlink]  (default: hard)" >&2; exit 2 ;;
 esac
 
 [ -d "$GAME" ] || { echo "game dir missing: $GAME" >&2; exit 1; }
@@ -31,18 +31,18 @@ while IFS= read -r name; do
     f=${f#./}
     dest="$GAME/$f"
     mkdir -p -- "$(dirname -- "$dest")"
-    if [ "$MODE" = hard ]; then
-      if ln -- "$MODS/$name/$f" "$dest" 2>/dev/null; then
-        :
-      else
-        echo "FAIL hardlink (cross-device?): $name/$f" >&2
-        exit 1
-      fi
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+      rm -f -- "$dest"
+    fi
+
+    if ln -- "$MODS/$name/$f" "$dest" 2>/dev/null; then
+      :
     else
-      ln -sf -- "$MODS/$name/$f" "$dest"
+      echo "FAIL hardlink: $name/$f" >&2
+      exit 1
     fi
     printf '%s\n' "$dest" >>"$M"
   done
 done <"$MODS/enabled"
 
-echo "$MODE: $(wc -l <"$M") files"
+echo "hard: $(wc -l <"$M") files"
