@@ -18,27 +18,24 @@
  * token, so a theme swap in chezmoi.toml propagates through every shade
  * with no hardcoded hex anywhere in this block. */
 :root {
-    --colors: on; /* off: discord default colors, on: midnight custom colors */
-
+    --colors: on; 
     /* -------------------------------------------------------------------------
      * Text
      * ------------------------------------------------------------------------- */
-    --text-0: var(--bg-4); /* text on colored elements */
-    --text-1: oklch(from {{ .colors.color15 }} l c h);                    /* bright white — headers */
-    --text-2: oklch(from {{ .colors.foreground }} l c h);                 /* foreground — important text */
-    --text-3: oklch(from {{ .colors.color4 }} l c h);                     /* bright blue — normal text */
-    --text-4: oklch(from {{ .colors.color9 }} l c h);                     /* bright black — icons/channels */
-    --text-5: oklch(from {{ .colors.color9 }} calc(l - 0.20) c h);        /* muted channels/chats and timestamps */
+    --text-0: var(--bg-4);                        /* on colored elements */
+    --text-1: {{ .colors.color15 }};              /* headers  */
+    --text-2: {{ .colors.foreground }};           /* important */
+    --text-3: {{ .colors.color7 }};               /* normal text  */
+    --text-4: {{ .colors.color9 }};               /* icons/channels */
+    --text-5: {{ .colors.color4 }};               /* muted/timestamps */
 
     /* -------------------------------------------------------------------------
-     * Backgrounds — bg-1 is a solid interactive (clicked) state and stays
-     * opaque; bg-2 through bg-4 are resting surfaces and sit at 0.90 alpha
-     * per aesthetics.md's transparency model.
+     * Backgrounds 
      * ------------------------------------------------------------------------- */
     --bg-1: oklch(from {{ .colors.color8 }} l c h);                            /* clicked buttons — opaque */
-    --bg-2: oklch(from {{ .colors.background }} calc(l + 0.06) c h / 0.90);    /* buttons */
-    --bg-3: oklch(from {{ .colors.background }} calc(l + 0.02) c h / 0.90);    /* spacing, secondary elements */
-    --bg-4: oklch(from {{ .colors.background }} l c h / 1.0);                 /* main background */
+    --bg-2: oklch(from {{ .colors.background }} l c h / 1.00);                 /* buttons */
+    --bg-3: oklch(from {{ .colors.background }} l c h / 1.00);                 /* spacing, secondary elements */
+    --bg-4: oklch(from {{ .colors.background }} l c h / 1.00);                 /* main background */
     --hover: oklch(from {{ .colors.color3 }} l c h / 0.08);                    /* channels and buttons when hovered */
     --active: oklch(from {{ .colors.color3 }} l c h / 0.15);                   /* channels and buttons when clicked or selected */
     --active-2: oklch(from {{ .colors.color3 }} l c h / 0.25);                 /* extra state for transparent buttons */
@@ -47,12 +44,12 @@
     /* -------------------------------------------------------------------------
      * Accents
      * ------------------------------------------------------------------------- */
-    --accent-1: oklch(from {{ .colors.color4 }} l c h);              /* links — bright blue */
-    --accent-2: oklch(from {{ .colors.color14 }} l c h);             /* small elements — bright cyan */
-    --accent-3: oklch(from {{ .colors.color3 }} l c h);              /* buttons — cursor colour */
-    --accent-4: oklch(from {{ .colors.color11 }} l c h);             /* hovered buttons — bright yellow slot */
-    --accent-5: oklch(from {{ .colors.color3 }} calc(l - 0.07) c h); /* clicked buttons */
-    --accent-new: oklch(from {{ .colors.color1 }} l c h);            /* mute/deafen — ansi red */
+    --accent-1: {{ .colors.color14 }};             /* links  */
+    --accent-2: {{ .colors.color11 }};            /* small elements */
+    --accent-3: {{ .colors.color3 }};             /* buttons/cursor*/
+    --accent-4: {{ .colors.color13 }};            /* hovered buttons*/
+    --accent-5: {{ .colors.color9 }};             /* clicked buttons*/
+    --accent-new:{{ .colors.color1 }};            /* mute/deafen */
     --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
     --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
     --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
@@ -62,9 +59,9 @@
      * Status
      * ------------------------------------------------------------------------- */
     --online: oklch(from {{ .colors.color3 }} l c h); 
-    --idle: oklch(from {{ .colors.color2 }} l c h);
+    --idle: oklch(from {{ .colors.color10 }} l c h);
     --dnd: oklch(from {{ .colors.color1 }} l c h);
-    --streaming: oklch(from {{ .colors.color5 }} l c h);
+    --streaming: oklch(from {{ .colors.color13 }} l c h);
     --offline: oklch(from {{ .colors.color8 }} l c h);
 
     /* -------------------------------------------------------------------------
@@ -72,7 +69,7 @@
      * ------------------------------------------------------------------------- */
     --border-light: var(--hover);
     --border: var(--active);
-    --border-hover: var(--accent-2);
+    --border-hover: var(--accent-3);
     --button-border: hsl(220, 0%, 100%, 0.1);
 
     /* -------------------------------------------------------------------------
@@ -418,227 +415,11 @@ body {
     }
 }
 
-/* spotify-bar.css */
-@property --custom-spotify-bar {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
-}
-
-@container body style(--custom-spotify-bar: on) {
-    .visual-refresh {
-        /* text-like spotify progress bar */
-        #vc-spotify-progress-bar {
-            margin: 8px 0 0 0;
-        }
-        .vc-spotify-button-row {
-            margin-top: 8px;
-        }
-        #app-mount #vc-spotify-progress-bar .bar_a562c8 {
-            height: 22px !important;
-            top: 0 !important;
-            background-color: var(--background-surface-high);
-        }
-        #app-mount #vc-spotify-progress-bar .barFill_a562c8 {
-            height: 22px !important;
-        }
-        #vc-spotify-progress-bar .vc-spotify-time-left,
-        #vc-spotify-progress-bar .vc-spotify-time-right {
-            z-index: 1;
-            top: 0;
-            margin-top: 0;
-            mix-blend-mode: difference;
-            font-size: 16px;
-            line-height: 22px;
-            pointer-events: none;
-        }
-        #vc-spotify-progress-bar .vc-spotify-time-left {
-            left: 6px;
-        }
-        #vc-spotify-progress-bar .vc-spotify-time-right {
-            right: 6px;
-        }
-        #vc-spotify-progress-bar .grabber_a562c8 {
-            visibility: hidden;
-        }
-    }
-}
-
-/* unrounding.css */
-@property --unrounding {
-    syntax: 'off | on';
-    inherits: false;
-    initial-value: on;
-}
-
-@container body style(--unrounding: on) {
-    *,
-    *::before,
-    *::after {
-        border-radius: 0 !important;
-    }
-
-    .svg_cc5dd2 > mask,
-    .svg__44b0c > rect,
-    .svg__44b0c > circle,
-    .svg__44b0c > g,
-    .svg__44b0c rect[mask='url(#:rhi:)'],
-    .avatar__20a53 .status_a423bd {
-        display: none;
-    }
-
-    .mask__68edb > foreignObject,
-    .svg__44b0c > foreignObject,
-    .svg__2338f > foreignObject {
-        mask: none;
-    }
-
-    .wrapper__44b0c,
-    .container__1ce5d {
-        /* NOTE: these match against Discord's own hardcoded inline SVG/status
-         * fill values below (#45a366, #da3e44, #ffc04e, #ffffff, #9147ff) —
-         * they are Discord's raw defaults, not our theme, so they're left as
-         * literal hex deliberately rather than mapped to chezmoi colours. */
-        --online-2: #43a25a;
-        --dnd-2: #d83a41;
-        --idle-2: #ca9654;
-        --offline-2: #ffffff;
-        --streaming-2: #9147ff;
-    }
-    .wrapper__44b0c:has(rect)::after,
-    .container__1ce5d:has(.status_a423bd)::after {
-        content: '';
-        display: block;
-        position: absolute;
-        height: 8px;
-        width: 8px;
-        bottom: -4px;
-        right: -4px;
-        border: 2px solid var(--background-base-lower);
-    }
-    .wrapper__44b0c:has(rect[fill='#45a366'])::after,
-    .container__1ce5d:has(.status_a423bd[style='background-color: rgb(67, 162, 90);'])::after {
-        background: var(--online-2) !important;
-    }
-    .wrapper__44b0c:has(rect[fill='#da3e44'])::after {
-        background: var(--dnd-2) !important;
-    }
-    .wrapper__44b0c:has(rect[fill='#ffc04e'])::after {
-        background: var(--idle-2) !important;
-    }
-    .wrapper__44b0c:has(rect[fill='#ffffff'])::after {
-        background: var(--offline-2) !important;
-    }
-    .wrapper__44b0c:has(rect[fill='#9147ff'])::after {
-        background: var(--streaming-2);
-    }
-
-    .lowerBadge_cc5dd2 {
-        border: 2px solid var(--background-base-lower);
-        bottom: -4px;
-        right: -4px;
-    }
-    .upperBadge_cc5dd2 {
-        border: 2px solid var(--background-base-lower);
-        top: -4px;
-        right: -4px;
-    }
-    .folderGroup__48112.isExpanded__48112 > .stack_dbd263 {
-        overflow: visible !important;
-    }
-
-    .slider__3f21e > rect[rx='10'] {
-        rx: 0 !important;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: 0 !important;
-    }
-
-    
-    :is(.vc-switch-slider, .thumb_a28278) > rect {
-        rx: 0px !important;
-    }
-    --gap: 12px;
-    --divider-thickness: 4px;
-    --border-thickness: 2px;
-    --border-hover-transition: 0.2s ease;
-
-    --animations: on;
-    --list-item-transition: 0.2s ease;
-    --dms-icon-svg-transition: 0.4s ease;
-
-    --top-bar-height: var(--gap);
-    --top-bar-button-position: titlebar;
-    --top-bar-title-position: off;
-    --subtle-top-bar-title: off;
-
-    --custom-window-controls: off;
-    --window-control-size: 14px;
-
-    --custom-dms-icon: off;
-    --dms-icon-svg-url: url('');
-    --dms-icon-svg-size: 90%;
-    --dms-icon-color-before: var(--icon-secondary);
-    --dms-icon-color-after: var(--white);
-    --custom-dms-background: off;
-    --dms-background-image-url: url('');
-    --dms-background-image-size: cover;
-    --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2));
-
-    /* Transparency — matches window_background_opacity: 0.90 elsewhere in the rice */
-    --background-image: off;
-    --background-image-url: url('');
-    --transparency-tweaks: on;
-    --remove-bg-layer: off;
-    --panel-blur: on;
-    --blur-amount: 12px;
-    --bg-floating: var(--bg-3);
-
-    --small-user-panel: on;
-    --unrounding: on;
-    --custom-spotify-bar: on;
-    --ascii-titles: on;
-    --ascii-loader: system24;
-    --panel-labels: on;
-    --label-color: var(--text-muted);
-    --label-font-weight: 500;
-}
-
-
 /* --------- */
+
 /* Remove Bot Launcher */
 .channelAppLauncher_df39bd { display: none; }
 
-/* --------- */
-/* Unread channel Kuromi */
-:root {
-    --list-item-transition: 0.2s ease;
-}
-.wrapper__2ea32 .link__2ea32 {
-    transition: margin-left var(--list-item-transition);
-}
-.wrapper__2ea32:hover .link__2ea32 {
-    margin-left: 10px;
-}
-.unread__2ea32 {
-    border-radius: 50%;
-    width: 8px;
-    height: 8px;
-    margin-left: -4px;
-    transition: var(--list-item-transition);
-}
-.wrapper__2ea32:hover .unread__2ea32 {
-    width: 20px;
-    height: 20px;
-    margin-top: -10px;
-    margin-left: 3px;
-    background-color: transparent;
-    background: url('https://i.imgur.com/Lpc5jPZ.png');
-    background-size: 20px;
-    background-position: center;
-}
-/* --------- */
 /* Hide app launcher */
 [class*=channelAppLauncher_] {
     display: none !important;
@@ -687,8 +468,4 @@ body {
   --server-tabs: true;
   --dms-tabs: true;
 }
-/* --------- */
-
-/* colour mention*/
-@import url(https://davart154.github.io/Themes/Snippets/Colored%20Mentions/ColoredMentionsSource.css);
 /* --------- */
