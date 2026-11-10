@@ -2,3 +2,8 @@ Host github.com
     AddKeysToAgent 1h
     IdentityFile ~/.ssh/id_kaxtoo
     IdentitiesOnly yes
+    
+Host github.com
+    AddKeysToAgent 1h
+    IdentityFile ~/.ssh/id_linux
+    IdentitiesOnly yes
