@@ -1,12 +1,16 @@
 #!/bin/sh
+#   title (--tb)      reverse video: slot 7 block, slot 0 text
+#   highlight (--hb)  selection in the focused pane: slot 12, slot 0 text
+#   selected (--sb)   selection: slot 4, slot 0 text
+#   cursor (--cb)     the cursor colour (slot 5)
 exec bemenu-run \
     -i -l 10 -p '>' \
-    --fn 'DepartureMono Nerd Font Mono 13' \
-    --tb '{{ .colors.color4 }}' --tf '{{ .colors.background }}' \
+    --fn 'DepartureMono Nerd Font Mono 8.25' \
+    --tb '{{ .colors.color7 }}' --tf '{{ .colors.color0 }}' \
     --fb '{{ .colors.background }}' --ff '{{ .colors.foreground }}' \
     --nb '{{ .colors.background }}' --nf '{{ .colors.foreground }}' \
     --ab '{{ .colors.background }}' --af '{{ .colors.foreground }}' \
-    --hb '{{ .colors.color3 }}' --hf '{{ .colors.background }}' \
-    --sb '{{ .colors.color5 }}' --sf '{{ .colors.background }}' \
-    --cb '{{ .colors.cursor }}' --cf '{{ .colors.background }}' \
+    --hb '{{ .colors.color12 }}' --hf '{{ .colors.color0 }}' \
+    --sb '{{ .colors.color4 }}' --sf '{{ .colors.color0 }}' \
+    --cb '{{ .colors.cursor }}' --cf '{{ .colors.color0 }}' \
     "$@"

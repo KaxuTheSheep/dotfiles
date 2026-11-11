@@ -20,34 +20,36 @@ local MODES = {
 }
 M.MODES = MODES
 
+--   NORMAL 5 accent, INSERT 2 ok, VISUAL 4 selection, REPLACE 11 warn,
+--   OPERATOR_PENDING 13 accent (prominent). Unfocused: a dim block, slot 8.
 local STYLES = {
 	[vis.modes.NORMAL] = {
-		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color3 }}',
+		REGULAR  = 'reverse',
+		INVERTED = 'fore:5,reverse',
 	},
 	[vis.modes.INSERT] = {
-		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color4 }}',
+		REGULAR  = 'reverse',
+		INVERTED = 'fore:2,reverse',
 	},
 	[vis.modes.VISUAL] = {
-		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color5 }}',
+		REGULAR  = 'reverse',
+		INVERTED = 'fore:4,reverse',
 	},
 	[vis.modes.REPLACE] = {
-		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color2 }}',
+		REGULAR  = 'reverse',
+		INVERTED = 'fore:11,reverse',
 	},
 	[vis.modes.VISUAL_LINE] = {
-		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color5 }}',
+		REGULAR  = 'reverse',
+		INVERTED = 'fore:12,reverse',
 	},
 	[vis.modes.OPERATOR_PENDING] = {
-		REGULAR  = 'fore:{{ .colors.foreground }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.background }},back:{{ .colors.color2 }}',
+		REGULAR  = 'reverse',
+		INVERTED = 'fore:13,reverse',
 	},
 	UNFOCUSED = {
-		REGULAR  = 'fore:{{ .colors.color8 }},back:{{ .colors.background }}',
-		INVERTED = 'fore:{{ .colors.color8 }},back:{{ .colors.background }}',
+		REGULAR  = 'fore:8,reverse',
+		INVERTED = 'fore:8,reverse',
 	},
 }
 M.STYLES = STYLES
@@ -76,11 +78,11 @@ vis.events.subscribe(vis.events.WIN_STATUS, function(win)
 
 	for win in vis:windows() do
 		if win == vis.win then
-			win:style_define(MODAL_STYLE,          STYLES[vis.mode].REGULAR)
-			win:style_define(MODAL_STYLE_INVERTED, STYLES[vis.mode].INVERTED)
+			vis.ui:style_define(MODAL_STYLE,          STYLES[vis.mode].REGULAR)
+			vis.ui:style_define(MODAL_STYLE_INVERTED, STYLES[vis.mode].INVERTED)
 		else
-			win:style_define(MODAL_STYLE,          STYLES.UNFOCUSED.REGULAR)
-			win:style_define(MODAL_STYLE_INVERTED, STYLES.UNFOCUSED.INVERTED)
+			vis.ui:style_define(MODAL_STYLE,          STYLES.UNFOCUSED.REGULAR)
+			vis.ui:style_define(MODAL_STYLE_INVERTED, STYLES.UNFOCUSED.INVERTED)
 		end
 	end
 

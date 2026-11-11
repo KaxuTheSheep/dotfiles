@@ -22,10 +22,15 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
     end, "")
 end)
 
+
+-- viscosity
+local viscosity = require('plugins/viscosity')
 -- modal
 local modal = require('plugins/vis-modal')
 -- vis-autoclose
 local autoclose = require('plugins/vis-autoclose')
+-- vis-cursormode
+local cursormode = require('plugins/vis-cursormode')
 -- colorizer
 local colorizer = require('plugins/vis-colorizer')
 colorizer.three = false

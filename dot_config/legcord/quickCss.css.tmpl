@@ -1,7 +1,8 @@
 /* ============================================================
  * discterm.css
  * Base: system24 by refact0r
- * Colours: chezmoi-templated, derived from chezmoi.toml palette
+ * Colours: chezmoi-templated, derived from chezmoi.toml palette.
+ * Roles: design-language.md sections 3 and 11, keep in step.
  * ============================================================ */
 
 @import url('https://refact0r.github.io/system24/build/system24.css');
@@ -26,30 +27,30 @@
     --text-1: {{ .colors.color15 }};              /* headers  */
     --text-2: {{ .colors.foreground }};           /* important */
     --text-3: {{ .colors.color7 }};               /* normal text  */
-    --text-4: {{ .colors.color9 }};               /* icons/channels */
-    --text-5: {{ .colors.color4 }};               /* muted/timestamps */
+    --text-4: {{ .colors.color8 }};               /* icons/channels: dim */
+    --text-5: {{ .colors.color8 }};               /* muted/timestamps: dim */
 
     /* -------------------------------------------------------------------------
      * Backgrounds 
      * ------------------------------------------------------------------------- */
-    --bg-1: oklch(from {{ .colors.color8 }} l c h);                            /* clicked buttons — opaque */
+    --bg-1: color-mix(in srgb, {{ .colors.color0 }} 100%, {{ .colors.background }}); /* clicked buttons: subtle surface (slot 8 at 40% into the background), opaque */
     --bg-2: oklch(from {{ .colors.background }} l c h / 1.00);                 /* buttons */
     --bg-3: oklch(from {{ .colors.background }} l c h / 1.00);                 /* spacing, secondary elements */
     --bg-4: oklch(from {{ .colors.background }} l c h / 1.00);                 /* main background */
-    --hover: oklch(from {{ .colors.color3 }} l c h / 0.08);                    /* channels and buttons when hovered */
-    --active: oklch(from {{ .colors.color3 }} l c h / 0.15);                   /* channels and buttons when clicked or selected */
-    --active-2: oklch(from {{ .colors.color3 }} l c h / 0.25);                 /* extra state for transparent buttons */
+    --hover: oklch(from {{ .colors.color5 }} l c h / 0.08);                    /* channels and buttons when hovered: accent */
+    --active: oklch(from {{ .colors.color4 }} l c h / 0.20);                   /* channels and buttons when clicked or selected: selection */
+    --active-2: oklch(from {{ .colors.color4 }} l c h / 0.30);                 /* extra state for transparent buttons */
     --message-hover: var(--hover);
 
     /* -------------------------------------------------------------------------
      * Accents
      * ------------------------------------------------------------------------- */
-    --accent-1: {{ .colors.color14 }};             /* links  */
-    --accent-2: {{ .colors.color11 }};            /* small elements */
-    --accent-3: {{ .colors.color3 }};             /* buttons/cursor*/
-    --accent-4: {{ .colors.color13 }};            /* hovered buttons*/
-    --accent-5: {{ .colors.color9 }};             /* clicked buttons*/
-    --accent-new:{{ .colors.color1 }};            /* mute/deafen */
+    --accent-1: {{ .colors.color13 }};            /* links: prominent accent (cyan, slots 6 and 14, is too dark for text) */
+    --accent-2: {{ .colors.color13 }};            /* small elements */
+    --accent-3: {{ .colors.color5 }};             /* buttons/cursor: accent */
+    --accent-4: {{ .colors.color13 }};            /* hovered buttons: more prominent accent */
+    --accent-5: {{ .colors.color8 }};             /* clicked buttons */
+    --accent-new:{{ .colors.color1 }};            /* mute/deafen: attention */
     --mention: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 90%) 40%, transparent);
     --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--accent-2), transparent 95%) 40%, transparent);
     --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent);
@@ -58,54 +59,54 @@
     /* -------------------------------------------------------------------------
      * Status
      * ------------------------------------------------------------------------- */
-    --online: oklch(from {{ .colors.color3 }} l c h); 
-    --idle: oklch(from {{ .colors.color10 }} l c h);
-    --dnd: oklch(from {{ .colors.color1 }} l c h);
+    --online: oklch(from {{ .colors.color2 }} l c h);    /* ok */
+    --idle: oklch(from {{ .colors.color3 }} l c h);      /* warn */
+    --dnd: oklch(from {{ .colors.color1 }} l c h);       /* danger */
     --streaming: oklch(from {{ .colors.color13 }} l c h);
-    --offline: oklch(from {{ .colors.color8 }} l c h);
+    --offline: oklch(from {{ .colors.color8 }} l c h);   /* dim */
 
     /* -------------------------------------------------------------------------
      * Borders
      * ------------------------------------------------------------------------- */
-    --border-light: var(--hover);
-    --border: var(--active);
-    --border-hover: var(--accent-3);
-    --button-border: hsl(220, 0%, 100%, 0.1);
+    --border-light: oklch(from {{ .colors.color0 }} l c h / 0.5);
+    --border: {{ .colors.color0 }};                
+    --border-hover: var(--accent-3);               /* focus: slot 5 */
+    --button-border: oklch(from {{ .colors.color8 }} l c h / 0.5);
 
     /* -------------------------------------------------------------------------
      * Base colour ramps — each anchored to a single chezmoi palette token,
      * remaining steps generated via relative-colour lightness offsets.
      * ------------------------------------------------------------------------- */
 
-    /* red → color1 */
+    /* red → color1 (failure) */
     --red-1: oklch(from {{ .colors.color1 }} calc(l + 0.10) c h);
     --red-2: oklch(from {{ .colors.color1 }} l c h);
     --red-3: oklch(from {{ .colors.color1 }} calc(l - 0.05) c h);
     --red-4: oklch(from {{ .colors.color1 }} calc(l - 0.10) c h);
     --red-5: oklch(from {{ .colors.color1 }} calc(l - 0.15) c h);
 
-    /* green → color10 */
-    --green-1: oklch(from {{ .colors.color10 }} calc(l + 0.10) c h);
-    --green-2: oklch(from {{ .colors.color10 }} l c h);
-    --green-3: oklch(from {{ .colors.color10 }} calc(l - 0.05) c h);
-    --green-4: oklch(from {{ .colors.color10 }} calc(l - 0.10) c h);
-    --green-5: oklch(from {{ .colors.color10 }} calc(l - 0.15) c h);
+    /* green → color2 (ok) */
+    --green-1: oklch(from {{ .colors.color2 }} calc(l + 0.10) c h);
+    --green-2: oklch(from {{ .colors.color2 }} l c h);
+    --green-3: oklch(from {{ .colors.color2 }} calc(l - 0.05) c h);
+    --green-4: oklch(from {{ .colors.color2 }} calc(l - 0.10) c h);
+    --green-5: oklch(from {{ .colors.color2 }} calc(l - 0.15) c h);
 
-    /* blue → color4 */
+    /* blue → color4 (selection) */
     --blue-1: oklch(from {{ .colors.color4 }} calc(l + 0.05) c h);
     --blue-2: oklch(from {{ .colors.color4 }} l c h);
     --blue-3: oklch(from {{ .colors.color4 }} calc(l - 0.07) c h);
     --blue-4: oklch(from {{ .colors.color4 }} calc(l - 0.14) c h);
     --blue-5: oklch(from {{ .colors.color4 }} calc(l - 0.21) c h);
 
-    /* yellow → color3 (cursor) */
+    /* yellow → color3 (warn) */
     --yellow-1: oklch(from {{ .colors.color3 }} calc(l + 0.10) c h);
     --yellow-2: oklch(from {{ .colors.color3 }} calc(l + 0.05) c h);
     --yellow-3: oklch(from {{ .colors.color3 }} l c h);
     --yellow-4: oklch(from {{ .colors.color3 }} calc(l - 0.06) c h);
     --yellow-5: oklch(from {{ .colors.color3 }} calc(l - 0.12) c h);
 
-    /* purple → foreground */
+    /* purple → foreground (kept as it was: the loader text) */
     --purple-1: oklch(from {{ .colors.foreground }} l c h);
     --purple-2: oklch(from {{ .colors.foreground }} calc(l - 0.05) c h);
     --purple-3: oklch(from {{ .colors.foreground }} calc(l - 0.10) c h);
@@ -176,7 +177,7 @@ body {
 
     /* panel labels */
     --panel-labels: on; /* off: default, on: add labels to panels */
-    --label-color: var(--text-muted); /* color of labels */
+    --label-color: var(--text-5); /* color of labels: dim */
     --label-font-weight: 500; /* font weight of labels */
 }
 
@@ -261,8 +262,8 @@ body {
 
 /* panel-labels.css */
 body {
-    --label-color: var(--text-muted);
-    --label-hover-color: var(--brand-360);
+    --label-color: var(--text-5);
+    --label-hover-color: var(--accent-3);
     --label-font-weight: 500;
 }
 
@@ -456,7 +457,7 @@ body {
     height: 35%;
   }
   &:hover::-webkit-scrollbar-track {
-    background-color: #3f3f3f6e;
+    background-color: oklch(from {{ .colors.color8 }} l c h / 0.43);
   }
 }
 

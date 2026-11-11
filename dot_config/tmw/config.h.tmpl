@@ -1,0 +1,19 @@
+static const uint32_t theme_fg = 0x{{ .colors.foreground | trimPrefix "#" }};
+static const uint32_t theme_bg = 0x{{ .colors.background | trimPrefix "#" }};
+static const uint32_t theme_cursor = 0x{{ .colors.cursor | trimPrefix "#" }};
+static const uint32_t theme_pal[16] = {
+	0x{{ .colors.color0 | trimPrefix "#" }}, 0x{{ .colors.color1 | trimPrefix "#" }}, 0x{{ .colors.color2 | trimPrefix "#" }}, 0x{{ .colors.color3 | trimPrefix "#" }}, 0x{{ .colors.color4 | trimPrefix "#" }}, 0x{{ .colors.color5 | trimPrefix "#" }}, 0x{{ .colors.color6 | trimPrefix "#" }}, 0x{{ .colors.color7 | trimPrefix "#" }},
+	0x{{ .colors.color8 | trimPrefix "#" }}, 0x{{ .colors.color9 | trimPrefix "#" }}, 0x{{ .colors.color10 | trimPrefix "#" }}, 0x{{ .colors.color11 | trimPrefix "#" }}, 0x{{ .colors.color12 | trimPrefix "#" }}, 0x{{ .colors.color13 | trimPrefix "#" }}, 0x{{ .colors.color14 | trimPrefix "#" }}, 0x{{ .colors.color15 | trimPrefix "#" }},
+};
+
+static const FontSpec fonts[] = {
+	{ "~/.local/share/fonts/DepartureMono/DepartureMonoNerdFontMono-Regular.otf", 0, 11.0f, 0 },
+	{ "/usr/share/fonts/noto-cjk/NotoSansCJK-Regular.ttc", 5, 0, 2 },	/* index 5: Mono JP */
+};
+
+static const int pad_x = 12;
+static const int pad_y = 10;
+
+static const int cursor_default = 5;	/* DECSCUSR 5: blinking bar */
+
+static const int cursor_blink_ms = 500;

@@ -4,16 +4,18 @@
                         ((hex >> 8) & 0xFF) / 255.0f, \
                         (hex & 0xFF) / 255.0f }
 /* appearance */
-static const int sloppyfocus               = 0;  /* focus follows mouse */
+static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
-static const unsigned int borderpx         = 0;  /* border pixel of windows */
+static const unsigned int borderpx         = 1;  /* border pixel of windows */
 static const unsigned int snap             = 0; /* snap pixel */
-static const float rootcolor[]   = COLOR(0x{{ .colors.background | trimPrefix "#" }}ff);
-static const float bordercolor[] = COLOR(0x{{ .colors.color8 | trimPrefix "#" }}ff);
-static const float focuscolor[]  = COLOR(0x{{ .colors.color3 | trimPrefix "#" }}ff);
-static const float urgentcolor[] = COLOR(0x{{ .colors.color1 | trimPrefix "#" }}ff);
+static const float rootcolor[]   = COLOR(0x{{ .colors.background | trimPrefix "#" }}ff);  /* slot 0 */
+/* No border on unfocused windows. All zero, not slot 8 with alpha 0: wlroots takes
+ * premultiplied colour, so a non-zero rgb with zero alpha can still draw. */
+static const float bordercolor[] = COLOR(0x00000000);
+static const float focuscolor[]  = COLOR(0x{{ .colors.color8 | trimPrefix "#" }}ff);  /* slot 8: Dim */
+static const float urgentcolor[] = COLOR(0x{{ .colors.color1 | trimPrefix "#" }}ff);  /* slot 1: attention */
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
-static const float fullscreen_bg[]         = {0.0f, 0.0f, 0.0f, 1.0f}; /* You can also use glsl colors */
+static const float fullscreen_bg[] = COLOR(0x{{ .colors.background | trimPrefix "#" }}ff);  /* slot 0 */
 
 /* tagging - TAGCOUNT must be no greater than 31 */
 #define TAGCOUNT (9)

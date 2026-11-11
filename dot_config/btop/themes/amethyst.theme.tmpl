@@ -1,67 +1,62 @@
 # Amethyst theme for btop
-# Transparent background - uses terminal default
+
+# Transparent background: the terminal's own (D1)
 theme[main_bg]=""
-# Main text color
+# Text
 theme[main_fg]="{{ .colors.color7 }}"
-# Title color for boxes
-theme[title]="{{ .colors.color7 }}"
-# Highlight color for keyboard shortcuts
-theme[hi_fg]="{{ .colors.color3 }}"
-# Background color of selected item in processes box
-theme[selected_bg]="{{ .colors.color1 }}"
-# Foreground color of selected item in processes box
-theme[selected_fg]="{{ .colors.color7 }}"
-# Color of inactive/disabled text
+# Titles: prominent text
+theme[title]="{{ .colors.color15 }}"
+# Keyboard shortcuts: accent
+theme[hi_fg]="{{ .colors.color5 }}"
+# Selected item in the processes box: selection (slot 4) with slot 0 text (D8)
+theme[selected_bg]="{{ .colors.color4 }}"
+theme[selected_fg]="{{ .colors.color0 }}"
+# Inactive and disabled text: dim
 theme[inactive_fg]="{{ .colors.color8 }}"
-# Color of text appearing on top of graphs
+# Text on top of graphs
 theme[graph_text]="{{ .colors.color7 }}"
-# Background color of the percentage meters
+# Empty part of the percentage meters: dim
 theme[meter_bg]="{{ .colors.color8 }}"
-# Misc colors for processes box
-theme[proc_misc]="{{ .colors.color3 }}"
-# Cpu box outline color
-theme[cpu_box]="{{ .colors.color3 }}"
-# Memory/disks box outline color
-theme[mem_box]="{{ .colors.color4 }}"
-# Net up/down box outline color
-theme[net_box]="{{ .colors.color5 }}"
-# Processes box outline color
-theme[proc_box]="{{ .colors.color2 }}"
-# Box divider line and small boxes line color
+# Misc colours in the processes box: accent
+theme[proc_misc]="{{ .colors.color5 }}"
+# Box outlines and dividers: border
+theme[cpu_box]="{{ .colors.color8 }}"
+theme[mem_box]="{{ .colors.color8 }}"
+theme[net_box]="{{ .colors.color8 }}"
+theme[proc_box]="{{ .colors.color8 }}"
 theme[div_line]="{{ .colors.color8 }}"
-# Temperature graph colors
-theme[temp_start]="{{ .colors.color3 }}"
-theme[temp_mid]="{{ .colors.color5 }}"
+# Temperature: severity ladder, ok to warn to fail
+theme[temp_start]="{{ .colors.color7 }}"
+theme[temp_mid]="{{ .colors.color3 }}"
 theme[temp_end]="{{ .colors.color1 }}"
-# CPU graph colors
-theme[cpu_start]="{{ .colors.color3 }}"
-theme[cpu_mid]="{{ .colors.color2 }}"
+# CPU: accent, more prominent accent, text
+theme[cpu_start]="{{ .colors.color5 }}"
+theme[cpu_mid]="{{ .colors.color13 }}"
 theme[cpu_end]="{{ .colors.color7 }}"
-# Mem/Disk free meter
-theme[free_start]="{{ .colors.color4 }}"
-theme[free_mid]="{{ .colors.color2 }}"
-theme[free_end]="{{ .colors.color3 }}"
-# Mem/Disk cached meter
-theme[cached_start]="{{ .colors.color7 }}"
-theme[cached_mid]="{{ .colors.color4 }}"
-theme[cached_end]="{{ .colors.color2 }}"
-# Mem/Disk available meter
-theme[available_start]="{{ .colors.color5 }}"
-theme[available_mid]="{{ .colors.color13 }}"
-theme[available_end]="{{ .colors.color13 }}"
-# Mem/Disk used meter
-theme[used_start]="{{ .colors.color3 }}"
-theme[used_mid]="{{ .colors.color2 }}"
-theme[used_end]="{{ .colors.color2 }}"
-# Download graph colors
-theme[download_start]="{{ .colors.color3 }}"
-theme[download_mid]="{{ .colors.color4 }}"
+# Mem and disk free: ok
+theme[free_start]="{{ .colors.color2 }}"
+theme[free_mid]="{{ .colors.color10 }}"
+theme[free_end]="{{ .colors.color10 }}"
+# Mem and disk cached: neutral, dim up to prominent text
+theme[cached_start]="{{ .colors.color8 }}"
+theme[cached_mid]="{{ .colors.color7 }}"
+theme[cached_end]="{{ .colors.color15 }}"
+# Mem and disk available: ok
+theme[available_start]="{{ .colors.color2 }}"
+theme[available_mid]="{{ .colors.color10 }}"
+theme[available_end]="{{ .colors.color10 }}"
+# Mem and disk used: accent
+theme[used_start]="{{ .colors.color5 }}"
+theme[used_mid]="{{ .colors.color13 }}"
+theme[used_end]="{{ .colors.color13 }}"
+# Download: accent ramp. Upload: ok ramp
+theme[download_start]="{{ .colors.color5 }}"
+theme[download_mid]="{{ .colors.color13 }}"
 theme[download_end]="{{ .colors.color7 }}"
-# Upload graph colors
-theme[upload_start]="{{ .colors.color1 }}"
-theme[upload_mid]="{{ .colors.color5 }}"
-theme[upload_end]="{{ .colors.color1 }}"
-# Process box color gradient
-theme[process_start]="{{ .colors.color3 }}"
-theme[process_mid]="{{ .colors.color1 }}"
-theme[process_end]="{{ .colors.color8 }}"
+theme[upload_start]="{{ .colors.color2 }}"
+theme[upload_mid]="{{ .colors.color10 }}"
+theme[upload_end]="{{ .colors.color7 }}"
+# Processes: idle recedes, busy stands out
+theme[process_start]="{{ .colors.color8 }}"
+theme[process_mid]="{{ .colors.color5 }}"
+theme[process_end]="{{ .colors.color13 }}"
