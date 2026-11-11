@@ -1,0 +1,3 @@
+[submodule "dot_config/vis/plugins/viscosity"]
+	path = dot_config/vis/plugins/viscosity
+	url = https://codeberg.org/iambird/viscosity
