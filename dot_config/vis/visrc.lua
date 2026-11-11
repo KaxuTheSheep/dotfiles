@@ -16,9 +16,7 @@ vis.events.subscribe(vis.events.WIN_OPEN, function(win)
         vis:command('set expandtab off')
     end
     vis:map(vis.modes.NORMAL, " fm", function()
-        vis:command("open .")
-        vis:feedkeys("<C-w>k")
-        vis:command("wq!")
+        vis:command("tree")
     end, "")
 end)
 

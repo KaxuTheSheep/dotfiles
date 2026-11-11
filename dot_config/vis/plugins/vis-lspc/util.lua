@@ -1,9 +1,9 @@
---- Module containing simple utility functions for vis-lspc/
+--- Module containing simple utility functions for vis-lspc
 -- @module util
 -- @author Florian Fischer
 -- @author git-bruh <prathamIN@proton.me>
 -- @license GPL-3
--- @copyright 2024-2025 Florian Fischer
+-- @copyright 2024-2026 Florian Fischer
 -- @copyright 2024 git-bruh <prathamIN@proton.me>
 local util = {}
 
@@ -46,6 +46,48 @@ function util.vis_pipe(input, cmd, fullscreen)
   local escaped_input = input:gsub('\'', '\'"\'"\'')
   cmd = 'printf %s \'' .. escaped_input .. '\' | ' .. cmd
   return vis:pipe(vis.win.file, {start = 0, finish = 0}, cmd)
+end
+
+--- Convert a vis option name to the variable name in the lspc table.
+-- @param vis_option_name The name of the option known to vis
+-- @return The option name with the 'lspc-' suffix removed and '-' replaced by '_'
+function util.vis_option_name_to_lspc(vis_option_name)
+  return vis_option_name:sub(6):gsub('-', '_')
+end
+
+--- Register an lspc option with vis.
+-- @param name Name of the option
+-- @param type Type of the option
+-- @param help String describing the option
+-- @param[opt] set_func Function called when the option is set
+-- @param[opt] get_func Function called to retrieve the option
+function util.register_lspc_option(option, type, help, set_func, get_func)
+  if not set_func then
+    -- TODO: support toggable options
+    set_func = function(value, _, name)
+      lspc[util.vis_option_name_to_lspc(name)] = value
+    end
+  end
+  if not get_func then
+    get_func = function(name)
+      return lspc[util.vis_option_name_to_lspc(name)]
+    end
+  end
+  util.option_register('lspc-' .. option, type, set_func, get_func, help)
+end
+
+--- Safe wrapper for vis:option_register.
+-- If vis does not support the get-callback during option registration
+-- it is dropped.
+-- @param name Name of the option
+-- @param type Type of the option
+-- @param set_func Function called when the option is set
+-- @param get_func Function called to retrieve the option
+-- @param help String describing the option
+function util.option_register(name, type, set_func, get_func, help)
+  if not pcall(vis.option_register, vis, name, type, set_func, get_func, help) then
+    vis:option_register(name, type, set_func, help)
+  end
 end
 
 --- Split a path into its components
@@ -212,14 +254,20 @@ local function get_selection(win)
 end
 
 --- Calculate the 0-based byte offsets from multiple sorted selections
+--
+-- Invalid selections are not converted to positions.
+--
 -- @param file the file to calculate the positions in
 -- @param sorted_selections a table of sorted vis_selections
 -- @return a table of positions
 function util.vis_sorted_selections_to_pos(file, sorted_selections)
   local positions = {}
-  if file.pos_by_linecol then
+  if file.offset_from_line_column then
     for _, sel in ipairs(sorted_selections) do
-      table.insert(positions, file:pos_by_linecol(sel.line, sel.col))
+      local pos = file:offset_from_line_column(sel.line, sel.col)
+      if pos then
+        table.insert(positions, pos)
+      end
     end
     return positions
   end
@@ -277,8 +325,8 @@ end
 -- @return the 1-based line number
 -- @return the 1-based column
 function util.vis_pos_to_sel(win, pos)
-  if win.file.linecol_by_pos then
-    local lineno, col = win.file:linecol_by_pos(pos)
+  if win.file.line_column_from_offset then
+    local lineno, col = win.file:line_column_from_offset(pos)
     return {line = lineno, col = col}
   end
 
@@ -365,6 +413,19 @@ function util.table.merge(weak, strong)
   end
 
   return weak
+end
+
+--- Wrapper to define a style in vis.
+-- @param id The style id
+-- @param style The style description
+-- @param win The optional window object for older vis versions
+function util.style_define(id, style, win)
+  if (vis.API and vis.API > 3215) or (vis.ui and vis.ui.style_define) then
+    return vis.ui:style_define(id, style)
+  else
+    local w = win or vis.win
+    return w and w:style_define(id, style)
+  end
 end
 
 return util

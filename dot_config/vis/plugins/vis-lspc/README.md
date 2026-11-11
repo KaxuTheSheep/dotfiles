@@ -139,11 +139,10 @@ Available options are:
 * `autoconfirm_edits = false` - apply workspaceEdits without user confirmation
 * `ls_map` - a table mapping `vis` syntax names to language server configurations
 * `highlight_diagnostics = 'line'` - highlight the `range` or `line`number of available diagnostics
-* `diagnostic_style_id = nil` - vis style id used to highlight diagnostics, win.STYLE_LEXER_MAX is used by default
 * `diagnostic_styles = { error = 'back:red', warning = 'back:yellow', information = 'back:yellow', hint = 'back:yellow', }` - styles used to highlight different diagnostics
 * `workspace_edit_remember_cursor = true` - restore the primary cursor position after a workspaceEdit
 * `message_level = 3` - the level of shown messages retrieved via `window/showMessage` notifications
-* `show_message = 'message'` - how to present information. `'message'`: use `vis:message`; `'open'`: use a new window supporting syntax highlighting.
+* `show_message = 'message'` - how to present multiline information. `'message'`: use `vis:message`; `'open'`: use a new window supporting syntax highlighting.
 * `universal_root_globs = {}` - Globs to consider as workspace root for any language server (e.g. `*.git` or `*.hg`).
 * `fallback_dirname_as_root = false` - If set to true a file's directory is used as workspace root if no explicit root was found.
 * `navwin_symbols_format = '%s[%.1s] %s\n'` - The format string used to display a symbol in the symbol navigation window.
@@ -252,6 +251,28 @@ get_running_ls(win, explicit_syntax)
 
   - `win` - a window in which the language server is running
   - `explicit_syntax` - syntax of the language server if it differs from `win.syntax`
+
+#### `lspc.select`
+
+Select an item from a list of choices by calling the external program specified by `lspc.menu_cmd`.
+
+```lua
+lspc.select(lspc, choices) -- or
+lspc:select(choices)
+```
+
+  - `choices` - A numeric table containing the possible choices
+
+## Contribute
+
+The vis-lspc project prioritizes the social and human aspects of
+collective creation. Therefore:
+
+1. LLMs ("AI") can not be used to create or modify
+anything submitted to vis-lspc.
+
+You might be asked to prove your contribution meets this requirement.
+You might be banned for trying to circumvent this policy.
 
 ## License
 

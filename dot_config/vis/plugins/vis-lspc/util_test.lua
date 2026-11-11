@@ -73,4 +73,34 @@ function test_table_merge() -- luacheck: ignore 111
   lunatest.assert_equal(t.foo.bar.nose, 'nose')
 end
 
+function test_style_define() -- luacheck: ignore 111
+  -- Modern vis: vis.ui.style_define present
+  vis.API = 0
+  vis.ui = {
+    style_define = function(_, id, style)
+      return id == 1 and style == 'fore:red'
+    end,
+  }
+  lunatest.assert_true(util.style_define(1, 'fore:red'))
+
+  -- Modern vis: vis.API > 3215
+  vis.API = 3216
+  lunatest.assert_true(util.style_define(1, 'fore:red'))
+
+  -- Older vis: fallback with explicit win
+  vis.API = nil
+  vis.ui = nil
+  local win = {
+    style_define = function(_, id, style)
+      return id == 2 and style == 'fore:blue'
+    end,
+  }
+  lunatest.assert_true(util.style_define(2, 'fore:blue', win))
+
+  -- Older vis: fallback with vis.win
+  vis.win = win
+  lunatest.assert_true(util.style_define(2, 'fore:blue'))
+  vis.win = nil
+end
+
 lunatest.run()

@@ -23,8 +23,7 @@ local lspc = dofile(source_path .. 'lspc.lua')
 local clangd = {
   name = 'clangd',
   cmd = 'clangd',
-  roots = {'compile_commands.json', '.clangd', '.clang-format'},
-  formatting_options = {tabSize = 2, insertSpaces = false},
+  roots = {'compile_commands.json', '.clangd'},
 }
 local typescript = {
   name = 'typescript',
@@ -51,7 +50,6 @@ return {
     settings = {
       Lua = {diagnostics = {globals = {'vis'}}, telemetry = {enable = false}},
     },
-  	formatting_options = {tabSize = 2, insertSpaces = false},
   },
   -- typescript (typescript-language-server) language server configuration
   -- https://github.com/typescript-language-server/typescript-language-server
@@ -120,4 +118,8 @@ return {
   -- rust (rust-analyzer)
   -- https://github.com/rust-lang/rust-analyzer
   rust = {name = 'rust', cmd = 'rust-analyzer', roots = {'Cargo.toml'}},
+
+  -- zig (zls)
+  -- https://github.com/zigtools/zls
+  zig = {name = 'zig', cmd = 'zls', roots = {'build.zig.zon'}},
 }

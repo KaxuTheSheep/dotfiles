@@ -28,9 +28,6 @@ local lspc = {
 
   -- should diagnostics be highlighted if available
   highlight_diagnostics = 'line',
-  -- style id used by lspc to register the style used to highlight diagnostics
-  -- by default win.STYLE_LEXER_MAX is used (the last style id available for the lexer styles). See vis/ui.h.
-  diagnostic_style_id = nil,
   -- styles used by lspc to highlight the diagnostic range
   -- must be set by the user
   diagnostic_styles = {

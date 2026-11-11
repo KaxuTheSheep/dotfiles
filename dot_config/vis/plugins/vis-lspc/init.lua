@@ -1,4 +1,4 @@
--- Copyright (c) 2021-2024 Florian Fischer. All rights reserved.
+-- Copyright (c) 2021-2026 Florian Fischer. All rights reserved.
 --
 -- This file is part of vis-lspc.
 --
@@ -185,12 +185,15 @@ end
 --- Convert a lsp_range to a vis_range
 -- @param file the file in which the range lies
 -- @param lsp_range the LSP range that should be converted
--- @return the according vis range
+-- @return the according vis range or nil if the range is not valid
 local function lsp_range_to_vis_range(file, lsp_range)
   local start = lsp_pos_to_vis_sel(lsp_range.start)
   local finish = lsp_pos_to_vis_sel(lsp_range['end'])
 
   local positions = util.vis_sorted_selections_to_pos(file, {start, finish})
+  if #positions < 2 then
+    return nil
+  end
   local start_pos = positions[1]
   local finish_pos = positions[2]
 
@@ -215,7 +218,7 @@ local function lsp_range_starts_before(r1, r2)
 end
 
 -- concatenate all numeric values in choices and pass it on stdin to lspc.menu_cmd
-local function lspc_select(choices)
+function lspc:select(choices)
   local menu_input = ''
   local i = 0
   for _, c in ipairs(choices) do
@@ -228,8 +231,8 @@ local function lspc_select(choices)
     return choices[1]
   end
 
-  local fullscreen = lspc.menu_cmd == 'fzf'
-  local status, output = util.vis_pipe(menu_input, lspc.menu_cmd, fullscreen)
+  local fullscreen = self.menu_cmd == 'fzf'
+  local status, output = util.vis_pipe(menu_input, self.menu_cmd, fullscreen)
 
   local choice = nil
   if status == 0 then
@@ -307,7 +310,7 @@ local function lspc_select_location(locations)
   end
 
   -- select a location
-  local choice = lspc_select(choices)
+  local choice = lspc:select(choices)
   if not choice then
     return nil
   end
@@ -409,6 +412,10 @@ local function vis_apply_textEdit(win, file, textEdit)
   assert(win.file == file)
 
   local range = lsp_range_to_vis_range(file, textEdit.range)
+  if not range then
+    lspc:warn('Apply edit to invalid range: ' .. lspc.json.encode(textEdit.range))
+    return
+  end
 
   file:delete(range)
   file:insert(range.start, textEdit.newText)
@@ -426,11 +433,15 @@ local function vis_apply_textEdits(win, file, textEdits)
   local edits = {}
   for _, textEdit in ipairs(textEdits) do
     local range = lsp_range_to_vis_range(file, textEdit.range)
-    table.insert(edits, {
-      mark = file:mark_set(range.start),
-      len = range.finish - range.start,
-      newText = textEdit.newText,
-    })
+    if not range then
+      lspc:log('skipping invalid textEdit: ' .. lspc.json.encode(textEdit.range))
+    else
+      table.insert(edits, {
+        mark = file:mark_set(range.start),
+        len = range.finish - range.start,
+        newText = textEdit.newText,
+      })
+    end
   end
   for _, edit in ipairs(edits) do
     local pos = file:mark_get(edit.mark)
@@ -454,22 +465,26 @@ end
 local function lspc_show_message(msg, hdr, syntax)
   local current_win = vis.win
 
-  if lspc.show_message == 'message' then
-    local to_show = (hdr or '') .. msg .. '\n'
-    vis:message(to_show)
-    vis.win.selection = vis.win.file.size - #to_show
-    vis:feedkeys('zt')
+  if string.find(string.sub(msg, 2, -2), '\n') then
+    if lspc.show_message == 'message' then
+      local to_show = (hdr or '') .. msg .. '\n'
+      vis:message(to_show)
+      vis.win.selection = vis.win.file.size - #to_show
+      vis:feedkeys('zt')
 
-  elseif lspc.show_message == 'open' then
-    vis:command('open')
-    if syntax then
-      vis:command('set syntax ' .. syntax)
+    elseif lspc.show_message == 'open' then
+      vis:command('open')
+      if syntax then
+        vis:command('set syntax ' .. syntax)
+      end
+
+      vis.win.file:insert(0, msg)
+      vis.win.selection.pos = 0
+    else
+      lspc:err('invalid message configuration "' .. lspc.show_message .. '".')
     end
-
-    vis.win.file:insert(0, msg)
-    vis.win.selection.pos = 0
   else
-    lspc:err('invalid message configuration "' .. lspc.show_message .. '".')
+    vis:info(msg)
   end
 
   -- reset the focus to the current window
@@ -589,7 +604,14 @@ end
 
 local function lspc_highlight_server_diagnostics(win, server_diagnostics, style)
   if not style then
-    style = lspc.diagnostic_style_id or win.STYLE_LEXER_MAX
+    if not lspc.diagnostic_style_id then
+      if (vis.API and vis.API > 3215) or (vis.ui and vis.ui.style_push) then
+        lspc.diagnostic_style_id = vis.ui:style_push()
+      else
+        lspc.diagnostic_style_id = win.STYLE_LEXER_MAX
+      end
+    end
+    style = lspc.diagnostic_style_id
   end
 
   local level_mapping = {
@@ -601,7 +623,7 @@ local function lspc_highlight_server_diagnostics(win, server_diagnostics, style)
 
   for _, diagnostic in ipairs(server_diagnostics) do
     local diagnostic_style = level_mapping[diagnostic.severity] or level_mapping[1]
-    assert(win:style_define(style, diagnostic_style))
+    assert(util.style_define(style, diagnostic_style, win))
 
     if lspc.highlight_diagnostics == 'range' then
       local range = diagnostic.vis_range
@@ -657,8 +679,15 @@ function LanguageServer:rpc(req)
   local msg = header_part .. '\r\n\r\n' .. content_part
   lspc:log('LSPC Sending -> ' .. self.name .. ': ' .. msg)
 
-  self.fd:write(msg)
-  self.fd:flush()
+  local ok, err = pcall(function()
+    self.fd:write(msg)
+    self.fd:flush()
+  end)
+  if not ok then
+    lspc:warn('Could not send message to ' .. self.name .. ': ' .. tostring(err))
+    return false
+  end
+  return true
 end
 
 --- Send a RPC notification to the language server
@@ -801,7 +830,7 @@ local function lspc_handle_completion_method_response(win, result, old_pos)
   end
 
   -- select a completion
-  local choice = lspc_select(choices)
+  local choice = lspc:select(choices)
   if not choice then
     return
   end
@@ -1070,7 +1099,7 @@ local function lspc_handle_workspace_configuration_call(ls, params, response)
     if next(effective_settings) then
       table.insert(results, effective_settings)
     else
-      table.insert(results, nil)
+      table.insert(results, lspc.json.null)
     end
   end
   response.result = results
@@ -1100,20 +1129,25 @@ lspc_handle_publish_diagnostics = function(ls, uri, diagnostics)
   if file then
     for _, diagnostic in ipairs(diagnostics) do
       -- We convert the lsp_range to a vis_range here to do it only once.
-      -- It's an expensive operation that involves counting all newlines.
+      -- It may be an expensive operation that involves counting all newlines for
+      -- older versions of vis.
       diagnostic.vis_range = lsp_range_to_vis_range(file.file, diagnostic.range)
+      if diagnostic.vis_range then
 
-      -- In some instances the range defined by the diagnostic starts
-      -- and ends at the same position. Highlight the exact position.
-      if diagnostic.vis_range.finish == diagnostic.vis_range.start then
-        -- We fake a one char range to retrieve its content.
-        -- In highlight_diagnostics we inconditionally decrement finish anyway.
-        diagnostic.vis_range.finish = diagnostic.vis_range.finish + 1
+        -- In some instances the range defined by the diagnostic starts
+        -- and ends at the same position. Highlight the exact position.
+        if diagnostic.vis_range.finish == diagnostic.vis_range.start then
+          -- We fake a one char range to retrieve its content.
+          -- In highlight_diagnostics we inconditionally decrement finish anyway.
+          diagnostic.vis_range.finish = diagnostic.vis_range.finish + 1
+        end
+
+        -- Remember the content of the diagnostic to only highlight it if the content
+        -- did not change
+        diagnostic.content = vis.win.file:content(diagnostic.vis_range)
+      else -- The range is invalid
+        lspc:log('ignore diagnostic for invalid range: ' .. lspc.json.encode(diagnostic.range))
       end
-
-      -- Remember the content of the diagnostic to only highlight it if the content
-      -- did not change
-      diagnostic.content = vis.win.file:content(diagnostic.vis_range)
     end
 
     file.diagnostics[ls] = diagnostics
@@ -1308,7 +1342,7 @@ end
 local function find_root_uri(ls, file_path)
   local globs = ''
 
-  local roots = ls.roots
+  local roots = ls.conf.roots
   if roots then
     for _, glob in ipairs(roots) do
       globs = globs .. glob .. '\n'
@@ -1328,11 +1362,11 @@ local function find_root_uri(ls, file_path)
   return root_path and path_to_uri(root_path)
 end
 
-local function ls_start(ls, init_options)
+local function ls_start(ls, init_options, win)
   ls.fd = vis:communicate(ls.name, 'exec ' .. ls.conf.cmd)
 
   -- detect the workspace root
-  ls.rootUri = vis.win.file and find_root_uri(ls, vis.win.file.path)
+  ls.rootUri = win.file and find_root_uri(ls, win.file.path)
 
   -- register the response handler
   vis.events.subscribe(vis.events.PROCESS_RESPONSE, function(name, event, code, msg)
@@ -1389,7 +1423,7 @@ function LanguageServer.new(ls_conf)
   return ls
 end
 
-local function lspc_start_server(syntax)
+local function lspc_start_server(syntax, win)
   local ls_conf = lspc.ls_map[syntax]
   if not ls_conf then
     return nil, 'No language server available for ' .. syntax
@@ -1412,7 +1446,7 @@ local function lspc_start_server(syntax)
 
   local ls = LanguageServer.new(ls_conf)
   lspc.running[ls_conf.name] = ls
-  ls_start(ls, ls_conf.init_options)
+  ls_start(ls, ls_conf.init_options, win)
 
   return ls
 end
@@ -1541,7 +1575,7 @@ local function lspc_show_diagnostic(win, line)
   local file = lspc.open_files[win.file.path]
 
   if not has_diagnostics(file) then
-    return win.file.path .. ' has no diagnostics available'
+    return (win.file.path or '[No Name]') .. ' has no diagnostics available'
   end
   local diagnostics = file.diagnostics
 
@@ -1896,7 +1930,7 @@ vis:command_register('lspc-start-server', function(argv, _, win)
     lspc:err('no language specified')
   end
 
-  local _, err = lspc_start_server(syntax)
+  local _, err = lspc_start_server(syntax, win)
   if err then
     lspc:err(err)
   end
@@ -2004,7 +2038,7 @@ end, 'close the navigation window')
 -- vis-lspc event hooks
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
   if lspc.autostart and win.syntax then
-    lspc_start_server(win.syntax)
+    lspc_start_server(win.syntax, win)
   end
 end)
 
@@ -2054,6 +2088,10 @@ vis.events.subscribe(vis.events.FILE_SAVE_POST, function(file, path)
     if ls.capabilities.textDocumentSync and type(ls.capabilities.textDocumentSync) == 'table' and
         ls.capabilities.textDocumentSync.save then
       local did_save_params = {textDocument = {uri = path_to_uri(file.path)}}
+      if type(ls.capabilities.textDocumentSync.save) == 'table' and
+          ls.capabilities.textDocumentSync.save.includeText then
+        did_save_params.text = file:content(0, file.size)
+      end
       ls:send_notification('textDocument/didSave', did_save_params)
     end
     ls:request_diagnostics(vis.win)
@@ -2088,41 +2126,39 @@ vis.events.subscribe(vis.events.QUIT, function()
   end
 end)
 
-vis:option_register('lspc-highlight-diagnostics', 'string', function(value)
-  lspc.highlight_diagnostics = value
+util.register_lspc_option('highlight-diagnostics', 'string',
+                          'How should lspc highlight available diagnostics')
+
+util.register_lspc_option('menu-cmd', 'string',
+                          'External tool vis-lspc uses to present choices in a menu')
+
+util.register_lspc_option('confirm-cmd', 'string',
+                          'External tool vis-lspc uses to ask the user for confirmation')
+
+util.register_lspc_option('message-level', 'number',
+                          'Message level to show in UI (for server messages)')
+
+local function diagnostic_styles_set(name, _, value)
+  lspc.diagnostic_styles[name:sub(23)] = value
   return true
-end, 'How should lspc highlight available diagnostics')
+end
 
-vis:option_register('lspc-menu-cmd', 'string', function(value)
-  lspc.menu_cmd = value
-  return true
-end, 'External tool vis-lspc uses to present choices in a menu')
+local function diagnostic_styles_get(name)
+  return lspc.diagnostic_styles[name:sub(23)]
+end
 
-vis:option_register('lspc-confirm-cmd', 'string', function(value)
-  lspc.confirm_cmd = value
-  return true
-end, 'External tool vis-lspc uses to ask the user for confirmation')
+util.register_lspc_option('diagnostic-style-error', 'string', 'Style for diagnostic errors',
+                          diagnostic_styles_set, diagnostic_styles_get)
 
-vis:option_register('lspc-message-level', 'number', function(value)
-  lspc.message_level = value
-  return true
-end, 'Message level to show in UI (for server messages)')
+util.register_lspc_option('diagnostic-style-warning', 'string', 'Style for diagnostic warnings',
+                          diagnostic_styles_set, diagnostic_styles_get)
 
-vis:option_register('lspc-diagnostic-style-error', 'string', function(value)
-  lspc.diagnostic_styles.error = value
-end, 'Style for diagnostic errors')
+util.register_lspc_option('diagnostic-style-information', 'string',
+                          'Style for diagnostic information', diagnostic_styles_set,
+                          diagnostic_styles_get)
 
-vis:option_register('lspc-diagnostic-style-warning', 'string', function(value)
-  lspc.diagnostic_styles.warning = value
-end, 'Style for diagnostic warnings')
-
-vis:option_register('lspc-diagnostic-style-information', 'string', function(value)
-  lspc.diagnostic_styles.information = value
-end, 'Style for diagnostic information')
-
-vis:option_register('lspc-diagnostic-style-hint', 'string', function(value)
-  lspc.diagnostic_styles.hint = value
-end, 'Style for diagnostic hints')
+util.register_lspc_option('diagnostic-style-hint', 'string', 'Style for diagnostic hints',
+                          diagnostic_styles_set, diagnostic_styles_get)
 
 dofile(source_path .. 'bindings.lua')
 return lspc
