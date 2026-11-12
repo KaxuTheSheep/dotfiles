@@ -30,9 +30,9 @@ local autoclose = require('plugins/vis-autoclose')
 -- vis-cursormode
 local cursormode = require('plugins/vis-cursormode')
 -- colorizer
-local colorizer = require('plugins/vis-colorizer')
-colorizer.three = false
-colorizer.six   = true
+-- local colorizer = require('plugins/vis-colorizer')
+-- colorizer.three = false
+-- colorizer.six   = true
 -- complete-filename
 local completefilename = require('plugins/complete-filename')
 -- vis-lspc
