@@ -12,8 +12,6 @@ static const float rootcolor[]   = COLOR(0x{{ .colors.background | trimPrefix "#
 static const float bordercolor[] = COLOR(0x00000000);
 static const float focuscolor[]  = COLOR(0x{{ .colors.color8 | trimPrefix "#" }}ff);  /* slot 8: Dim */
 static const float urgentcolor[] = COLOR(0x{{ .colors.color1 | trimPrefix "#" }}ff);  /* slot 1: attention */
-/* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
-
 /* tagging - TAGCOUNT must be no greater than 31 */
 #define TAGCOUNT (9)
 
