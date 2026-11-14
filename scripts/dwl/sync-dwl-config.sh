@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
+set -eu
  
 # Usage: config-sync.sh [version]
 #   no argument  -> target the version emerge would pick right now
@@ -32,9 +32,8 @@ DEST="/etc/portage/savedconfig/gui-wm/${PF}"
 doas install -Dm644 "$CFG" "$DEST"
 echo "Synced $CFG -> $DEST"
  
-if ! grep -rqsw savedconfig /etc/portage/package.use /etc/portage/make.conf; then
+if ! emerge --info gui-wm/dwl 2>/dev/null | grep -Eq '^USE=.*(^|[[:space:]"])savedconfig([[:space:]"]|$)'; then
     echo "Note: no USE=savedconfig found for gui-wm/dwl; the build will ignore this file" >&2
 fi
- 
-echo "Run: doas emerge -1av =gui-wm/${PF}"
 
+echo "Run: doas emerge -1av =gui-wm/${PF}"

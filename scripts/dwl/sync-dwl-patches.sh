@@ -1,77 +1,82 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
+set -eu
 
-SRC="$HOME/.config/dwl/patches"
-PKGDIR="$HOME/kaxu-overlay/gui-wm/dwl"
+SRC="${DWL_PATCHES:-$HOME/.config/dwl/patches}"
+PKGDIR="${DWL_OVERLAY:-$HOME/kaxu-overlay/gui-wm/dwl}"
 DEST="$PKGDIR/files"
 
-if [ ! -d "$SRC" ]; then
-    echo "Source patch dir not found: $SRC" >&2
-    exit 1
-fi
+[ -d "$SRC" ] || { echo "Source patch dir not found: $SRC" >&2; exit 1; }
 mkdir -p "$DEST"
-shopt -s nullglob
 
-# Versions that have an ebuild in the overlay (live ebuilds ignored,
-# revisions stripped: dwl-0.9-r1.ebuild -> 0.9)
-versions=()
+tmp=$(mktemp -d) || { echo "mktemp failed" >&2; exit 1; }
+trap 'rm -rf "$tmp"' EXIT INT TERM
+
+versions=""
 for e in "$PKGDIR"/dwl-*.ebuild; do
-    v="${e##*/dwl-}"
-    v="${v%.ebuild}"
-    v="${v%-r[0-9]*}"
-    if [[ $v != 9999* ]]; then
-        versions+=("$v")
-    fi
+    [ -e "$e" ] || continue
+    v=${e##*/dwl-}
+    v=${v%.ebuild}
+    case $v in
+        *-r[0-9]*) v=${v%-r[0-9]*} ;;
+        9999*) ;;
+        *) versions="$versions $v" ;;
+    esac
 done
-if [ "${#versions[@]}" -eq 0 ]; then
-    echo "No dwl ebuilds found in $PKGDIR" >&2
-    exit 1
-fi
+[ -n "$versions" ] || { echo "No dwl ebuilds found in $PKGDIR" >&2; exit 1; }
 
-# Only take <name>-<version>.patch for versions actually shipped.
-# Skips other versions, READMEs and per-patch subdirectory clutter.
-declare -A wanted=()
-for v in "${versions[@]}"; do
+: > "$tmp/list"
+for v in $versions; do
     for patch in "$SRC"/*/*-"$v".patch; do
-        base="${patch##*/}"
-        if [[ -n ${wanted[$base]:-} ]]; then
-            echo "Name collision: $base ($patch vs ${wanted[$base]})" >&2
-            exit 1
-        fi
-        wanted[$base]="$patch"
+        [ -e "$patch" ] || continue
+        base=${patch##*/}
+        printf '%s\t%s\n' "$base" "$patch" >> "$tmp/list"
     done
 done
 
-for base in "${!wanted[@]}"; do
-    cp -v "${wanted[$base]}" "$DEST/$base"
-done
+dups=$(cut -f1 "$tmp/list" | sort | uniq -d)
+if [ -n "$dups" ]; then
+    printf 'Name collision: %s\n' $dups >&2
+    printf '%s\n' "$dups" | while IFS= read -r d; do
+        grep "^${d}	" "$tmp/list" | cut -f2 | sed 's/^/    /' >&2
+    done
+    exit 1
+fi
 
-# Prune stale patches
+while IFS='	' read -r base path; do
+    cp -v "$path" "$DEST/$base"
+done < "$tmp/list"
+
+: > "$tmp/names"
+cut -f1 "$tmp/list" | sort -u > "$tmp/names"
 for f in "$DEST"/*.patch; do
-    base="${f##*/}"
-    if [[ -z ${wanted[$base]:-} ]]; then
+    [ -e "$f" ] || continue
+    base=${f##*/}
+    if ! grep -qxF "$base" "$tmp/names"; then
         rm -v "$f"
     fi
 done
 
-# Every patch an ebuild references must exist
-pv_pat='${PV}'
 for e in "$PKGDIR"/dwl-*.ebuild; do
-    v="${e##*/dwl-}"
-    v="${v%.ebuild}"
-    v="${v%-r[0-9]*}"
+    [ -e "$e" ] || continue
+    v=${e##*/dwl-}
+    v=${v%.ebuild}
+    case $v in *-r[0-9]*) v=${v%-r[0-9]*} ;; esac
+
+    grep -o '\${FILESDIR}/[^"]*' "$e" 2>/dev/null \
+        | sed 's#^\${FILESDIR}/##' \
+        | sed "s|\\\${PV}|$v|g" > "$tmp/refs" || true
+
     while IFS= read -r ref; do
-        ref="${ref//"$pv_pat"/$v}"
-        if [ ! -f "$DEST/$ref" ]; then
+        [ -n "$ref" ] || continue
+        [ -f "$DEST/$ref" ] || \
             echo "WARNING: ${e##*/} references missing files/$ref" >&2
-        fi
-    done < <(grep -o '\${FILESDIR}/[^"]*' "$e" | sed 's#^\${FILESDIR}/##' || true)
+    done < "$tmp/refs"
 done
 
 echo
 echo "Synced patches to $DEST"
-if command -v pkgdev >/dev/null; then
-    (cd "$PKGDIR" && pkgdev manifest)
+if command -v pkgdev >/dev/null 2>&1; then
+    ( cd "$PKGDIR" && pkgdev manifest )
 else
     echo "pkgdev not found; run: cd $PKGDIR && ebuild dwl-<version>.ebuild manifest"
 fi
