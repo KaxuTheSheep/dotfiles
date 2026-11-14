@@ -1,0 +1,37 @@
+#!/bin/sh
+set -eu
+
+if [ $# -ne 1 ]; then
+    printf 'usage: %s <image>\n' "$0" >&2
+    exit 1
+fi
+
+img=$1
+
+if [ ! -f "$img" ]; then
+    printf 'ascii: no such file: %s\n' "$img" >&2
+    exit 1
+fi
+
+palette="{{ .chezmoi.sourceDir}}/wallpapers/amethyst/palette.png"
+
+if [ ! -f "$palette" ]; then
+    printf 'ascii: palette not found: %s\n' "$palette" >&2
+    exit 1
+fi
+
+printf '\033[?25l'
+printf '\033[?1049h'
+clear
+
+cleanup() {
+    printf '\033[?25h'
+    printf '\033[?1049l'
+}
+trap cleanup EXIT HUP INT TERM
+
+printf '%s' "$(magick "$img" +dither -remap "$palette" png:- | jp2a --term-width --colors -)"
+
+stty -echo -icanon min 1 time 0 2>/dev/null || true
+read -r _key 2>/dev/null || true
+stty echo icanon 2>/dev/null || true

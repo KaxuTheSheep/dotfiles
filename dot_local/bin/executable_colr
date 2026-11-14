@@ -1,0 +1,15 @@
+#!/bin/sh
+
+printf '\033[?25l'
+
+cleanup() {
+    printf '\033[?25h'
+    printf '\033[0m'
+}
+trap cleanup EXIT HUP INT TERM
+
+clear          
+colp -w 12 -h 5
+stty -echo -icanon min 1 time 0 2>/dev/null || true
+read -r _key 2>/dev/null || true
+stty echo icanon 2>/dev/null || true
