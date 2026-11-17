@@ -2,9 +2,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define COL_BORDER		8
+#define COL_BORDER		0
 
-#define COL_BORDER_FOCUS	5
+#define COL_BORDER_FOCUS	8
 
 #define COL_BAR_FG		8	/* the bar: dim text ... */
 #define COL_BAR_BG		0	/* ... on the terminal's background */
@@ -17,26 +17,21 @@
 #define COL_SELECT_BG		4
 #define COL_SELECT_BG_FOCUS	12
 
-/* ---- keys -----------------------------------------------------------------------* /
+/* ---- keys ---------------------------------------------------------------------- */
 
 /* Ctrl+space is the NUL byte */
 #define PREFIX_KEY	0
 
 #define CHORDS \
-	{ PREFIX_KEY, A_SEND_PREFIX, 0 }, \
+	{ PREFIX_KEY, A_SEND_PREFIX, 0 },	/* the prefix twice sends it on */ \
 	{ '1', A_WINDOW, 0 }, { '2', A_WINDOW, 1 }, { '3', A_WINDOW, 2 }, \
 	{ '4', A_WINDOW, 3 }, { '5', A_WINDOW, 4 }, { '6', A_WINDOW, 5 }, \
 	{ '7', A_WINDOW, 6 }, { '8', A_WINDOW, 7 }, { '9', A_WINDOW, 8 }, \
 	{ 'n', A_WINDOW_NEXT, 0 }, { 'N', A_WINDOW_PREV, 0 }, { '\t', A_WINDOW_LAST, 0 }, \
-	{ 't', A_PANE_NEW, 0 }, { 'x', A_PANE_CLOSE, 0 }, { 'q', A_PANE_CLOSE, 0 }, \
-	{ 'X', A_WINDOW_CLOSE, 0 }, { 'm', A_PANE_TO_WINDOW, 0 }, \
-	{ 'j', A_FOCUS_NEXT, 0 }, { 'k', A_FOCUS_PREV, 0 }, \
-	{ 'J', A_MOVE_NEXT, 0 }, { 'K', A_MOVE_PREV, 0 }, \
-	{ 'h', A_MASTER_SHRINK, 0 }, { 'l', A_MASTER_GROW, 0 }, \
-	{ 'H', A_COLUMN_SHRINK, 0 }, { 'L', A_COLUMN_GROW, 0 }, \
-	{ 'i', A_NMASTER_MORE, 0 }, { 'p', A_NMASTER_FEWER, 0 }, \
-	{ '\r', A_ZOOM, 0 }, { 'z', A_FULLSCREEN, 0 }, \
-	{ 'S', A_BAR, 0 }, { 'R', A_RESIZE, 0 }, { 'r', A_RENAME, 0 }, \
+	{ '|', A_PANE_NEW, 0 }, { 'q', A_PANE_CLOSE, 0 }, \
+	{ 'h', A_FOCUS_LEFT, 0 }, { 'l', A_FOCUS_RIGHT, 0 }, \
+	{ 'X', A_WINDOW_CLOSE, 0 }, \
+	{ 'S', A_BAR, 0 }, \
 	{ 'd', A_SESSION, 0 }, { 'D', A_DETACH, 0 }, \
 	{ 'v', A_COPY, 0 }, { 'f', A_FOLLOW, 0 }, { 'o', A_OVERLAY, 0 }
 
@@ -60,12 +55,5 @@
 	{ 'v', CA_SELECT, 'v' }, { 'V', CA_SELECT, 'V' }, { 0x16, CA_SELECT, 'B' },	/* Ctrl-v: a block */ \
 	{ 'o', CA_SELECT_SWAP, 0 }, \
 	{ 'y', CA_YANK, 0 }, { '\r', CA_YANK, 0 }, { 'Y', CA_YANK_STAY, 0 }
-
-#define STICKY_KEYS \
-	{ 'h', A_MASTER_SHRINK, 0 }, { 'l', A_MASTER_GROW, 0 }, \
-	{ 'H', A_COLUMN_SHRINK, 0 }, { 'L', A_COLUMN_GROW, 0 }, \
-	{ 'i', A_NMASTER_MORE, 0 }, { 'p', A_NMASTER_FEWER, 0 }, \
-	{ 'j', A_FOCUS_NEXT, 0 }, { 'k', A_FOCUS_PREV, 0 }, \
-	{ 'J', A_MOVE_NEXT, 0 }, { 'K', A_MOVE_PREV, 0 }, { '\r', A_ZOOM, 0 }
 
 #endif
